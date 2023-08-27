@@ -10,9 +10,97 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+// Reach an agreement: We can also use @db.VarChar(255) instead of String
+model Collaborator {
   id       Int      @id @default(autoincrement())
-  name String
+  name String 
+  lastname String
   email String @unique
-  password String
+  phone String @db.VarChar(10)
+  province String
+  city String
+  address String
+
+  // Collaborator has many histories
+  histories History[]
+
+  @@map("collaborators")
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+  province String
+  city String
+
+  // Location has many collectCenters
+  collectCenters CollectCenter[]
+
+  @@map("locations")
+}
+
+model CenterEmployee {
+  id Int @id @default(autoincrement())
+  name String
+  lastname String
+  email String @unique
+  phone String @db.VarChar(10)
+
+  // One to one: with CollectCenter
+  collectCenter CollectCenter?
+
+  // CenterEmployee has many histories
+  histories History[]
+
+  @@map("center_employees")
+}
+
+model CollectCenter {
+  id Int @id @default(autoincrement())
+  address String
+
+  // Foreign key: with Location
+  location Location @relation(fields: [locationId], references: [id])
+  locationId Int @map("location_id")
+
+  // Foreign key: with CenterEmployee - One to one
+  centerEmployee CenterEmployee @relation(fields: [centerEmployeeId], references: [id])
+  centerEmployeeId Int @unique @map("center_employee_id")
+
+  // CollectCenter has many histories
+  histories History[]
+
+  @@map("collect_centers")
+}
+
+model History {
+  id Int @id @default(autoincrement())
+  submitDate DateTime @map("submit_date")
+  quantity Int
+  attentionQuality Int @map("attention_quality")
+
+  // Foreign key: with Collaborator
+  collaborator Collaborator @relation(fields: [collaboratorId], references: [id])
+  collaboratorId Int @map("collaborator_id")
+
+  // Foreign key: with CollectCenter
+  collectCenter CollectCenter @relation(fields: [collectCenterId], references: [id])
+  collectCenterId Int @map("collect_center_id")
+
+  // Foreign key: with CenterEmployee
+  receiver CenterEmployee @relation(fields: [receiverId], references: [id])
+  receiverId Int @map("receiver_id")
+
+  // History has many observations
+  observations Observation[]
+
+  @@map("histories")
+}
+
+model Observation {
+  id Int @id @default(autoincrement())
+  comment String
+
+  // Foreign keys: with History
+  history History @relation(fields: [historyId], references: [id])
+  historyId Int @map("history_id")
 }
