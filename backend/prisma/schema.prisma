@@ -13,6 +13,7 @@ datasource db {
 // Reach an agreement: We can also use @db.VarChar(255) instead of String
 model Collaborator {
   id       Int      @id @default(autoincrement())
+  ci       String   @unique @db.VarChar(10)
   name String 
   lastname String
   email String @unique
