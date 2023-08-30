@@ -4,12 +4,12 @@
  *
 */
 
-import { type User, type PrismaClient } from '@prisma/client'
+import { /* type User, */ type PrismaClient } from '@prisma/client'
 
 export class UsersService {
   constructor(private readonly prisma: PrismaClient) { }
 
-  async getAll(): Promise<User[]> {
-    return await this.prisma.user.findMany()
-  }
+  // async getAll(): Promise<User[]> {
+  // return await this.prisma.user.findMany()
+  // }
 }
