@@ -32,5 +32,6 @@ module.exports = {
     "rules": {
         // "no-tabs": ["error", { "allowIndentationTabs": true }],
         "@typescript-eslint/space-before-function-paren": "off",
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }
