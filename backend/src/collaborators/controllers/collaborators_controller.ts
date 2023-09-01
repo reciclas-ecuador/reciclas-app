@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import { validationHandler } from '../middlewares/validation.handler'
-import { CollaboratorsService } from '../services/collaborators.service'
-import { createCollaboratorSchema, getByIdSchema, updateCollaboratorSchema } from '../models/collaborator.model'
-import { Response } from '../libs/response'
+import { validationHandler } from '../../../middlewares/validation_handler'
+import CollaboratorsService from '../services/collaborators_service'
+import { createCollaboratorSchema, getByIdSchema, updateCollaboratorSchema } from '../models/collaborator_model'
+import { Response } from '../../../libs/response'
 
 const router = Router()
 const response = new Response()

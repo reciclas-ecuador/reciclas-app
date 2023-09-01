@@ -1,4 +1,4 @@
-import { type CreateCollaborator } from './../models/collaborator.model'
+import { type CreateCollaborator } from '../models/collaborator_model'
 /**
  * This file is use for bussiness logic
  * Here you can use prisma client to interact with database
@@ -8,7 +8,7 @@ import { type CreateCollaborator } from './../models/collaborator.model'
 import { PrismaClient, type Collaborator } from '@prisma/client'
 import boom from '@hapi/boom'
 
-export class CollaboratorsService {
+export default class CollaboratorsService {
   private readonly prisma: PrismaClient = new PrismaClient()
 
   async getAll(): Promise<Collaborator[]> {
