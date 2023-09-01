@@ -12,18 +12,21 @@ datasource db {
 
 // Reach an agreement: We can also use @db.VarChar(255) instead of String
 model Collaborator {
-  id       Int      @id @default(autoincrement())
+  email String @id
   ci       String   @unique @db.VarChar(10)
   name String 
   lastname String
-  email String @unique
   phone String @db.VarChar(10)
+  status String
   province String
   city String
   address String
 
-  // Collaborator has many histories
-  histories History[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Collaborator has many logActionCollaborators
+  logActionCollaborators LogActionsCollaborator[]
 
   @@map("collaborators")
 }
@@ -33,6 +36,9 @@ model Location {
   province String
   city String
 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   // Location has many collectCenters
   collectCenters CollectCenter[]
 
@@ -40,17 +46,19 @@ model Location {
 }
 
 model CenterEmployee {
-  id Int @id @default(autoincrement())
+  email String @id
   name String
   lastname String
-  email String @unique
   phone String @db.VarChar(10)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   // One to one: with CollectCenter
   collectCenter CollectCenter?
 
-  // CenterEmployee has many histories
-  histories History[]
+  // CenterEmployee has many logActionCollaborators
+  logActionCollaborators LogActionsCollaborator[]
 
   @@map("center_employees")
 }
@@ -63,45 +71,54 @@ model CollectCenter {
   location Location @relation(fields: [locationId], references: [id])
   locationId Int @map("location_id")
 
-  // Foreign key: with CenterEmployee - One to one
-  centerEmployee CenterEmployee @relation(fields: [centerEmployeeId], references: [id])
-  centerEmployeeId Int @unique @map("center_employee_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  // CollectCenter has many histories
-  histories History[]
+  // Foreign key: with CenterEmployee - One to one
+  manager CenterEmployee @relation(fields: [managerEmail], references: [email])
+  managerEmail String @unique @map("center_employee_email")
+
+  // CollectCenter has many logActionCollaborators
+  logActionCollaborators LogActionsCollaborator[]
 
   @@map("collect_centers")
 }
 
-model History {
+model LogActionsCollaborator {
   id Int @id @default(autoincrement())
   submitDate DateTime @map("submit_date")
-  quantity Int
+  quantity Decimal
   attentionQuality Int @map("attention_quality")
 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   // Foreign key: with Collaborator
-  collaborator Collaborator @relation(fields: [collaboratorId], references: [id])
-  collaboratorId Int @map("collaborator_id")
+  collaborator Collaborator @relation(fields: [collaboratorEmail], references: [email])
+  collaboratorEmail String @map("collaborator_email")
 
   // Foreign key: with CollectCenter
   collectCenter CollectCenter @relation(fields: [collectCenterId], references: [id])
   collectCenterId Int @map("collect_center_id")
 
   // Foreign key: with CenterEmployee
-  receiver CenterEmployee @relation(fields: [receiverId], references: [id])
-  receiverId Int @map("receiver_id")
+  receiver CenterEmployee @relation(fields: [receiverEmail], references: [email])
+  receiverEmail String @map("receiver_id")
 
-  // History has many observations
+  // LogActionsCollaborator has many observations
   observations Observation[]
 
-  @@map("histories")
+  @@map("log_actions_collaborator")
 }
 
 model Observation {
   id Int @id @default(autoincrement())
   comment String
 
-  // Foreign keys: with History
-  history History @relation(fields: [historyId], references: [id])
-  historyId Int @map("history_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Foreign keys: with LogActionsCollaborator
+  logActionsCollaborator LogActionsCollaborator @relation(fields: [logActionsCollaboratorId], references: [id])
+  logActionsCollaboratorId Int @map("log_actions_collaborator_id")
 }
