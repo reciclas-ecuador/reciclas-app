@@ -1,8 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import useCollaboratorsRoutes from './src/collaborators/routes/collaborators_routes'
-import { boomErrorHandler, logError } from './middlewares/error_handler'
-import useRoutesAdmin from './src/admin/routes/admin_routes'
+import { boomErrorHandler, generalErrorHandler, logError, prismaErrorHandler } from './middlewares/error_handler'
+import useRoutes from './routes'
 
 const app = express()
 const PORT = process.env.PORT ?? 3000
@@ -10,11 +9,12 @@ const PORT = process.env.PORT ?? 3000
 app.use(cors())
 app.use(express.json())
 
-useCollaboratorsRoutes(app)
-useRoutesAdmin(app)
+useRoutes(app)
 
 app.use(logError)
+app.use(prismaErrorHandler)
 app.use(boomErrorHandler)
+app.use(generalErrorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)

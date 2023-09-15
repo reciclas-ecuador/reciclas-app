@@ -1,1 +1,1 @@
-export { default as admin_controllers } from './admin_controllers'
+export { default as adminController } from './admin_controllers'

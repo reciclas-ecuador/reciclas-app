@@ -1,1 +1,1 @@
-export { default as collaboratorsService } from './collaborators_service'
+export { default as usersService } from './users_service'

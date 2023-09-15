@@ -9,35 +9,23 @@ const province = Joi.string()
 const city = Joi.string()
 const address = Joi.string()
 
-export interface CreateCollaborator {
-  ci: string
-  name: string
-  lastname: string
-  email: string
-  phone: string
-  province: string
-  city: string
-  address: string
-}
-
-export type UpdateCollaborator = Partial<CreateCollaborator>
-
-export const createCollaboratorSchema = Joi.object({
+export const createUserSchema = Joi.object({
   ci: ci.required(),
   name: name.required(),
   lastname: lastname.required(),
   email: email.required(),
+  status: Joi.string().valid('active', 'inactive').required(),
   phone: phone.required(),
   province: province.required(),
   city: city.required(),
   address: address.required()
 })
 
-export const updateCollaboratorSchema = Joi.object({
+export const updateUserSchema = Joi.object({
   ci,
   name,
   lastname,
-  email,
+  // email,
   phone,
   province,
   city,
@@ -46,4 +34,8 @@ export const updateCollaboratorSchema = Joi.object({
 
 export const getByIdSchema = Joi.object({
   id: Joi.number().required()
+})
+
+export const getByEmailSchema = Joi.object({
+  email: Joi.string().email().required()
 })

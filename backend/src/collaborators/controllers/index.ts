@@ -1,1 +1,1 @@
-export { default as collaborators_routes } from './collaborators_controller'
+export { default as usersController } from './users_controller'

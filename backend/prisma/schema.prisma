@@ -17,7 +17,7 @@ model Collaborator {
   name String 
   lastname String
   phone String @db.VarChar(10)
-  status String
+  status String @default("active")
   province String
   city String
   address String
@@ -25,7 +25,7 @@ model Collaborator {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  // Collaborator has many logActionCollaborators
+  // Collaborator has many logActionCollaborators 
   logActionCollaborators LogActionsCollaborator[]
 
   @@map("collaborators")
@@ -67,12 +67,12 @@ model CollectCenter {
   id Int @id @default(autoincrement())
   address String
 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   // Foreign key: with Location
   location Location @relation(fields: [locationId], references: [id])
   locationId Int @map("location_id")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
 
   // Foreign key: with CenterEmployee - One to one
   manager CenterEmployee @relation(fields: [managerEmail], references: [email])
@@ -87,7 +87,7 @@ model CollectCenter {
 model LogActionsCollaborator {
   id Int @id @default(autoincrement())
   submitDate DateTime @map("submit_date")
-  quantity Decimal
+  quantity Float
   attentionQuality Int @map("attention_quality")
 
   createdAt DateTime @default(now()) @map("created_at")
