@@ -10,7 +10,7 @@ export const ButtonStyles = StyleSheet.create({
   },
   text: {
     color: '#77A649',
-    fontFamily: 'Montserrat',
+    // fontFamily: 'Montserrat',
     fontWeight: 'bold',
     fontSize: 18
   }

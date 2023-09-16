@@ -17,7 +17,7 @@ export const InputStyles = StyleSheet.create({
     objectFit: 'contain'
   },
   textInput: {
-    fontFamily: 'Montserrat',
+    // fontFamily: 'Montserrat',
     color: '#FFFFFF'
   }
 })

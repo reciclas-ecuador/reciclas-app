@@ -31,7 +31,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   appTitle: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 45,
@@ -40,7 +40,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   appSubTitle: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 25,
@@ -49,7 +49,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   appDescription: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 15,
@@ -66,7 +66,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   welcomeText: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 43,
@@ -77,7 +77,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   rolText: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     alignContent: 'center',
@@ -98,7 +98,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   forgotPassword: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '3%'
