@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { ReceptionPageStyles } from "../../collection_center/components/reception";
-import { BlurView } from "expo-blur";
-import { getToDataUser } from "../services/user_service";
-import { Data } from "../../Types";
+import React, { useEffect, useState } from 'react'
+import { View, Text, Image, StyleSheet } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import { ReceptionPageStyles } from '../../collection_center/components/reception'
+import { BlurView } from 'expo-blur'
+import { getToDataUser } from '../services/user_service'
+import { Data } from '../../Types'
 
 // fetchData();
 
-function UserMain_home() {
-  const [dataUser, setDataUser] = useState<Data[]>();
+function UserMain_home () {
+  const [dataUser, setDataUser] = useState<Data[]>()
 
-  async function fetchData() {
-    const dataUserBasic = await getToDataUser();
-    setDataUser(dataUserBasic);
+  async function fetchData () {
+    const dataUserBasic = await getToDataUser()
+    setDataUser(dataUserBasic)
   }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <View style={ReceptionPageStyles.container}>
       <LinearGradient
         colors={[
-          "rgba(119, 166, 73, 1)",
-          "rgba(0, 0, 0, 0.8)",
-          "rgba(0, 0, 0, 1)",
-          "rgba(0, 0, 0, 1)",
-          "rgba(0, 0, 0, 1)",
+          'rgba(119, 166, 73, 1)',
+          'rgba(0, 0, 0, 0.8)',
+          'rgba(0, 0, 0, 1)',
+          'rgba(0, 0, 0, 1)',
+          'rgba(0, 0, 0, 1)'
         ]}
         style={ReceptionPageStyles.background}
       />
@@ -40,7 +40,7 @@ function UserMain_home() {
                 style={{ width: 100, height: 100, borderRadius: 50 }}
                 source={{ uri: item.url }}
               />
-              <Text style={styles.text}>Hola! {item.title.split(" ")[0]}</Text>
+              <Text style={styles.text}>Hola! {item.title.split(' ')[0]}</Text>
             </View>
           ))}
           <Text style={styles.textMain}>
@@ -54,53 +54,53 @@ function UserMain_home() {
         </BlurView>
       </View>
     </View>
-  );
+  )
 }
 
-export default UserMain_home;
+export default UserMain_home
 
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
-    fontWeight: "600",
-    color: "#c0c0c0",
+    fontWeight: '600',
+    color: '#c0c0c0'
   },
   textMain: {
     fontSize: 16,
-    fontWeight: "400",
-    color: "#c0c0c0",
+    fontWeight: '400',
+    color: '#c0c0c0',
     padding: 20,
-    textAlign: "center",
+    textAlign: 'center'
   },
   blurContainer: {
     flex: 1,
     padding: 20,
     margin: 16,
-    display: "flex",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    borderRadius: 20,
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    borderRadius: 20
   },
   box: {
-    width: "100%",
-    height: "35%",
-    position: "absolute",
-    bottom: 440,
+    width: '100%',
+    height: '35%',
+    position: 'absolute',
+    bottom: 440
   },
   boxProgress: {
-    width: "100%",
-    height: "60%",
-    position: "absolute",
-    bottom: 0,
+    width: '100%',
+    height: '60%',
+    position: 'absolute',
+    bottom: 0
   },
   contentData: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
 
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-});
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  }
+})

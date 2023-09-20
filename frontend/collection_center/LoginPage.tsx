@@ -1,8 +1,8 @@
 import { View, Image, Text, TouchableOpacity } from 'react-native'
-import { Input } from './Input_Login'
-import { Button } from './Button_Login'
+import { Input } from './components/login/Input_Login'
+import { Button } from './components/login/Button_Login'
 import { LinearGradient } from 'expo-linear-gradient'
-import { LoginPageStyles } from './styles_login/LoginPageStyles_Login'
+import { LoginPageStyles } from './components/login/styles_login/LoginPageStyles_Login'
 
 export function LoginPage () {
   return (

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export const ReceptionPageStyles = StyleSheet.create({
   container: {
     flex: 1,
-    height:'50%'
+    height: '50%'
   },
   background: {
     position: 'absolute',
