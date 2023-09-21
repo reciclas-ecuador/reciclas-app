@@ -389,4 +389,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#firebase 
+backend/reciclas-app-firebase-adminsdk.json
+
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,macos,reactnative,react

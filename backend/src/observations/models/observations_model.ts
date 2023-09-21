@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 const id = Joi.number()
-const comment = Joi.string()
+const comment = Joi.string().trim()
 const logActionsCollaboratorId = Joi.number()
 
 export const CreateObservationSchema = Joi.object({

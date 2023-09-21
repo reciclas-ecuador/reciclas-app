@@ -10,3 +10,17 @@ export interface CreateUser {
 }
 
 export type UpdateUser = Partial<CreateUser>
+
+interface EcoEquivalence {
+  value: number
+  unit: string
+}
+export interface UserEcoEquivalences {
+  totalRecycled: EcoEquivalence
+  trees: EcoEquivalence
+  water: EcoEquivalence
+  energy: EcoEquivalence
+  oil: EcoEquivalence
+  co2: EcoEquivalence
+  ligthsOn: EcoEquivalence
+}

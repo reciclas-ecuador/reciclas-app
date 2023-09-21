@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import LogActionsCollaboratorsService from '../services/log_action_collaborators_service'
 import { Response } from '../../../libs/response'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { CreateLogActionCollaboratorSchema, UpdateLogActionCollaboratorSchema, getByIdSchema } from '../models/log_actions_collaborators_model'
 
 const router = Router()
@@ -10,6 +10,7 @@ const response = new Response()
 
 router.get(
   '/',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   async (_, res, next) => {
     try {
       const logActionCollaborators = await logActionCollaboratorService.getAll()
@@ -21,6 +22,7 @@ router.get(
 
 router.get(
   '/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -34,6 +36,7 @@ router.get(
 
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(CreateLogActionCollaboratorSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -47,6 +50,7 @@ router.post(
 
 router.patch(
   '/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
   validationHandler(UpdateLogActionCollaboratorSchema, 'body'),
   async (req, res, next) => {
@@ -62,6 +66,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {

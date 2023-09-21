@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import CollectCenterService from '../services/collect_center_service'
 import { Response } from '../../../libs/response'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { createCollectCenter, getByIdSchema, updateCollectCenter } from '../models/collect_center_model'
 
 const router = Router()
@@ -10,6 +10,7 @@ const response = new Response()
 
 router.get(
   '/',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   async (_, res, next) => {
     try {
       const collectCenters = await collectCenterService.getAll()
@@ -22,6 +23,7 @@ router.get(
 
 router.get(
   '/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -35,6 +37,7 @@ router.get(
 
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(createCollectCenter, 'body'),
   async (req, res, next) => {
     try {
@@ -48,6 +51,7 @@ router.post(
 
 router.patch(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   validationHandler(updateCollectCenter, 'body'),
   async (req, res, next) => {
@@ -63,6 +67,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {

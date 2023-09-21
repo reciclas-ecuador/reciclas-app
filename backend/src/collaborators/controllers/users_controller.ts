@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { createUserSchema, getByEmailSchema, updateUserSchema } from '../models/users_model'
 import { Response } from '../../../libs/response'
 import UsersService from '../services/users_service'
@@ -7,6 +7,8 @@ import UsersService from '../services/users_service'
 const router = Router()
 const response = new Response()
 const usersService = new UsersService()
+
+router.use(checkTokenAndRoles(['ADMIN']))
 
 router.get('/', async (_req, res, next) => {
   try {
