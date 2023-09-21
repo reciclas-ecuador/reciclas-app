@@ -9,15 +9,13 @@ export const InputStyles = StyleSheet.create({
     paddingVertical: 11,
     borderRadius: 10,
     gap: 10,
-    width: '80%'
-  },
-  icon: {
-    width: '15%',
-    height: 'auto',
-    objectFit: 'contain'
+    width: '80%',
+    alignItems: 'center'
   },
   textInput: {
     // fontFamily: 'Montserrat',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    width: '100%',
+    height: '100%'
   }
 })

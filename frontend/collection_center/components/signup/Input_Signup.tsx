@@ -1,22 +1,48 @@
-import { View, Image, TextInput, ImageSourcePropType } from 'react-native'
+import { View, TextInput, TouchableWithoutFeedback } from 'react-native'
 import { InputStyles } from './styles_signup/InputStyles_Signup'
+import React, { useRef, useState } from 'react'
 
 type Props = {
   defaultText: string;
-  iconSource: ImageSourcePropType;
-  keyboard?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad';
+  icon: React.ReactNode;
+  keyboard?:
+    | 'default'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad';
+  setInputText: (text: string) => void;
 };
 
-export function Input ({ defaultText, iconSource, keyboard = 'default' }: Props) {
+export function Input ({ defaultText, icon, keyboard = 'default', setInputText }: Props) {
+  const [isTextInputFocused, setTextInputFocus] = useState(false)
+
+  const handleViewPress = () => {
+    if (!isTextInputFocused) {
+      textInputRef.current?.focus()
+    } else {
+      textInputRef.current?.blur()
+    }
+  }
+
+  const textInputRef = useRef<TextInput>(null)
+
   return (
-    <View style={InputStyles.container}>
-      <Image style={InputStyles.icon} source={iconSource} />
-      <TextInput
-        style={InputStyles.textInput}
-        placeholder={defaultText}
-        placeholderTextColor='#FFFFFF'
-        keyboardType={keyboard}
-      />
-    </View>
+    <TouchableWithoutFeedback onPress={handleViewPress}>
+      <View style={InputStyles.container}>
+        {icon}
+        <TextInput
+          ref={textInputRef}
+          style={InputStyles.textInput}
+          placeholder={defaultText}
+          placeholderTextColor='#FFFFFF'
+          keyboardType={keyboard}
+          onFocus={() => setTextInputFocus(true)}
+          onBlur={() => setTextInputFocus(false)}
+          onChangeText={(text) => setInputText(text)}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
