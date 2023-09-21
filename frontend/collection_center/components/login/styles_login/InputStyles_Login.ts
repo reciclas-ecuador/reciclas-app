@@ -4,20 +4,22 @@ export const InputStyles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 2,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
+    paddingLeft: 14,
+    // paddingHorizontal: 14,
+    // paddingVertical: 11,
     borderRadius: 10,
     gap: 10,
     width: '80%'
   },
   icon: {
-    width: '15%',
-    height: 'auto',
-    objectFit: 'contain'
+    width: 30,
+    height: 30
   },
   textInput: {
-    fontFamily: 'Montserrat',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    width: '85%',
+    height: 50
   }
 })

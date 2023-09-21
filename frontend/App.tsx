@@ -1,7 +1,7 @@
+import { LoginPage } from './collection_center/components/login'
+
 export default function App () {
   return (
-    <div className='App'>
-      <h1>Hello World</h1>
-    </div>
+    <LoginPage />
   )
 }
