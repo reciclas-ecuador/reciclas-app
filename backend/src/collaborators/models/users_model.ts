@@ -1,13 +1,13 @@
 import Joi from 'joi'
 
-const ci = Joi.string().length(10)
-const name = Joi.string()
-const lastname = Joi.string()
-const email = Joi.string().email()
-const phone = Joi.string().length(10)
-const province = Joi.string()
-const city = Joi.string()
-const address = Joi.string()
+const ci = Joi.string().trim().length(10)
+const name = Joi.string().trim()
+const lastname = Joi.string().trim()
+const email = Joi.string().trim().email()
+const phone = Joi.string().trim().length(10)
+const province = Joi.string().trim()
+const city = Joi.string().trim()
+const address = Joi.string().trim()
 
 export const createUserSchema = Joi.object({
   ci: ci.required(),

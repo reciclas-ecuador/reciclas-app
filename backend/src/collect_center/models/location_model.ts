@@ -1,8 +1,8 @@
 import Joi from 'joi'
 
 const id = Joi.number()
-const province = Joi.string()
-const city = Joi.string()
+const province = Joi.string().trim()
+const city = Joi.string().trim()
 
 export const createLocationSchema = Joi.object({
   province: province.required(),

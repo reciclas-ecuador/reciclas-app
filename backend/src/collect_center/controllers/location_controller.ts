@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { Response } from '../../../libs/response'
 import LocationService from '../services/location_service'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { createLocationSchema, getByIdSchema, updateLocationSchema } from '../models/location_model'
 
 const router = Router()
@@ -10,7 +10,8 @@ const response = new Response()
 
 router.get(
   '/',
-  async (req, res, next) => {
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  async (_req, res, next) => {
     try {
       const locations = await locationService.getAll()
       response.success(res, locations)
@@ -21,6 +22,7 @@ router.get(
 
 router.get(
   '/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -33,6 +35,7 @@ router.get(
 
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(createLocationSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -45,6 +48,7 @@ router.post(
 
 router.patch(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   validationHandler(updateLocationSchema, 'body'),
   async (req, res, next) => {
@@ -59,6 +63,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {

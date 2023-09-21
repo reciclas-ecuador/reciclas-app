@@ -1,9 +1,9 @@
 import Joi from 'joi'
 
 const id = Joi.number()
-const address = Joi.string()
+const address = Joi.string().trim()
 const locationId = Joi.number()
-const managerEmail = Joi.string().email()
+const managerEmail = Joi.string().trim().email()
 
 export const createCollectCenter = Joi.object({
   address: address.required(),

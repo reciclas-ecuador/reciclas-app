@@ -1,12 +1,15 @@
 import { Router } from 'express'
 import CenterEmployeesService from '../services/center_employees_service'
 import { Response } from '../../../libs/response'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { CreateCenterEmployeeSchema, UpdateCenterEmployeeSchema, getByEmailSchema } from '../models/center_employees_model'
 
 const router = Router()
 const centerEmployeeService = new CenterEmployeesService()
 const response = new Response()
+
+router.use(checkTokenAndRoles(['ADMIN']))
+
 router.get(
   '/',
   async (_req, res, next) => {

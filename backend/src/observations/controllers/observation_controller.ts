@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import ObservationsService from '../services/observations_service'
 import { Response } from '../../../libs/response'
-import { validationHandler } from '../../../middlewares/validation_handler'
+import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { getByIdSchema } from '../../collect_center/models/location_model'
 import { CreateObservationSchema, UpdateObservationSchema } from '../models/observations_model'
 
@@ -11,6 +11,7 @@ const response = new Response()
 
 router.get(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   async (_req, res, next) => {
     try {
       const observations = await observationsService.getAll()
@@ -23,6 +24,7 @@ router.get(
 
 router.get(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -37,6 +39,7 @@ router.get(
 
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(CreateObservationSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -51,6 +54,7 @@ router.post(
 
 router.patch(
   '/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
   validationHandler(UpdateObservationSchema, 'body'),
   async (req, res, next) => {
@@ -67,6 +71,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {

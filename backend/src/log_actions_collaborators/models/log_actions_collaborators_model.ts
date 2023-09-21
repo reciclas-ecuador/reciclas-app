@@ -1,11 +1,11 @@
 import Joi from 'joi'
 
-const submitDate = Joi.string()
+const submitDate = Joi.string().trim()
 const quantity = Joi.number().positive()
 const attentionQuality = Joi.number().min(1).max(5)
-const collaboratorEmail = Joi.string().email()
+const collaboratorEmail = Joi.string().trim().email()
 const collectCenterId = Joi.number().positive()
-const receiverEmail = Joi.string().email()
+const receiverEmail = Joi.string().trim().email()
 
 export const CreateLogActionCollaboratorSchema = Joi.object({
   submitDate: submitDate.required(),

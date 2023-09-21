@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native'
 
 export const LoginPageStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    borderRadius: 30
+    flex: 1
+    // borderRadius: 30
   },
   background: {
     position: 'absolute',
@@ -16,7 +16,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   backButton: {
     width: '15%',
-    height: '25%',
+    // height: '25%',
     objectFit: 'contain',
     marginLeft: '2%',
     marginTop: '10%'
