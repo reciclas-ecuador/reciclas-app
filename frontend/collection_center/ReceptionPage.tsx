@@ -1,8 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import { Input } from './Input_Reception'
-import { Button } from './Button_Reception'
-import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
+import { Input } from './components/reception/Input_Reception'
+import { Button } from './components/reception/Button_Reception'
+import { ReceptionPageStyles } from './components/reception/styles_reception/ReceptionPageStyles_Reception'
 
 export function ReceptionPage () {
   return (

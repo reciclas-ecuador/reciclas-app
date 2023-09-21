@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    height: '50%'
   },
   background: {
     position: 'absolute',
@@ -21,7 +22,7 @@ export const ReceptionPageStyles = StyleSheet.create({
   },
   pageTitle: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     fontWeight: 'bold',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -72,7 +73,7 @@ export const ReceptionPageStyles = StyleSheet.create({
   },
   kg: {
     color: 'white',
-    fontFamily: 'Monsterrat',
+    // fontFamily: 'Monsterrat',
     fontSize: 20,
     marginLeft: 'auto',
     marginRight: 'auto',

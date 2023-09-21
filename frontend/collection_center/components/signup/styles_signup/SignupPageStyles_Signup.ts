@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native'
 
-export const LoginPageStyles = StyleSheet.create({
+export const SignupPageStyles = StyleSheet.create({
   container: {
     flex: 1
-    // borderRadius: 30
   },
   background: {
     position: 'absolute',
@@ -11,12 +10,11 @@ export const LoginPageStyles = StyleSheet.create({
     right: 0,
     top: 0,
     height: '100%',
-    backgroundColor: '#77A649',
-    borderRadius: 30
+    backgroundColor: '#77A649'
   },
   backButton: {
     width: '15%',
-    // height: '25%',
+    height: '25%',
     objectFit: 'contain',
     marginLeft: '2%',
     marginTop: '10%'
@@ -37,24 +35,6 @@ export const LoginPageStyles = StyleSheet.create({
     fontSize: 45,
     marginTop: '-5%',
     alignContent: 'center'
-  },
-  appSubTitle: {
-    color: 'white',
-    // fontFamily: 'Monsterrat',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    fontSize: 25,
-    alignContent: 'center',
-    letterSpacing: 5
-  },
-  appDescription: {
-    color: 'white',
-    // fontFamily: 'Monsterrat',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    fontSize: 15,
-    alignContent: 'center',
-    marginTop: '4%'
   },
   grayContainer: {
     backgroundColor: '#494D4F',
@@ -95,20 +75,5 @@ export const LoginPageStyles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  forgotPassword: {
-    color: 'white',
-    // fontFamily: 'Monsterrat',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '3%'
-  },
-  bottomAppLogo: {
-    width: '12%',
-    height: '12%',
-    marginTop: '10%',
-    objectFit: 'contain',
-    marginLeft: 'auto',
-    marginRight: 'auto'
   }
 })

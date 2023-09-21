@@ -18,8 +18,7 @@ export const InputStyles = StyleSheet.create({
     height: 30
   },
   textInput: {
-    color: '#FFFFFF',
-    width: '85%',
-    height: 50
+    // fontFamily: 'Montserrat',
+    color: '#FFFFFF'
   }
 })
