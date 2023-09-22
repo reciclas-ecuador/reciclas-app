@@ -25,3 +25,7 @@ export const UpdateLogActionCollaboratorSchema = Joi.object({
 export const getByIdSchema = Joi.object({
   id: Joi.number().required()
 })
+
+export const getByUserSchema = Joi.object({
+  email: collaboratorEmail.required()
+})

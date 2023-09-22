@@ -17,3 +17,7 @@ export const updateLocationSchema = Joi.object({
 export const getByIdSchema = Joi.object({
   id: id.required()
 })
+
+export const getByLogActionSchema = Joi.object({
+  logActionCollaboratorId: id.required()
+})

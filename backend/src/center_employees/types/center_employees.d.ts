@@ -3,6 +3,7 @@ export interface CreateCenterEmployee {
   name: string
   lastname: string
   phone: string
+  collectCenterId: number
 }
 
 export type UpdateCenterEmployee = Partial<CreateCenterEmployee>

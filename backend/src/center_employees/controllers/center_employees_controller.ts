@@ -2,7 +2,7 @@ import { Router } from 'express'
 import CenterEmployeesService from '../services/center_employees_service'
 import { Response } from '../../../libs/response'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
-import { CreateCenterEmployeeSchema, UpdateCenterEmployeeSchema, getByEmailSchema } from '../models/center_employees_model'
+import { CreateCenterEmployeeSchema, UpdateCenterEmployeeSchema, getByCollectCenterIdSchema, getByEmailSchema } from '../models/center_employees_model'
 
 const router = Router()
 const centerEmployeeService = new CenterEmployeesService()
@@ -30,6 +30,21 @@ router.get(
       const { email } = req.params
       const centerEmployee = await centerEmployeeService.getOne(email)
       response.success(res, centerEmployee)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.get(
+  '/collect-center/:collectCenterId',
+  validationHandler(getByCollectCenterIdSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { collectCenterId } = req.params
+      const centerEmployees = await centerEmployeeService.getAllByCollectCenter(parseInt(collectCenterId))
+
+      response.success(res, centerEmployees)
     } catch (error) {
       next(error)
     }
