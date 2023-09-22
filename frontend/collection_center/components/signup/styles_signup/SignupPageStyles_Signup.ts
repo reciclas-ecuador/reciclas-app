@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import Constants from 'expo-constants'
 
 export const SignupPageStyles = StyleSheet.create({
   container: {
@@ -13,11 +14,10 @@ export const SignupPageStyles = StyleSheet.create({
     backgroundColor: '#77A649'
   },
   backButton: {
-    width: '15%',
-    height: '25%',
-    objectFit: 'contain',
-    marginLeft: '2%',
-    marginTop: '10%'
+    marginLeft: '3%',
+    marginTop: Constants.statusBarHeight,
+    marginBottom: '35%',
+    width: '20%'
   },
   appLogo: {
     width: '20%',
@@ -25,7 +25,8 @@ export const SignupPageStyles = StyleSheet.create({
     objectFit: 'contain',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '-40%'
+    marginTop: '-45%',
+    marginBottom: '10%'
   },
   appTitle: {
     color: 'white',
@@ -33,7 +34,6 @@ export const SignupPageStyles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 45,
-    marginTop: '-5%',
     alignContent: 'center'
   },
   grayContainer: {
@@ -41,10 +41,9 @@ export const SignupPageStyles = StyleSheet.create({
     marginTop: '13%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    flex: 1,
-    height: '100%'
+    flex: 1
   },
-  welcomeText: {
+  processText: {
     color: 'white',
     // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
@@ -55,25 +54,23 @@ export const SignupPageStyles = StyleSheet.create({
     marginTop: '8%',
     marginBottom: 0
   },
-  rolText: {
-    color: 'white',
-    // fontFamily: 'Monsterrat',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    alignContent: 'center',
-    marginTop: 0
+  divider: {
+    borderBottomWidthColor: 'black',
+    borderBottomWidth: 1,
+    marginTop: '4%',
+    width: '90%',
+    alignSelf: 'center'
   },
-  loginInputs: {
+  signupInputs: {
     marginTop: '10%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: 10
   },
-  loginButton: {
-    marginTop: '6%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+  signupButton: {
+    marginTop: '20%',
+    alignItems: 'center',
+    marginBottom: '30%'
   }
 })

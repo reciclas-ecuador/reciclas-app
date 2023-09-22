@@ -1,14 +1,15 @@
 import { Text, TouchableOpacity } from 'react-native'
-import { ButtonStyles } from './styles_reception/ButtonStyles_Reception'
+import { ButtonStylesReception } from './styles_reception/ButtonStyles_Reception'
 
 type Props = {
   text: string;
+  handlePress: () => void;
 };
 
-export function Button ({ text }: Props) {
+export function ButtonReception ({ text, handlePress }: Props) {
   return (
-    <TouchableOpacity style={ButtonStyles.touchableOpacity}>
-      <Text style={ButtonStyles.text}>{text}</Text>
+    <TouchableOpacity style={ButtonStylesReception.touchableOpacity} onPress={handlePress}>
+      <Text style={ButtonStylesReception.text}>{text}</Text>
     </TouchableOpacity>
   )
 }

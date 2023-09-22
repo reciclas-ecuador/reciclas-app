@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 export const LoginPageStyles = StyleSheet.create({
   container: {
     flex: 1
-    // borderRadius: 30
   },
   background: {
     position: 'absolute',
@@ -11,36 +10,22 @@ export const LoginPageStyles = StyleSheet.create({
     right: 0,
     top: 0,
     height: '100%',
-    backgroundColor: '#77A649',
-    borderRadius: 30
-  },
-  backButton: {
-    width: '15%',
-    // height: '25%',
-    objectFit: 'contain',
-    marginLeft: '2%',
-    marginTop: '10%'
+    backgroundColor: '#77A649'
   },
   appLogo: {
-    width: '20%',
-    height: '10%',
-    objectFit: 'contain',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '-40%'
+    marginTop: '15%'
   },
   appTitle: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 45,
-    marginTop: '-5%',
     alignContent: 'center'
   },
   appSubTitle: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 25,
@@ -49,7 +34,6 @@ export const LoginPageStyles = StyleSheet.create({
   },
   appDescription: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 15,
@@ -61,54 +45,46 @@ export const LoginPageStyles = StyleSheet.create({
     marginTop: '13%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    flex: 1,
-    height: '100%'
+    flex: 1
   },
   welcomeText: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 43,
     fontWeight: 'bold',
     alignContent: 'center',
-    marginTop: '8%',
-    marginBottom: 0
+    marginTop: '8%'
   },
   rolText: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
-    alignContent: 'center',
-    marginTop: 0
+    alignContent: 'center'
   },
   loginInputs: {
     marginTop: '10%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 10
+    gap: 20
   },
   loginButton: {
-    marginTop: '6%',
+    marginTop: '8%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
   },
   forgotPassword: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '3%'
   },
   bottomAppLogo: {
-    width: '12%',
-    height: '12%',
-    marginTop: '10%',
-    objectFit: 'contain',
+    marginTop: '15%',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    marginBottom: '10%'
   }
 })
