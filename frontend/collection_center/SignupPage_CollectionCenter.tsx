@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { Input } from './components/signup/Input_Signup'
-import { Button } from './components/signup/Button_Signup'
+import { InputSignup } from './components/signup/Input_Signup'
+import { ButtonSignup } from './components/signup/Button_Signup'
 import { LinearGradient } from 'expo-linear-gradient'
 import { SignupPageStyles } from './components/signup/styles_signup/SignupPageStyles_Signup'
 import { User, Mail, Previous, ReciclasLogo } from '../assets'
@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { postUser } from './services/Signup_Services'
 import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
 
-export function SignupPage () {
+export function SignupPageCollectionCenter () {
   const [userName, setUserName] = useState('')
   const [userLastName, setUserLastName] = useState('')
   const [userEmail, setUserEmail] = useState('')
@@ -40,17 +40,17 @@ export function SignupPage () {
             <Text style={SignupPageStyles.processText}>Registro</Text>
             <View style={SignupPageStyles.divider} />
             <View style={SignupPageStyles.signupInputs}>
-              <Input
+              <InputSignup
                 defaultText='Nombre'
                 icon={<User />}
                 setInputText={setUserName}
               />
-              <Input
+              <InputSignup
                 defaultText='Apellido'
                 icon={<User />}
                 setInputText={setUserLastName}
               />
-              <Input
+              <InputSignup
                 defaultText='Correo'
                 icon={<Mail />}
                 keyboard='email-address'
@@ -58,7 +58,7 @@ export function SignupPage () {
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
-              <Button text='Registrarse' handlePress={registerUser} />
+              <ButtonSignup text='Registrarse' handlePress={registerUser} />
             </View>
           </View>
         </View>

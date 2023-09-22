@@ -1,5 +1,5 @@
 import { View, TextInput, TouchableWithoutFeedback } from 'react-native'
-import { InputStyles } from './styles_signup/InputStyles_Signup'
+import { InputStylesSignup } from './styles_signup/InputStyles_Signup'
 import React, { useRef, useState } from 'react'
 
 type Props = {
@@ -13,9 +13,11 @@ type Props = {
     | 'email-address'
     | 'phone-pad';
   setInputText: (text: string) => void;
+  edit?: boolean;
+  defaultValue?: string;
 };
 
-export function Input ({ defaultText, icon, keyboard = 'default', setInputText }: Props) {
+export function InputSignup ({ defaultText, icon, keyboard = 'default', setInputText, edit = true, defaultValue }: Props) {
   const [isTextInputFocused, setTextInputFocus] = useState(false)
 
   const handleViewPress = () => {
@@ -30,17 +32,19 @@ export function Input ({ defaultText, icon, keyboard = 'default', setInputText }
 
   return (
     <TouchableWithoutFeedback onPress={handleViewPress}>
-      <View style={InputStyles.container}>
+      <View style={InputStylesSignup.container}>
         {icon}
         <TextInput
           ref={textInputRef}
-          style={InputStyles.textInput}
+          style={InputStylesSignup.textInput}
           placeholder={defaultText}
           placeholderTextColor='#FFFFFF'
           keyboardType={keyboard}
           onFocus={() => setTextInputFocus(true)}
           onBlur={() => setTextInputFocus(false)}
           onChangeText={(text) => setInputText(text)}
+          editable={edit}
+          value={defaultValue}
         />
       </View>
     </TouchableWithoutFeedback>
