@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { LoginPageStyles } from './components/login/styles_login/LoginPageStyles_Login'
 import { Password, ReciclasLogo, User } from '../assets'
 import { useState } from 'react'
-import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
+import { KeyboardAvoidingWrapper } from '../global/components/KeyboardAvoidingWrapper'
 
 export function LoginPageCollectionCenter () {
   const [user, setUser] = useState('')

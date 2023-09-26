@@ -1,11 +1,11 @@
 import { View, Image, Text } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { HomePageStyles } from './components/home/styles_home/HomePageStyles_Home'
-import { Data } from '../Types'
+import { HomePageStyles } from './styles_home/HomePageStyles_Home'
+import { Data } from '../../../Types'
 import { useEffect, useState } from 'react'
-import { getToDataUser } from './services/Home_Services'
+import { getToDataUser } from '../../services/Home_Services'
 
-export function HomeCollectionCenter () {
+export function HomePageCollectionCenter () {
   const [dataUser, setDataUser] = useState<Data>()
 
   async function fetchData () {

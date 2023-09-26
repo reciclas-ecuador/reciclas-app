@@ -1,12 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { InputReception } from './components/reception/Input_Reception'
-import { ButtonReception } from './components/reception/Button_Reception'
-import { ReceptionPageStyles } from './components/reception/styles_reception/ReceptionPageStyles_Reception'
-import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
-import { Previous, ReciclasLogo, TrashCan, Comment, User, Scan } from '../assets'
+import { InputReception } from './Input_Reception'
+import { ButtonReception } from './Button_Reception'
+import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
+import { KeyboardAvoidingWrapper } from '../../../global/components/KeyboardAvoidingWrapper'
+import { Previous, ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
-import { postQuantity } from './services/Reception_Services'
+import { postQuantity } from '../../services/Reception_Services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
 interface ScanData {

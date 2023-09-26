@@ -6,7 +6,7 @@ import { SignupPageStyles } from './components/signup/styles_signup/SignupPageSt
 import { User, Mail, Previous, ReciclasLogo } from '../assets'
 import { useState } from 'react'
 import { postUser } from './services/Signup_Services'
-import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
+import { KeyboardAvoidingWrapper, Gradient } from '../global'
 
 export function SignupPageCollectionCenter () {
   const [userName, setUserName] = useState('')
@@ -18,17 +18,7 @@ export function SignupPageCollectionCenter () {
   }
 
   return (
-    <View style={SignupPageStyles.container}>
-      <LinearGradient
-        colors={[
-          'rgba(119, 166, 73, 1)',
-          'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)'
-        ]}
-        style={SignupPageStyles.background}
-      />
+    <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
           <TouchableOpacity style={SignupPageStyles.backButton}>
@@ -63,6 +53,6 @@ export function SignupPageCollectionCenter () {
           </View>
         </View>
       </KeyboardAvoidingWrapper>
-    </View>
+    </Gradient>
   )
 }
