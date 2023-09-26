@@ -2,7 +2,7 @@ import { Router } from 'express'
 import ObservationsService from '../services/observations_service'
 import { Response } from '../../../libs/response'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
-import { getByIdSchema } from '../../collect_center/models/location_model'
+import { getByIdSchema, getByLogActionSchema } from '../../collect_center/models/location_model'
 import { CreateObservationSchema, UpdateObservationSchema } from '../models/observations_model'
 
 const router = Router()
@@ -31,6 +31,21 @@ router.get(
       const { id } = req.params
       const observation = await observationsService.getOne(Number(id))
       response.success(res, observation)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.get(
+  '/log-action-collaborator/:logActionCollaboratorId',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  validationHandler(getByLogActionSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { logActionCollaboratorId } = req.params
+      const observations = await observationsService.getAllByLogActionCollaborator(Number(logActionCollaboratorId))
+      response.success(res, observations)
     } catch (error) {
       next(error)
     }

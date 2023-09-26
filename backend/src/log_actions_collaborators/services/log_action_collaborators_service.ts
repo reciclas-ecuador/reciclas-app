@@ -9,6 +9,14 @@ export default class LogActionsCollaboratorsService {
     return await this.prisma.logActionsCollaborator.findMany()
   }
 
+  async getAllByUser(email: string): Promise<LogActionsCollaborator[]> {
+    return await this.prisma.logActionsCollaborator.findMany({
+      where: {
+        collaboratorEmail: email
+      }
+    })
+  }
+
   async getOne(id: number): Promise<LogActionsCollaborator> {
     const logActionCollaborator = await this.prisma.logActionsCollaborator.findFirst({
       where: { id },

@@ -1,6 +1,5 @@
 export const postUser = (userName: string, userLastName: string, userMail: string) => {
   const url = 'https://jsonplaceholder.typicode.com/posts'
-  // const url = `${Url.API}eventos/${id}`
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({

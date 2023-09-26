@@ -9,6 +9,12 @@ export default class CenterEmployeesService {
     return await this.prisma.centerEmployee.findMany()
   }
 
+  async getAllByCollectCenter(collectCenterId: number): Promise<CenterEmployee[]> {
+    return await this.prisma.centerEmployee.findMany({
+      where: { collectCenterId }
+    })
+  }
+
   async getOne(email: string): Promise<CenterEmployee> {
     const centerEmployee = await this.prisma.centerEmployee.findUnique({
       where: { email }
@@ -22,6 +28,13 @@ export default class CenterEmployeesService {
   }
 
   async create(data: CreateCenterEmployee): Promise<CenterEmployee> {
+    const { collectCenterId } = data
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: { id: collectCenterId }
+    })
+    if (collectCenter === null) {
+      throw boom.badRequest('Invalid collect center')
+    }
     return await this.prisma.centerEmployee.create({ data })
   }
 

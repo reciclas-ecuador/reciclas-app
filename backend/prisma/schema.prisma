@@ -55,7 +55,11 @@ model CenterEmployee {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // One to one: with CollectCenter
-  collectCenter CollectCenter?
+  collectCenterSupervised CollectCenter? @relation("collect_center_manager")
+
+  // One to many: with CollectCenter
+  collectCenter CollectCenter @relation("collect_center_employees",fields: [collectCenterId], references: [id]) 
+  collectCenterId Int @map("collect_center_id")
 
   // CenterEmployee has many logActionCollaborators
   logActionCollaborators LogActionsCollaborator[]
@@ -65,6 +69,8 @@ model CenterEmployee {
 
 model CollectCenter {
   id Int @id @default(autoincrement())
+  name String
+  hash String @unique
   address String
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -75,8 +81,11 @@ model CollectCenter {
   locationId Int @map("location_id")
 
   // Foreign key: with CenterEmployee - One to one
-  manager CenterEmployee @relation(fields: [managerEmail], references: [email])
+  manager CenterEmployee @relation("collect_center_manager", fields: [managerEmail], references: [email])
   managerEmail String @unique @map("center_employee_email")
+
+  // Foreign key: with CenterEmployee - One to many
+  collectCenterEmployees CenterEmployee[] @relation("collect_center_employees")
 
   // CollectCenter has many logActionCollaborators
   logActionCollaborators LogActionsCollaborator[]

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const InputStyles = StyleSheet.create({
+export const InputStylesSignup = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -13,9 +13,6 @@ export const InputStyles = StyleSheet.create({
     alignItems: 'center'
   },
   textInput: {
-    // fontFamily: 'Montserrat',
-    color: '#FFFFFF',
-    width: '100%',
-    height: '100%'
+    color: '#FFFFFF'
   }
 })

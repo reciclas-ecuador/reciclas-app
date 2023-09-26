@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const ButtonStyles = StyleSheet.create({
+export const ButtonStylesSignup = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: '#FFFCFC',
     padding: 10,

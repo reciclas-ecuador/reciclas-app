@@ -9,6 +9,19 @@ export default class CollectCenterService {
     return await this.prisma.collectCenter.findMany()
   }
 
+  async getAllEmployees(id: number): Promise<CollectCenter[]> {
+    return await this.prisma.collectCenter.findMany({
+      where: { id },
+      include: { collectCenterEmployees: true }
+    })
+  }
+
+  async getAllByLocation(locationId: number): Promise<CollectCenter[]> {
+    return await this.prisma.collectCenter.findMany({
+      where: { locationId }
+    })
+  }
+
   async getOne(id: number): Promise<CollectCenter> {
     const collectCenter = await this.prisma.collectCenter.findFirst({
       where: { id },
@@ -22,8 +35,8 @@ export default class CollectCenterService {
     return collectCenter
   }
 
-  async create(body: CreateCollectCenter): Promise<CollectCenter> {
-    const { locationId, managerEmail } = body
+  async create(data: CreateCollectCenter): Promise<CollectCenter> {
+    const { locationId, managerEmail } = data
     const areAllvaluesValid = await this.validLocationAndManager(locationId, managerEmail)
 
     if (!areAllvaluesValid) {
@@ -31,7 +44,7 @@ export default class CollectCenterService {
     }
 
     return await this.prisma.collectCenter.create({
-      data: body
+      data
     })
   }
 
@@ -74,5 +87,32 @@ export default class CollectCenterService {
     }
 
     return true
+  }
+
+  async verifyHash(hash: string): Promise<CollectCenter> {
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: { hash }
+    })
+
+    if (collectCenter === null) {
+      throw boom.notFound('Hash not found')
+    }
+
+    return collectCenter
+  }
+
+  async updateHash(id: number, hash: string): Promise<CollectCenter> {
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: { id }
+    })
+
+    if (collectCenter === null) {
+      throw boom.notFound('Collect center not found')
+    }
+
+    return await this.prisma.collectCenter.update({
+      where: { id },
+      data: { hash }
+    })
   }
 }

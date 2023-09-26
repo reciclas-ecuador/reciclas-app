@@ -2,8 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: '50%'
+    flex: 1
   },
   background: {
     position: 'absolute',
@@ -14,22 +13,9 @@ export const ReceptionPageStyles = StyleSheet.create({
     backgroundColor: '#77A649'
   },
   backButton: {
-    width: '15%',
-    height: '25%',
-    objectFit: 'contain',
-    marginLeft: '2%',
-    marginTop: '10%'
-  },
-  pageTitle: {
-    color: 'white',
-    // fontFamily: 'Monsterrat',
-    fontWeight: 'bold',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    fontSize: 25,
-    marginTop: '-49%',
-    marginBottom: '5%',
-    alignContent: 'center'
+    width: '20%',
+    marginLeft: '3%',
+    marginTop: '2%'
   },
   appLogo: {
     width: '20%',
@@ -41,19 +27,29 @@ export const ReceptionPageStyles = StyleSheet.create({
   },
   content: {
     backgroundColor: '#494D4F1F',
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
+    borderRadius: 30,
     marginTop: '8%',
-    marginLeft: '5%',
-    marginRight: '5%'
+    marginHorizontal: '5%'
   },
-  qr: {
-    width: '45%',
-    height: '45%',
-    objectFit: 'contain',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '-4%'
+  scanQr: {
+    backgroundColor: '#76b54420',
+    alignItems: 'center',
+    marginVertical: '5%',
+    borderRadius: 30,
+    padding: '5%',
+    alignSelf: 'center'
+  },
+  qrText: {
+    color: '#BDF26D',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  user: {
+    backgroundColor: '#76b54470',
+    borderRadius: 30,
+    alignItems: 'center',
+    paddingVertical: '5%',
+    marginVertical: '10%'
   },
   inputSection: {
     display: 'flex',
@@ -62,7 +58,7 @@ export const ReceptionPageStyles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: '8%',
     paddingBottom: '8%',
-    marginTop: '-4%',
+    marginTop: '5%',
     gap: 20
   },
   quantityInput: {
@@ -73,10 +69,17 @@ export const ReceptionPageStyles = StyleSheet.create({
   },
   kg: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     fontSize: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '2%'
+  },
+  permissionDenied: {
+    alignContent: 'center',
+    alignSelf: 'center',
+    fontSize: 20,
+    color: 'white',
+    marginTop: '100%',
+    fontWeight: 'bold'
   }
 })

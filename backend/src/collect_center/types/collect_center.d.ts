@@ -11,6 +11,8 @@
 export interface CreateCollectCenter {
   submitDate: Date
   address: string
+  name: string
+  hash: string
 
   locationId: number
   managerEmail: string

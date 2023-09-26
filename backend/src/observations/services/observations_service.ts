@@ -9,6 +9,12 @@ export default class ObservationsService {
     return await this.prisma.observation.findMany()
   }
 
+  async getAllByLogActionCollaborator(logActionsCollaboratorId: number): Promise<Observation[]> {
+    return await this.prisma.observation.findMany({
+      where: { logActionsCollaboratorId }
+    })
+  }
+
   async getOne(id: number): Promise<Observation> {
     const observation = await this.prisma.observation.findFirst({
       where: { id }
