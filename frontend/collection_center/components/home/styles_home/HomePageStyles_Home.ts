@@ -2,23 +2,12 @@ import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 
 export const HomePageStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-    backgroundColor: '#77A649'
-  },
   user: {
     backgroundColor: '#494D4F1F',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
-    marginTop: Constants.statusBarHeight + 10,
+    marginTop: Constants.statusBarHeight + 20,
     marginHorizontal: '5%',
     padding: '10%'
   },
@@ -32,14 +21,17 @@ export const HomePageStyles = StyleSheet.create({
     fontSize: 25,
     alignContent: 'center',
     fontWeight: 'bold',
-    marginTop: '5%'
+    marginTop: '5%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   summary: {
     backgroundColor: '#494D4F1F',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
-    marginTop: '15%',
+    marginTop: '10%',
     marginHorizontal: '5%'
   },
   grayContainer: {
@@ -56,18 +48,27 @@ export const HomePageStyles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     alignContent: 'center',
-    marginTop: '5%'
+    marginTop: '5%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   quantityText: {
     color: 'white',
     fontSize: 20,
     alignContent: 'center',
-    marginBottom: '5%'
+    marginBottom: '5%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   quantity: {
     color: 'white',
     fontSize: 35,
     fontWeight: 'bold',
-    alignContent: 'center'
+    alignContent: 'center',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   }
 })

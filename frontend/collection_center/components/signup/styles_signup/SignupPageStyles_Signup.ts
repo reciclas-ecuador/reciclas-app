@@ -2,39 +2,27 @@ import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 
 export const SignupPageStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-    backgroundColor: '#77A649'
-  },
   backButton: {
     marginLeft: '3%',
     marginTop: Constants.statusBarHeight,
-    marginBottom: '35%',
-    width: '20%'
+    marginBottom: '35%'
   },
   appLogo: {
-    width: '20%',
-    height: '10%',
     objectFit: 'contain',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '-45%',
+    marginTop: '-30%',
     marginBottom: '10%'
   },
   appTitle: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 45,
-    alignContent: 'center'
+    alignContent: 'center',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   grayContainer: {
     backgroundColor: '#494D4F',
@@ -45,14 +33,15 @@ export const SignupPageStyles = StyleSheet.create({
   },
   processText: {
     color: 'white',
-    // fontFamily: 'Monsterrat',
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 43,
     fontWeight: 'bold',
     alignContent: 'center',
     marginTop: '8%',
-    marginBottom: 0
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   divider: {
     borderBottomWidthColor: 'black',

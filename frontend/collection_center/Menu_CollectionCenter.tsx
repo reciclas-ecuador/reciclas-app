@@ -11,7 +11,6 @@ function MyTabs () {
     <Tab.Navigator
       initialRouteName='HomePage_CollectionCenter'
       activeColor='#FFFFFF'
-      inactiveColor='#77A649'
       barStyle={{ backgroundColor: '#494D4F', height: '8%' }}
       shifting
     >
