@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { UserGenerate_Qr, UserMain_home } from './components'
 
 const Tab = createMaterialBottomTabNavigator()
-function MyTabs () {
+function MyTabs() {
   return (
     <Tab.Navigator
       //   initialRouteName="Notas"

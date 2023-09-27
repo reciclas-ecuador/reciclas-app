@@ -1,8 +1,10 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
-import { Button, Input, LoginPageStyles } from '../../collection_center/components/login'
+import { Input } from './components/login/Input_Login'
+import { Button } from './components/login/Button_Login'
+import { LinearGradient } from 'expo-linear-gradient'
+import { LoginPageStyles } from './components/login/styles_login/LoginPageStyles_Login'
 
-export function LoginUserPage () {
+export function LoginPage () {
   return (
     <View style={LoginPageStyles.container}>
       <LinearGradient
