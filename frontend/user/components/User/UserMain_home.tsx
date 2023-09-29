@@ -63,9 +63,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "white",
     fontStyle: "normal",
-    // textShadowColor: "rgba(119, 166, 73, 1)",
-    // textShadowOffset: { width: 0, height: 0.7 },
-    // textShadowRadius: 4,
   },
   textMain: {
     fontSize: 16,
@@ -73,22 +70,8 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 20,
     textAlign: "center",
-    //corregir
-    // textShadowColor: "rgba(119, 166, 73, 1)",
-    // textShadowOffset: { width: 0, height: 0.7 },
-    // textShadowRadius: 4,
   },
-  blurContainer: {
-    flex: 1,
-    padding: 20,
-    margin: 16,
-    display: "flex",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    borderRadius: 20,
-  },
+
   box: {
     width: "90%",
     height: "32%",

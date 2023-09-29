@@ -29,12 +29,15 @@ export function Gradient({ children }: Props) {
           "rgba(0, 0, 0, .7)",
           "rgba(0, 0, 0, .8)",
           "rgba(0, 0, 0, .9)",
+          // "rgba(0, 0, 0, .9)",
           "rgba(0, 0, 0, 1)",
-          "rgba(0, 0, 0, 1)",
-          "rgba(0, 0, 0, 1)",
+          // "rgba(0, 0, 0, 1)",
+          // "rgba(0, 0, 0, 1)",
         ]}
         style={GradientStyles.gradient}
-        start={{ x: 1.5, y: 0 }}
+        start={{ x: 0, y: 0 }}
+        // locations={[0.5, 0.8]}
+        end={{ x: 0, y: 0.1 }}
       />
       {children}
     </View>

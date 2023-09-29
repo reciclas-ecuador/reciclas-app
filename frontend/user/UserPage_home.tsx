@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import UserMain_home from "./components/User/UserMain_home";
+import UserQr_home from "./components/User/UserQr_home";
 
 const Tab = createMaterialBottomTabNavigator();
 function MyTabs() {
@@ -33,21 +34,21 @@ function MyTabs() {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="User Qr"
-        component={UserGenerate_Qr}
+        component={UserQr_home}
         options={{
           tabBarLabel: "QR",
-            tabBarBadge: "hi",
-          tabBarIcon: ({ color }) => (
-            // <MaterialCommunityIcons name="home" color={color} size={26} />
-            <Image
-              source={require("../assets/home.svg")}
-              style={{ width: 30, height: 30 }}
-            />
-          ),
+          tabBarBadge: "hi",
+          // tabBarIcon: ({ color }) => (
+          //   // <MaterialCommunityIcons name="home" color={color} size={26} />
+          //   <Image
+          //     source={require("../assets/home.svg")}
+          //     style={{ width: 30, height: 30 }}
+          //   />
+          // ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }
