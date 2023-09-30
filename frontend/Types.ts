@@ -8,6 +8,47 @@ export interface Data {
     thumbnailUrl: string;
 }
 
+// General
+export interface Error {
+    statusCode: number;
+    error: string;
+    message: string;
+}
+
+// User
+export interface UserBody {
+    email: string;
+    ci: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    status: string;
+    province: string;
+    city: string;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface User {
+    error: Error;
+    body: UserBody;
+}
+
+// Collection Center
+export interface CollectionCenterBody {
+    address: string;
+    name: string;
+    hash: string;
+    locationId: number;
+    managerEmail: string;
+}
+
+export interface CollectionCenter {
+    error: Error;
+    body: CollectionCenterBody[];
+}
+
 // Graphql News
 
 export interface NewsData {
