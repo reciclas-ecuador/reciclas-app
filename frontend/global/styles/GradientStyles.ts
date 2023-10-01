@@ -10,6 +10,6 @@ export const GradientStyles = StyleSheet.create({
     right: 0,
     top: 0,
     height: '100%',
-    backgroundColor: '#77A649'
+    backgroundColor: '#494D4F'
   }
 })

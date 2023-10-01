@@ -1,29 +1,14 @@
+import Constants from 'expo-constants'
 import { StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-    backgroundColor: '#77A649'
-  },
   backButton: {
-    width: '20%',
     marginLeft: '3%',
-    marginTop: '2%'
+    marginTop: Constants.statusBarHeight
   },
   appLogo: {
-    width: '20%',
-    height: '10%',
-    objectFit: 'contain',
     marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '0%'
+    marginRight: 'auto'
   },
   content: {
     backgroundColor: '#494D4F1F',
@@ -42,14 +27,51 @@ export const ReceptionPageStyles = StyleSheet.create({
   qrText: {
     color: '#BDF26D',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
+  },
+  qrCameraContainer: {
+    height: '49%',
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    marginHorizontal: '5%',
+    marginTop: '5%'
+  },
+  cameraContent: {
+    marginTop: '-142%',
+    marginBottom: '15%',
+    alignItems: 'center',
+    gap: 15
+  },
+  qrColumnObjective: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 70
+  },
+  qrRowObjective: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 70
   },
   user: {
     backgroundColor: '#76b54470',
-    borderRadius: 30,
+    borderRadius: 50,
     alignItems: 'center',
     paddingVertical: '5%',
-    marginVertical: '10%'
+    alignSelf: 'center',
+    padding: '5%'
+  },
+  userInfo: {
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   inputSection: {
     display: 'flex',
@@ -72,7 +94,10 @@ export const ReceptionPageStyles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '2%'
+    marginTop: '2%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   permissionDenied: {
     alignContent: 'center',

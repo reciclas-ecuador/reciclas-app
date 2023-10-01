@@ -8,7 +8,6 @@ interface SkeletonProps {
 }
 
 const Skeleton = ({ width, height, props }: SkeletonProps) => {
-
   const opacity = useRef(new Animated.Value(0.3))
 
   useEffect(() => {
@@ -17,10 +16,10 @@ const Skeleton = ({ width, height, props }: SkeletonProps) => {
         Animated.timing(opacity.current, {
           toValue: 1,
           useNativeDriver: true,
-          duration: 500
+          duration: 800
         }),
         Animated.timing(opacity.current, {
-          toValue: 0.3,
+          toValue: 0.2,
           useNativeDriver: true,
           duration: 800
         })

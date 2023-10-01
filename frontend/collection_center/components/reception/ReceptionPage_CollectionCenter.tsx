@@ -1,13 +1,10 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { InputReception } from './Input_Reception'
-import { ButtonReception } from './Button_Reception'
 import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
-import { KeyboardAvoidingWrapper } from '../../../global/components/KeyboardAvoidingWrapper'
 import { Previous, ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
-import { postQuantity } from '../../services/Reception_Services'
+import { postQuantity } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
+import { Gradient, Button, Input, KeyboardAvoidingWrapper } from '../../../global'
 
 interface ScanData {
   _id: string;
@@ -43,13 +40,13 @@ export function ReceptionPageCollectionCenter () {
     }
   }
 
-  const handleBarCodeScanned = ({ type, data }: any) => {
+  const handleBarCodeScanned = (data: any) => {
     try {
       const _data = JSON.parse(data)
       setScanData(_data)
+      setUser(_data._id)
       setScanned(true)
       setOpenCamera(false)
-      console.log('INCREIBLE ' + data)
     } catch (error) {
       console.log('Error al parse', error)
     }
@@ -57,90 +54,14 @@ export function ReceptionPageCollectionCenter () {
 
   if (hasPermission === false) {
     return (
-      <View style={ReceptionPageStyles.container}>
-        <LinearGradient
-          colors={[
-            'rgba(119, 166, 73, 1)',
-            'rgba(0, 0, 0, 0.8)',
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 0, 0, 1)'
-          ]}
-          style={ReceptionPageStyles.background}
-        />
+      <Gradient>
         <Text style={ReceptionPageStyles.permissionDenied}>Permisos de cámara no concedidos</Text>
-      </View>
-    )
-  }
-
-  if (scanned) {
-    return (
-      <View style={ReceptionPageStyles.container}>
-        <LinearGradient
-          colors={[
-            'rgba(119, 166, 73, 1)',
-            'rgba(0, 0, 0, 0.8)',
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 0, 0, 1)'
-          ]}
-          style={ReceptionPageStyles.background}
-        />
-        <KeyboardAvoidingWrapper>
-          <View>
-            <TouchableOpacity style={ReceptionPageStyles.backButton}>
-              <Previous width={40} height={40} />
-            </TouchableOpacity>
-            <ReciclasLogo style={ReceptionPageStyles.appLogo} />
-            <View style={ReceptionPageStyles.content}>
-              <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }}>
-                <Scan width={100} height={100} />
-                <Text style={ReceptionPageStyles.qrText}>Escanear de nuevo</Text>
-              </TouchableOpacity>
-              <View style={ReceptionPageStyles.user}>
-                <InputReception
-                  defaultText='Usuario'
-                  icon={<User />}
-                  setInputText={setUser}
-                  edit={false}
-                  defaultValue={scanData?._id}
-                />
-              </View>
-              <View style={ReceptionPageStyles.inputSection}>
-                <View style={ReceptionPageStyles.quantityInput}>
-                  <InputReception
-                    defaultText='Cantidad de botellas'
-                    icon={<TrashCan />}
-                    setInputText={setQuantity}
-                  />
-                  <Text style={ReceptionPageStyles.kg}>Kg</Text>
-                </View>
-                <InputReception
-                  defaultText='Observación'
-                  icon={<Comment />}
-                  setInputText={setObservation}
-                />
-                <ButtonReception text='Registrar' handlePress={registerQuantity} />
-              </View>
-            </View>
-          </View>
-        </KeyboardAvoidingWrapper>
-      </View>
+      </Gradient>
     )
   }
 
   return (
-    <View style={ReceptionPageStyles.container}>
-      <LinearGradient
-        colors={[
-          'rgba(119, 166, 73, 1)',
-          'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)'
-        ]}
-        style={ReceptionPageStyles.background}
-      />
+    <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
           <TouchableOpacity style={ReceptionPageStyles.backButton}>
@@ -148,26 +69,61 @@ export function ReceptionPageCollectionCenter () {
           </TouchableOpacity>
           <ReciclasLogo style={ReceptionPageStyles.appLogo} />
           <View style={ReceptionPageStyles.content}>
-            {openCamera &&
-              <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(false) }} disabled={scanned}>
+            {scanned &&
+              <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }}>
                 <Scan width={100} height={100} />
-                <Text style={ReceptionPageStyles.qrText}>Cancelar</Text>
+                <Text style={ReceptionPageStyles.qrText}>Escanear de nuevo</Text>
               </TouchableOpacity>}
-            {!openCamera &&
+            {scanned &&
+              <View style={ReceptionPageStyles.user}>
+                <User />
+                <Text style={ReceptionPageStyles.userInfo}>{scanData?._id}</Text>
+              </View>}
+            {!scanned && !openCamera &&
               <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }} disabled={scanned}>
                 <Scan width={100} height={100} />
                 <Text style={ReceptionPageStyles.qrText}>Escanear QR</Text>
               </TouchableOpacity>}
-            {openCamera &&
-              <View style={{ aspectRatio: 0.75 }}>
+            {!scanned && openCamera &&
+              <View style={ReceptionPageStyles.qrCameraContainer}>
                 <BarCodeScanner
                   onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                  style={{ flex: 1 }}
+                  style={{ width: 500, height: 500, flex: 1 }}
                 />
+                <View style={ReceptionPageStyles.cameraContent}>
+                  <View style={ReceptionPageStyles.qrColumnObjective}>
+                    <View style={ReceptionPageStyles.qrRowObjective}>
+                      <View style={{ height: 50, width: 50, borderLeftWidth: 7, borderTopWidth: 2, borderColor: '#BDF26D', borderTopLeftRadius: 20 }} />
+                      <View style={{ height: 50, width: 50, borderRightWidth: 2, borderTopWidth: 7, borderColor: '#BDF26D', borderTopRightRadius: 20 }} />
+                    </View>
+                    <View style={ReceptionPageStyles.qrRowObjective}>
+                      <View style={{ height: 50, width: 50, borderLeftWidth: 2, borderBottomWidth: 7, borderColor: '#BDF26D', borderBottomLeftRadius: 20 }} />
+                      <View style={{ height: 50, width: 50, borderRightWidth: 7, borderBottomWidth: 2, borderColor: '#BDF26D', borderBottomRightRadius: 20 }} />
+                    </View>
+                  </View>
+                  <Button text='Cancelar' handlePress={() => { setScanned(false); setOpenCamera(false) }} />
+                </View>
               </View>}
+            <View style={ReceptionPageStyles.inputSection}>
+              <View style={ReceptionPageStyles.quantityInput}>
+                <Input
+                  defaultText='Cantidad de botellas'
+                  icon={<TrashCan />}
+                  setInputText={setQuantity}
+                />
+                <Text style={ReceptionPageStyles.kg}>Kg</Text>
+              </View>
+              <Input
+                defaultText='Observación'
+                icon={<Comment />}
+                setInputText={setObservation}
+              />
+              {scanned &&
+                <Button text='Registrar' handlePress={registerQuantity} />}
+            </View>
           </View>
         </View>
       </KeyboardAvoidingWrapper>
-    </View>
+    </Gradient>
   )
 }

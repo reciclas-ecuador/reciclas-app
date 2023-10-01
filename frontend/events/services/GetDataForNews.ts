@@ -1,9 +1,7 @@
-import { NewsData } from '../../Types'
+export const GetDataForNews = async () => {
+  const url = 'https://reciclasevent1.wpenginepowered.com/graphql'
 
-export const GetDataForNews = (): Promise<NewsData> => {
-  const url = 'https://reciclas-events.vercel.app/graphql'
-
-  return fetch(url, {
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -37,6 +35,6 @@ export const GetDataForNews = (): Promise<NewsData> => {
           }`
     })
   })
-    .then(res => res.json())
-    .then(data => data)
+  const data = await res.json()
+  return data
 }
