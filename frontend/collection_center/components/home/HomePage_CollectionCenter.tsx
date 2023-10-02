@@ -15,7 +15,6 @@ export function HomePageCollectionCenter () {
     const dataCollectionCenterBasic = await getToDataCollectionCenter('frankz@email.com')
     setDataUser(dataUserBasic)
     setDataCollectionCenter(dataCollectionCenterBasic)
-    console.log(dataUserBasic)
   }
 
   useEffect(() => {

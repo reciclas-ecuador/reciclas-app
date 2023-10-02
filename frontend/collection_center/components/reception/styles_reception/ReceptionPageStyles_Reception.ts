@@ -1,5 +1,5 @@
 import Constants from 'expo-constants'
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
   backButton: {
@@ -8,64 +8,92 @@ export const ReceptionPageStyles = StyleSheet.create({
   },
   appLogo: {
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    marginTop: '-11%'
+  },
+  centerView: {
+    height: Dimensions.get('window').height - (Dimensions.get('window').height * 0.176),
+    display: 'flex',
+    justifyContent: 'center'
   },
   content: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
-    marginTop: '8%',
     marginHorizontal: '5%'
   },
   scanQr: {
     backgroundColor: '#76b54420',
     alignItems: 'center',
-    marginVertical: '5%',
+    marginTop: '5%',
     borderRadius: 30,
     padding: '5%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderTopWidth: 0.2,
+    borderBottomWidth: 0.2,
+    borderRightWidth: 1.2,
+    borderLeftWidth: 1.2,
+    borderColor: '#BDF26D'
   },
   qrText: {
     color: '#BDF26D',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
     textShadowColor: 'rgba(119, 166, 73, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
   qrCameraContainer: {
-    height: '49%',
-    borderRadius: 30,
+    height: 320,
+    borderTopRightRadius: 175,
+    borderBottomLeftRadius: 175,
+    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
     marginHorizontal: '5%',
-    marginTop: '5%'
+    marginTop: '5%',
+    borderColor: '#BDF26D',
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderLeftWidth: 0.1
   },
   cameraContent: {
-    marginTop: '-142%',
-    marginBottom: '15%',
+    marginTop: '-110%',
+    marginBottom: '27%',
     alignItems: 'center',
-    gap: 15
+    gap: 20
   },
   qrColumnObjective: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 70
+    gap: 50
   },
   qrRowObjective: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 70
+    gap: 50
+  },
+  cancelButton: {
+    alignSelf: 'center',
+    marginTop: '5%'
   },
   user: {
-    backgroundColor: '#76b54470',
-    borderRadius: 50,
     alignItems: 'center',
-    paddingVertical: '5%',
-    alignSelf: 'center',
-    padding: '5%'
+    marginTop: '5%',
+    gap: 5
+  },
+  joinUserInfoDividir: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  userDivider: {
+    borderBottomWidth: 1,
+    flex: 1,
+    marginHorizontal: '4%'
   },
   userInfo: {
     fontWeight: 'bold',
@@ -78,8 +106,7 @@ export const ReceptionPageStyles = StyleSheet.create({
     backgroundColor: '#494D4F',
     borderRadius: 30,
     alignItems: 'center',
-    paddingTop: '8%',
-    paddingBottom: '8%',
+    paddingVertical: '5%',
     marginTop: '5%',
     gap: 20
   },

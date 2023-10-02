@@ -3,7 +3,7 @@ import Constants from 'expo-constants'
 
 export const HomePageStyles = StyleSheet.create({
   user: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
@@ -27,7 +27,7 @@ export const HomePageStyles = StyleSheet.create({
     textShadowRadius: 4
   },
   summary: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
