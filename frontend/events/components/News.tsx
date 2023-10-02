@@ -11,7 +11,7 @@ const News = (item: Edge) => {
       style={styles.container}
       activeOpacity={0.9}
       onPress={
-        () => navigation.navigate('DetailsNews', { key: Date.now(), news: item })}>
+        () => navigation.navigate('DetailsNews', { news: item })}>
       <Animated.Image source={{ uri: item.node.imagen.node.mediaItemUrl }} style={styles.imagen} />
       <View style={{ paddingHorizontal: 10, paddingVertical: 15, height: 'auto', borderTopRightRadius: 25, borderTopLeftRadius: 25, backgroundColor: 'rgb(218,217,217)', top: -20 }}>
         <Text numberOfLines={2} style={{ fontSize: 20 }}>{item.node.descripcion}</Text>

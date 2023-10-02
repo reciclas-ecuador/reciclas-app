@@ -1,31 +1,29 @@
-import { LinearGradient } from 'expo-linear-gradient'
-import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, Animated } from 'react-native'
-import { ReceptionPageStyles } from '../collection_center/components/reception/styles_reception/ReceptionPageStyles_Reception'
+import { StyleSheet, Text, Animated } from 'react-native'
 import { Edge } from '../Types'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParams } from '../navigator/Navigator'
 import useAnimation from '../hooks/useAnimation'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { RootStackParams } from '../navigator/TabNavigator'
 
 interface Props extends NativeStackScreenProps<RootStackParams, 'DetailsNews'> { };
 
 const DetailsNews = ({ navigation, route }: Props) => {
-  const news: Edge = route.params.news
+  const { news }: { news: Edge } = route.params
   const { nombre, modalidad, descripcion, fechaInicio, lugar, imagen } = news.node
-  const { fadeOut, position, startMovingPosition, opacity, fadeIn } = useAnimation()
+  const { position, startMovingPosition, opacity, fadeIn } = useAnimation()
 
   useEffect(() => {
     fadeIn()
     startMovingPosition(-50, 900)
   })
   return (
-    <Animated.ScrollView style={{ ...ReceptionPageStyles.container, backgroundColor: 'rgb(218,217,217)' }}>
+    <Animated.ScrollView style={{ backgroundColor: 'rgb(218,217,217)' }}>
       <Animated.View style={{ width: '100%', height: 300 }}>
         <Animated.Image source={{ uri: imagen.node.mediaItemUrl }} style={styles.imagen} />
       </Animated.View>
       <Animated.View key={Date.now()} style={{ ...styles.contentNews }}>
         <Animated.Text style={{ fontSize: 20, fontWeight: '500', opacity, transform: [{ translateY: position }] }}>{nombre}</Animated.Text>
-        <Animated.View style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Animated.View style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', opacity, transform: [{ translateY: position }] }}>
           <Animated.View style={{ flexDirection: 'row' }}>
             <Animated.Text style={{ fontWeight: 'bold' }}>Evento: </Animated.Text>
             <Animated.Text>{modalidad}</Animated.Text>
@@ -35,12 +33,12 @@ const DetailsNews = ({ navigation, route }: Props) => {
             <Animated.Text>{fechaInicio}</Animated.Text>
           </Animated.View>
         </Animated.View>
-        <Animated.Text style={{ fontSize: 15, fontWeight: '300', marginTop: 20 }}>{descripcion}</Animated.Text>
+        <Animated.Text style={{ fontSize: 15, fontWeight: '300', marginTop: 20, opacity, transform: [{ translateY: position }] }}>{descripcion}</Animated.Text>
       </Animated.View>
-      <View style={{ height: 'auto', justifyContent: 'center', flexDirection: 'row', bottom: 10 }}>
+      <Animated.View style={{ height: 'auto', justifyContent: 'center', flexDirection: 'row', bottom: 10, opacity, transform: [{ translateY: position }] }}>
         <Text style={{ fontWeight: 'bold' }}>El evento se realizará en: </Text>
         <Text>{lugar}</Text>
-      </View>
+      </Animated.View>
     </Animated.ScrollView>
   )
 }

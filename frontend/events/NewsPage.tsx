@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ReceptionPageStyles } from '../collection_center/components/reception'
 import { ReciclasLogo } from '../assets'
 import { FlatList } from 'react-native-gesture-handler'
 import News from './components/News'
@@ -8,11 +7,9 @@ import { GetDataForNews } from './services/GetDataForNews'
 import React, { useEffect, useState } from 'react'
 import { Edge } from '../Types'
 import SkeletonNews from './components/SkeletonNews'
-import useAnimation from '../hooks/useAnimation';
 
 export function NewsPage() {
   const [loading, setLoading] = useState<boolean>(true)
-  const { opacity } = useAnimation()
 
   const [dataNew, setDataNew] = useState<Edge[]>()
 
@@ -26,12 +23,11 @@ export function NewsPage() {
 
   useEffect(() => {
     fetchData()
-    opacity.setValue(0)
   }, [])
 
   const Header = ({ styles }: { styles?: React.CSSProperties }) => {
     return (
-      <View style={{ marginBottom: 30, alignItems: 'center', ...styles, position: 'fixed' }}>
+      <View style={{ marginBottom: 30, alignItems: 'center', ...styles }}>
         <ReciclasLogo style={{ marginBottom: 10 }} />
         <Text style={{ fontSize: 30, fontWeight: '600', color: 'white' }}>Eventos</Text>
       </View>
@@ -39,7 +35,7 @@ export function NewsPage() {
   }
 
   return (
-    <View style={{ ...ReceptionPageStyles.container, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <LinearGradient
         colors={[
           'rgba(119, 166, 73, 1)',
@@ -48,7 +44,14 @@ export function NewsPage() {
           'rgba(0, 0, 0, 1)',
           'rgba(0, 0, 0, 1)'
         ]}
-        style={ReceptionPageStyles.background}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: '100%',
+          backgroundColor: '#77A649'
+        }}
       />
       {loading
         ? (
@@ -59,11 +62,11 @@ export function NewsPage() {
             data={dataNew}
             renderItem={({ item }) => <News {...item} />}
             keyExtractor={(news) => news.node.id}
-            ListHeaderComponent={<Header styles={{ position: 'fixed', marginTop: 60 }} />}
+            ListHeaderComponent={<Header styles={{ marginTop: 60 }} />}
             showsVerticalScrollIndicator={false}
-            stickyHeaderIndices={[0]}
+            // stickyHeaderIndices={[0]} // fixed to header
             contentContainerStyle={{
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           />
         )}

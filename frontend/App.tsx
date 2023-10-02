@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
-import UserPage_home from "./user/UserPage_home";
+
 // import { SignupPage } from './collection_center/SignupPage'
 import { NewsPage } from "./events/NewsPage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -10,22 +9,10 @@ import Navigator from "./navigator/Navigator";
 export default function App() {
   return (
     // <Text>Aqui tu componente</Text>
-<<<<<<< HEAD
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
-    </GestureHandlerRootView>
-  )
-=======
-
     // <GestureHandlerRootView style={{ flex: 1 }}>
-    //   {/* <NavigationContainer> */}
-    //   {/* // <Navigator /> */}
-    //   {/* </NavigationContainer> */}
-    // {/* </GestureHandlerRootView> */}
-
-    <UserPage_home />
-  );
->>>>>>> origin/master
+    //   <NavigationContainer>
+    //     <Navigator />
+    //   </NavigationContainer>
+    // </GestureHandlerRootView>
+  )
 }
