@@ -81,8 +81,8 @@ model CollectCenter {
   locationId Int @map("location_id")
 
   // Foreign key: with CenterEmployee - One to one
-  manager CenterEmployee @relation("collect_center_manager", fields: [managerEmail], references: [email])
-  managerEmail String @unique @map("center_employee_email")
+  manager CenterEmployee? @relation("collect_center_manager", fields: [managerEmail], references: [email])
+  managerEmail String? @unique @map("center_employee_email")
 
   // Foreign key: with CenterEmployee - One to many
   collectCenterEmployees CenterEmployee[] @relation("collect_center_employees")

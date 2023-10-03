@@ -2,7 +2,7 @@ import { Router } from 'express'
 import CollectCenterService from '../services/collect_center_service'
 import { Response } from '../../../libs/response'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
-import { createCollectCenter, getByIdSchema, getByLocationIdSchema, updateCollectCenter, updateHashSchema } from '../models/collect_center_model'
+import { createCollectCenter, getByIdSchema, getByLocationIdSchema, setCollectCenterManagerSchema, updateCollectCenter, updateHashSchema } from '../models/collect_center_model'
 
 const router = Router()
 const collectCenterService = new CollectCenterService()
@@ -71,6 +71,23 @@ router.post(
     try {
       const collectCenter = await collectCenterService.create(req.body)
       response.success(res, collectCenter, 201)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.patch(
+  '/:id/manager',
+  checkTokenAndRoles(['ADMIN']),
+  validationHandler(getByIdSchema, 'params'),
+  validationHandler(setCollectCenterManagerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const { managerEmail } = req.body
+      const collectCenter = await collectCenterService.setManager(Number(id), managerEmail)
+      response.success(res, collectCenter)
     } catch (error) {
       next(error)
     }
