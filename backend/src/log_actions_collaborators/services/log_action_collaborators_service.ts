@@ -51,6 +51,21 @@ export default class LogActionsCollaboratorsService {
     return await this.prisma.logActionsCollaborator.create({ data })
   }
 
+  async setAttentionQuality(id: number, attentionQuality: number): Promise<LogActionsCollaborator> {
+    const logActionCollaborator = await this.prisma.logActionsCollaborator.findFirst(
+      { where: { id } }
+    )
+
+    if (logActionCollaborator === null) {
+      throw boom.notFound('LogActionCollaborator not found')
+    }
+
+    return await this.prisma.logActionsCollaborator.update({
+      where: { id },
+      data: { attentionQuality }
+    })
+  }
+
   async update(id: number, changes: UpdateLogActionCollaborator): Promise<LogActionsCollaborator> {
     const logActionCollaborator = await this.prisma.logActionsCollaborator.findFirst(
       { where: { id } }

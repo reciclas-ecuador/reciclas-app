@@ -26,6 +26,10 @@ export const getByIdSchema = Joi.object({
   id: Joi.number().required()
 })
 
+export const getAttentionQualitySchema = Joi.object({
+  attentionQuality: attentionQuality.required()
+})
+
 export const getByUserSchema = Joi.object({
   email: collaboratorEmail.required()
 })
