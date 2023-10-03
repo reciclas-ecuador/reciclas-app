@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const ButtonStylesSignup = StyleSheet.create({
+export const ButtonStyles = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: '#FFFCFC',
     padding: 10,
@@ -10,7 +10,6 @@ export const ButtonStylesSignup = StyleSheet.create({
   },
   text: {
     color: '#77A649',
-    // fontFamily: 'Montserrat',
     fontWeight: 'bold',
     fontSize: 18
   }

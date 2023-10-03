@@ -1,5 +1,5 @@
 import { View, TextInput, TouchableWithoutFeedback } from 'react-native'
-import { InputStylesLogin } from './styles_login/InputStyles_Login'
+import { InputStyles } from '../styles'
 import React, { useRef, useState } from 'react'
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
   defaultValue?: string;
 };
 
-export function InputLogin ({ defaultText, icon, keyboard = 'default', setInputText, edit = true, defaultValue }: Props) {
+export function Input ({ defaultText, icon, keyboard = 'default', setInputText, edit = true, defaultValue }: Props) {
   const [isTextInputFocused, setTextInputFocus] = useState(false)
 
   const handleViewPress = () => {
@@ -32,11 +32,11 @@ export function InputLogin ({ defaultText, icon, keyboard = 'default', setInputT
 
   return (
     <TouchableWithoutFeedback onPress={handleViewPress}>
-      <View style={InputStylesLogin.container}>
+      <View style={InputStyles.container}>
         {icon}
         <TextInput
           ref={textInputRef}
-          style={InputStylesLogin.textInput}
+          style={InputStyles.textInput}
           placeholder={defaultText}
           placeholderTextColor='#FFFFFF'
           keyboardType={keyboard}

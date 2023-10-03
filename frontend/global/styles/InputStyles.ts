@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const InputStylesLogin = StyleSheet.create({
+export const InputStyles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',

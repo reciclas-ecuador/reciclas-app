@@ -1,12 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { InputSignup } from './components/signup/Input_Signup'
-import { ButtonSignup } from './components/signup/Button_Signup'
-import { LinearGradient } from 'expo-linear-gradient'
-import { SignupPageStyles } from './components/signup/styles_signup/SignupPageStyles_Signup'
-import { User, Mail, Previous, ReciclasLogo } from '../assets'
+import { SignupPageStyles } from './styles_signup/SignupPageStyles_Signup'
+import { User, Mail, Previous, ReciclasLogo } from '../../../assets'
 import { useState } from 'react'
-import { postUser } from './services/Signup_Services'
-import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
+import { postUser } from '../../services'
+import { KeyboardAvoidingWrapper, Gradient, Button, Input } from '../../../global'
 
 export function SignupPageCollectionCenter () {
   const [userName, setUserName] = useState('')
@@ -18,17 +15,7 @@ export function SignupPageCollectionCenter () {
   }
 
   return (
-    <View style={SignupPageStyles.container}>
-      <LinearGradient
-        colors={[
-          'rgba(119, 166, 73, 1)',
-          'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)'
-        ]}
-        style={SignupPageStyles.background}
-      />
+    <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
           <TouchableOpacity style={SignupPageStyles.backButton}>
@@ -40,17 +27,17 @@ export function SignupPageCollectionCenter () {
             <Text style={SignupPageStyles.processText}>Registro</Text>
             <View style={SignupPageStyles.divider} />
             <View style={SignupPageStyles.signupInputs}>
-              <InputSignup
+              <Input
                 defaultText='Nombre'
                 icon={<User />}
                 setInputText={setUserName}
               />
-              <InputSignup
+              <Input
                 defaultText='Apellido'
                 icon={<User />}
                 setInputText={setUserLastName}
               />
-              <InputSignup
+              <Input
                 defaultText='Correo'
                 icon={<Mail />}
                 keyboard='email-address'
@@ -58,11 +45,11 @@ export function SignupPageCollectionCenter () {
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
-              <ButtonSignup text='Registrarse' handlePress={registerUser} />
+              <Button text='Registrarse' handlePress={registerUser} />
             </View>
           </View>
         </View>
       </KeyboardAvoidingWrapper>
-    </View>
+    </Gradient>
   )
 }

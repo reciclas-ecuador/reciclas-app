@@ -1,11 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { InputLogin } from './components/login/Input_Login'
-import { ButtonLogin } from './components/login/Button_Login'
-import { LinearGradient } from 'expo-linear-gradient'
-import { LoginPageStyles } from './components/login/styles_login/LoginPageStyles_Login'
-import { Password, ReciclasLogo, User } from '../assets'
+import { LoginPageStyles } from './styles_login/LoginPageStyles_Login'
+import { Password, ReciclasLogo, User } from '../../../assets'
 import { useState } from 'react'
-import { KeyboardAvoidingWrapper } from './components/general/KeyboardAvoidingWrapper'
+import { KeyboardAvoidingWrapper, Gradient, Input, Button } from '../../../global'
 
 export function LoginPageCollectionCenter () {
   const [user, setUser] = useState('')
@@ -16,17 +13,7 @@ export function LoginPageCollectionCenter () {
   }
 
   return (
-    <View style={LoginPageStyles.container}>
-      <LinearGradient
-        colors={[
-          'rgba(119, 166, 73, 1)',
-          'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)'
-        ]}
-        style={LoginPageStyles.background}
-      />
+    <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
           <ReciclasLogo style={LoginPageStyles.appLogo} />
@@ -39,19 +26,19 @@ export function LoginPageCollectionCenter () {
             <Text style={LoginPageStyles.welcomeText}>¡Bienvenido!</Text>
             <Text style={LoginPageStyles.rolText}>Administración</Text>
             <View style={LoginPageStyles.loginInputs}>
-              <InputLogin
+              <Input
                 defaultText='Nombre de usuario'
                 icon={<User />}
                 setInputText={setUser}
               />
-              <InputLogin
+              <Input
                 defaultText='Contraseña'
                 icon={<Password />}
                 setInputText={setPassword}
               />
             </View>
             <View style={LoginPageStyles.loginButton}>
-              <ButtonLogin text='Iniciar sesión' handlePress={loginUser} />
+              <Button text='Iniciar sesión' handlePress={loginUser} />
             </View>
             <TouchableOpacity>
               <Text style={LoginPageStyles.forgotPassword}>
@@ -62,6 +49,6 @@ export function LoginPageCollectionCenter () {
           </View>
         </View>
       </KeyboardAvoidingWrapper>
-    </View>
+    </Gradient>
   )
 }
