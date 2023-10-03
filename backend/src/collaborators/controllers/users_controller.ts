@@ -10,6 +10,22 @@ const usersService = new UsersService()
 
 router.use(checkTokenAndRoles(['ADMIN']))
 
+/**
+ * @swagger
+ *  /users:
+ *    get:
+ *      summary: Get all registered users
+ *      tags: [Users]
+ *      responses:
+ *        200:
+ *          description: List of users
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/User'
+ */
 router.get('/', async (_req, res, next) => {
   try {
     const users = await usersService.getAll()
@@ -20,6 +36,39 @@ router.get('/', async (_req, res, next) => {
   }
 })
 
+/**
+ *  @swagger
+ *  /users/{email}:
+ *    get:
+ *      summary: Get a user by email
+ *      tags: [Users]
+ *      parameters:
+ *          - name: email
+ *            in: path
+ *            description: The email of the user
+ *            schema:
+ *              type: string
+ *              format: email
+ *      responses:
+ *        200:
+ *          description: The user description by email
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                     type: object
+ *                     nullable: true
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+ */
 router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req, res, next) => {
   try {
     const users = await usersService.getOne(req.params.email)
