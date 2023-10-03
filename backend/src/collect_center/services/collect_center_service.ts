@@ -100,6 +100,17 @@ export default class CollectCenterService {
 
   private async validLocationAndManager(locationId: number, managerEmail: string): Promise<boolean> {
     // valid location and manager in a parallel way
+
+    if (managerEmail === undefined || managerEmail === null) {
+      const location = await this.prisma.location.findFirst({ where: { id: locationId } })
+
+      if (location === null) {
+        return false
+      }
+
+      return true
+    }
+
     const [location, manager] = await Promise.all([
       this.prisma.location.findFirst({ where: { id: locationId } }),
       this.prisma.centerEmployee.findFirst({ where: { email: managerEmail } })
