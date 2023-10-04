@@ -10,7 +10,7 @@ const receiverEmail = Joi.string().trim().email()
 export const CreateLogActionCollaboratorSchema = Joi.object({
   submitDate: submitDate.required(),
   quantity: quantity.required(),
-  attentionQuality: attentionQuality.required(),
+  attentionQuality,
   collaboratorEmail: collaboratorEmail.required(),
   collectCenterId: collectCenterId.required(),
   receiverEmail: receiverEmail.required()
@@ -24,6 +24,10 @@ export const UpdateLogActionCollaboratorSchema = Joi.object({
 
 export const getByIdSchema = Joi.object({
   id: Joi.number().required()
+})
+
+export const getAttentionQualitySchema = Joi.object({
+  attentionQuality: attentionQuality.required()
 })
 
 export const getByUserSchema = Joi.object({
