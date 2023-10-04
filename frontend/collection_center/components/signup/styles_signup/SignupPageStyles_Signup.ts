@@ -4,20 +4,18 @@ import Constants from 'expo-constants'
 export const SignupPageStyles = StyleSheet.create({
   backButton: {
     marginLeft: '3%',
-    marginTop: Constants.statusBarHeight,
-    marginBottom: '35%'
+    marginTop: Constants.statusBarHeight
   },
   appLogo: {
-    objectFit: 'contain',
+    marginTop: '-11%',
     marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '-30%',
-    marginBottom: '10%'
+    marginRight: 'auto'
   },
   appTitle: {
     color: 'white',
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginVertical: '10%',
     fontSize: 45,
     alignContent: 'center',
     textShadowColor: 'rgba(119, 166, 73, 1)',
@@ -26,7 +24,6 @@ export const SignupPageStyles = StyleSheet.create({
   },
   grayContainer: {
     backgroundColor: '#494D4F',
-    marginTop: '13%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     flex: 1
@@ -51,15 +48,14 @@ export const SignupPageStyles = StyleSheet.create({
     alignSelf: 'center'
   },
   signupInputs: {
-    marginTop: '10%',
+    marginVertical: '10%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: 10
   },
   signupButton: {
-    marginTop: '20%',
     alignItems: 'center',
-    marginBottom: '30%'
+    marginBottom: '11%'
   }
 })

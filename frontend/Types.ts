@@ -37,20 +37,38 @@ export interface User {
 
 // Collection Center
 export interface CollectionCenterBody {
-    address: string;
+    id: number;
     name: string;
     hash: string;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
     locationId: number;
     managerEmail: string;
 }
 
 export interface CollectionCenter {
     error: Error;
-    body: CollectionCenterBody[];
+    body: CollectionCenterBody;
+}
+
+// Center employee
+export interface CenterEmployeeBody {
+    email: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    createdAt: string;
+    updatedAt: string;
+    collectCenterId: number;
+}
+
+export interface CenterEmployee {
+    error: Error;
+    body: CenterEmployeeBody;
 }
 
 // Graphql News
-
 export interface NewsData {
     data: Datos;
     extensions: Extensions;

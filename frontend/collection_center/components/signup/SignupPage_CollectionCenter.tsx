@@ -1,17 +1,19 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import { SignupPageStyles } from './styles_signup/SignupPageStyles_Signup'
-import { User, Mail, Previous, ReciclasLogo } from '../../../assets'
+import { User, Mail, Previous, ReciclasLogo, Phone, Location } from '../../../assets'
 import { useState } from 'react'
-import { postUser } from '../../services'
+import { postCenterEmployee } from '../../services'
 import { KeyboardAvoidingWrapper, Gradient, Button, Input } from '../../../global'
 
 export function SignupPageCollectionCenter () {
-  const [userName, setUserName] = useState('')
-  const [userLastName, setUserLastName] = useState('')
-  const [userEmail, setUserEmail] = useState('')
+  const [centerEmployeeName, setCenterEmployeeName] = useState('')
+  const [centerEmployeeLastName, setCenterEmployeeLastName] = useState('')
+  const [centerEmployeeEmail, setCenterEmployeeEmail] = useState('')
+  const [centerEmployeePhone, setCenterEmployeePhone] = useState('')
+  const [centerEmployeeLocation, setCenterEmployeeLocation] = useState('')
 
-  const registerUser = async () => {
-    postUser(userName, userLastName, userEmail)
+  const registerCenterEmployee = async () => {
+    postCenterEmployee(centerEmployeeEmail, centerEmployeeName, centerEmployeeLastName, centerEmployeePhone, centerEmployeeLocation)
   }
 
   return (
@@ -30,22 +32,34 @@ export function SignupPageCollectionCenter () {
               <Input
                 defaultText='Nombre'
                 icon={<User />}
-                setInputText={setUserName}
+                setInputText={setCenterEmployeeName}
               />
               <Input
                 defaultText='Apellido'
                 icon={<User />}
-                setInputText={setUserLastName}
+                setInputText={setCenterEmployeeLastName}
               />
               <Input
                 defaultText='Correo'
                 icon={<Mail />}
                 keyboard='email-address'
-                setInputText={setUserEmail}
+                setInputText={setCenterEmployeeEmail}
+              />
+              <Input
+                defaultText='Celular'
+                icon={<Phone width={22} />}
+                keyboard='numeric'
+                setInputText={setCenterEmployeePhone}
+              />
+              <Input
+                defaultText='Centro de recolección'
+                icon={<Location fill='#000' stroke='#000' strokeWidth='8' />}
+                keyboard='numeric'
+                setInputText={setCenterEmployeeLocation}
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
-              <Button text='Registrarse' handlePress={registerUser} />
+              <Button text='Registrarse' handlePress={registerCenterEmployee} />
             </View>
           </View>
         </View>
