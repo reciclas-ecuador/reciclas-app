@@ -55,4 +55,18 @@ export const swaggerSpecs = {
  *      example:
  *        error: "User not found"
  *        body: null
+ *    BadRequest:
+ *      type: object
+ *      properties:
+ *        error:
+ *          oneOf:
+ *            - type: string
+ *            - type: object
+ *        body:
+ *          type: object
+ *          nullable: true
+ *      example:
+ *        error: "Bad request"
+ *        body: null
+ *
  */

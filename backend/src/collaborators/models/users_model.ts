@@ -69,6 +69,74 @@ import Joi from 'joi'
  *        address: Av. Amazonas N23-56
  *        createdAt: 2021-01-01T00:00:00.000Z
  *        updatedAt: 2021-01-01T00:00:00.000Z
+ *
+ *    EcoEquivalence:
+ *      type: object
+ *      properties:
+ *        value:
+ *          type: number
+ *        unit:
+ *          type: string
+ *
+ *    UserEcoEquivalences:
+ *      type: object
+ *      properties:
+ *        user:
+ *          $ref: '#/components/schemas/User'
+ *        ecoEquivalences:
+ *          type: object
+ *          properties:
+ *            totalRecycled:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            trees:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            water:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            energy:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            oil:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            co2:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *            ligthsOn:
+ *              $ref: '#/components/schemas/EcoEquivalence'
+ *      required:
+ *        - user
+ *        - ecoEquivalences
+ *      example:
+ *        user:
+ *          email: jhondoe@email.com
+ *          name: Jhon
+ *          lastname: Doe
+ *          phone: "0999999999"
+ *          status: active
+ *          province: Pichincha
+ *          city: Quito
+ *          address: Av. Amazonas N23-56
+ *          createdAt: 2021-01-01T00:00:00.000Z
+ *          updatedAt: 2021-01-01T00:00:00.000Z
+ *        ecoEquivalences:
+ *          totalRecycled:
+ *            value: 100
+ *            unit: kg
+ *          trees:
+ *            value: 100
+ *            unit: trees
+ *          water:
+ *            value: 100
+ *            unit: ltrs
+ *          energy:
+ *            value: 100
+ *            unit: kWh
+ *          oil:
+ *            value: 100
+ *            unit: ltrs
+ *          co2:
+ *            value: 100
+ *            unit: kg
+ *          ligthsOn:
+ *            value: 100
+ *            unit: hrs
  */
 
 const ci = Joi.string().trim().length(10)
