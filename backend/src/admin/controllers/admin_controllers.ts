@@ -1,11 +1,33 @@
 import { Router } from 'express'
+import { AdminService } from '../services/admin_service'
+import { Response } from '../../../libs/response'
 
-const routerAdmin = Router()
+const router = Router()
+const adminService = new AdminService()
+const response = new Response()
 
-routerAdmin.get('/admintest', (req, res) => {
+router.get('/admintest', (req, res) => {
   res.json({ message: 'Hello from Express!' })
 })
 
 /** Add the necessary endpoints */
 
-export default routerAdmin
+router.get('/total-recolected', async (req, res, next) => {
+  try {
+    const total = await adminService.getTotalRecolected()
+    response.success(res, total)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/total-users', async (req, res, next) => {
+  try {
+    const total = await adminService.getTotalUsers()
+    response.success(res, total)
+  } catch (error) {
+    next(error)
+  }
+})
+
+export default router
