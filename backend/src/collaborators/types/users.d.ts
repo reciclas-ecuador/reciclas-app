@@ -1,3 +1,5 @@
+import { type Collaborator } from '@prisma/client'
+
 export interface CreateUser {
   ci: string
   name: string
@@ -12,10 +14,12 @@ export interface CreateUser {
 export type UpdateUser = Partial<CreateUser>
 
 interface EcoEquivalence {
+  name: string
   value: number
   unit: string
 }
-export interface UserEcoEquivalences {
+
+export interface EcoEquivalences {
   totalRecycled: EcoEquivalence
   trees: EcoEquivalence
   water: EcoEquivalence
@@ -23,4 +27,8 @@ export interface UserEcoEquivalences {
   oil: EcoEquivalence
   co2: EcoEquivalence
   ligthsOn: EcoEquivalence
+}
+export interface UserEcoEquivalences {
+  user: Collaborator
+  ecoEquivalences: EcoEquivalences
 }

@@ -30,4 +30,31 @@ router.get('/total-users', async (req, res, next) => {
   }
 })
 
+router.get('/total-employees', async (req, res, next) => {
+  try {
+    const total = await adminService.getTotalEmployees()
+    response.success(res, total)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/average-attention-quality', async (req, res, next) => {
+  try {
+    const total = await adminService.getAverageAttentionQuality()
+    response.success(res, total)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/total-ecoequivalences', async (req, res, next) => {
+  try {
+    const total = await adminService.getTotalEcoEquivalences()
+    response.success(res, total)
+  } catch (error) {
+    next(error)
+  }
+})
+
 export default router
