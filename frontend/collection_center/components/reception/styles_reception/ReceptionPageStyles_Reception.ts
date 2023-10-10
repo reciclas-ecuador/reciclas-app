@@ -1,18 +1,14 @@
 import Constants from 'expo-constants'
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, Platform, StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
-  backButton: {
-    marginLeft: '3%',
-    marginTop: Constants.statusBarHeight
-  },
   appLogo: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '-11%'
+    marginTop: Constants.statusBarHeight
   },
   centerView: {
-    height: Dimensions.get('window').height - (Dimensions.get('window').height * 0.176),
+    height: Dimensions.get('window').height - (Dimensions.get('window').height * 0.17),
     display: 'flex',
     justifyContent: 'center'
   },
@@ -56,7 +52,18 @@ export const ReceptionPageStyles = StyleSheet.create({
     borderColor: '#BDF26D',
     borderRightWidth: 2,
     borderBottomWidth: 2,
-    borderLeftWidth: 0.1
+    borderLeftWidth: 0.1,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   cameraContent: {
     marginTop: '-110%',
@@ -85,7 +92,7 @@ export const ReceptionPageStyles = StyleSheet.create({
     marginTop: '5%',
     gap: 5
   },
-  joinUserInfoDividir: {
+  joinUserInfoDivider: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
@@ -108,7 +115,18 @@ export const ReceptionPageStyles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: '5%',
     marginTop: '5%',
-    gap: 20
+    gap: 20,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   quantityInput: {
     display: 'flex',

@@ -1,11 +1,16 @@
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, Alert } from 'react-native'
 import { HomePageStyles } from './styles_home/HomePageStyles_Home'
-import { CollectionCenter, CenterEmployee } from '../../../Types'
+import { CollectionCenter, CenterEmployee, RootStackParamList } from '../../../Types'
 import { useEffect, useState } from 'react'
 import { getToDataCollectionCenter, getToDataCenterEmployee } from '../../services'
 import { Gradient } from '../../../global'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-export function HomePageCollectionCenter () {
+type HomePageCollectionCenterProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'HomePage_CollectionCenter'>;
+}
+
+export function HomePageCollectionCenter ({ navigation }: HomePageCollectionCenterProps) {
   const [dataCenterEmployee, setDataCenterEmployee] = useState<CenterEmployee>()
   const [dataCollectionCenter, setDataCollectionCenter] = useState<CollectionCenter>()
 
@@ -17,8 +22,27 @@ export function HomePageCollectionCenter () {
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (dataCenterEmployee === undefined) {
+      fetchData()
+    }
+
+    const handleBack = () => navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault()
+      Alert.alert(
+        '¿Cerrar sesión?',
+        'Estás por salir de la pantalla principal. ¿Estás seguro de querer cerrar sesión?',
+        [
+          { text: 'No cerrar sesión', onPress: () => {} },
+          {
+            text: 'Cerrar sesión',
+            // Continue with the original action that triggered the listener
+            onPress: () => navigation.dispatch(e.data.action)
+          }
+        ]
+      )
+    })
+    handleBack()
+  }, [navigation])
 
   return (
     <Gradient>
@@ -33,7 +57,7 @@ export function HomePageCollectionCenter () {
           <Text style={HomePageStyles.quantity}>{dataCollectionCenter?.body?.name?.length} Kg</Text>
         </View>
         <View style={HomePageStyles.grayContainer}>
-          <Text style={{ marginVertical: '15%' }}>GRAFICO</Text>
+          <Text style={{ marginVertical: '22%' }}>GRAFICO</Text>
         </View>
       </View>
     </Gradient>

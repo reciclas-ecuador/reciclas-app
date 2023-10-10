@@ -1,4 +1,6 @@
+export * from './CollectionCenter'
 export * from './Menu_CollectionCenter'
+export * from './UserIdentification_CollectionCenter'
 export * from './components/home'
 export * from './components/home/styles_home/HomePageStyles_Home'
 export * from './components'
@@ -8,5 +10,5 @@ export * from './components/reception'
 export * from './components/reception/styles_reception/ReceptionPageStyles_Reception'
 export * from './components/signup'
 export * from './components/signup/styles_signup/SignupPageStyles_Signup'
-// export * from './models/collection_model'
+// export * from './models/collection_model';
 export * from './services'

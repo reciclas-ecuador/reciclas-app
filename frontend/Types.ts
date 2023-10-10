@@ -8,6 +8,16 @@ export interface Data {
     thumbnailUrl: string;
 }
 
+// Navigation
+export type RootStackParamList = {
+    LoginPage_CollectionCenter: undefined;
+    SignupPage_CollectionCenter: undefined;
+    HomePage_CollectionCenter: undefined;
+    ReceptionPage_CollectionCenter: undefined;
+    Menu_CollectionCenter: undefined;
+    UserIdentification_CollectionCenter: undefined;
+};
+
 // General
 export interface Error {
     statusCode: number;

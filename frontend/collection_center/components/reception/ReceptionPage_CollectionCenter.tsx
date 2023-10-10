@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
-import { Previous, ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
+import { ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
-import { postQuantity } from '../../services'
+import { postLogActionCollaborator, postObservation } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { Gradient, Button, Input, KeyboardAvoidingWrapper } from '../../../global'
 
@@ -15,7 +15,15 @@ export function ReceptionPageCollectionCenter () {
   const [openCamera, setOpenCamera] = useState(false)
 
   const registerQuantity = async () => {
-    postQuantity(user, quantity, observation)
+    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, '1', 'marmenthor@gmail.com')
+    if (observation !== '') {
+      postObservation(observation, currentLogActionCollaboratorId)
+    }
+    setQuantity('')
+    setObservation('')
+    setUser('')
+    setScanned(false)
+    setOpenCamera(false)
   }
 
   useEffect(() => {
@@ -57,9 +65,6 @@ export function ReceptionPageCollectionCenter () {
     <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
-          <TouchableOpacity style={ReceptionPageStyles.backButton}>
-            <Previous width={40} height={40} />
-          </TouchableOpacity>
           <ReciclasLogo style={ReceptionPageStyles.appLogo} />
           <View style={ReceptionPageStyles.centerView}>
             <View style={[ReceptionPageStyles.content, openCamera ? { borderTopRightRadius: 175 } : null]}>
@@ -71,7 +76,7 @@ export function ReceptionPageCollectionCenter () {
               {scanned &&
                 <View style={ReceptionPageStyles.user}>
                   <User />
-                  <View style={ReceptionPageStyles.joinUserInfoDividir}>
+                  <View style={ReceptionPageStyles.joinUserInfoDivider}>
                     <View style={ReceptionPageStyles.userDivider} />
                     <Text style={ReceptionPageStyles.userInfo}>{user}</Text>
                     <View style={ReceptionPageStyles.userDivider} />
@@ -110,7 +115,9 @@ export function ReceptionPageCollectionCenter () {
                   <Input
                     defaultText='Cantidad de botellas'
                     icon={<TrashCan />}
+                    keyboard='numeric'
                     setInputText={setQuantity}
+                    defaultValue={quantity}
                   />
                   <Text style={ReceptionPageStyles.kg}>Kg</Text>
                 </View>
@@ -118,6 +125,7 @@ export function ReceptionPageCollectionCenter () {
                   defaultText='Observación'
                   icon={<Comment />}
                   setInputText={setObservation}
+                  defaultValue={observation}
                 />
                 {scanned &&
                   <Button text='Registrar' handlePress={registerQuantity} />}

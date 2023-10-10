@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 
 export const SignupPageStyles = StyleSheet.create({
   backButton: {
     marginLeft: '3%',
+    alignSelf: 'flex-start',
     marginTop: Constants.statusBarHeight
   },
   appLogo: {
@@ -26,7 +27,18 @@ export const SignupPageStyles = StyleSheet.create({
     backgroundColor: '#494D4F',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    flex: 1
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   processText: {
     color: 'white',
