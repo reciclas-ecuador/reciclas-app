@@ -3,10 +3,11 @@ import { SignupPageStyles } from './styles_signup/SignupPageStyles_Signup'
 import { User, Mail, Previous, ReciclasLogo, Phone, Location } from '../../../assets'
 import { useState } from 'react'
 import { postCenterEmployee } from '../../services'
-import { KeyboardAvoidingWrapper, Gradient, Button, Input } from '../../../global'
+import { KeyboardAvoidingWrapper, Gradient, Input } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../Types'
 import { MessageCollectionCenter } from '../../modals'
+import { Button } from 'react-native-paper'
 
 type SignupPageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'SignupPage_CollectionCenter'>;
@@ -85,7 +86,16 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
-              <Button text='Registrarse' handlePress={registerCenterEmployee} />
+              <Button
+                mode='outlined'
+                buttonColor='#FFF'
+                textColor='#77A649'
+                onPress={registerCenterEmployee}
+                labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                style={{ paddingHorizontal: 25 }}
+              >
+                Registrar
+              </Button>
             </View>
           </View>
         </View>

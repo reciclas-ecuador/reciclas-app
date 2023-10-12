@@ -2,9 +2,10 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { LoginPageStyles } from './styles_login/LoginPageStyles_Login'
 import { Password, ReciclasLogo, User } from '../../../assets'
 import { useState } from 'react'
-import { KeyboardAvoidingWrapper, Gradient, Input, Button } from '../../../global'
+import { KeyboardAvoidingWrapper, Gradient, Input } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../Types'
+import { Button } from 'react-native-paper'
 
 type LoginPageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'LoginPage_CollectionCenter'>;
@@ -54,7 +55,16 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
               </Text>
             </TouchableOpacity>
             <View style={LoginPageStyles.loginButton}>
-              <Button text='Iniciar sesión' handlePress={loginUser} />
+              <Button
+                mode='outlined'
+                buttonColor='#FFF'
+                textColor='#77A649'
+                onPress={loginUser}
+                labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                style={{ paddingHorizontal: 25 }}
+              >
+                Iniciar sesión
+              </Button>
             </View>
             <TouchableOpacity style={LoginPageStyles.otherOptionsContainer}>
               <Text style={LoginPageStyles.otherOptionsText}>

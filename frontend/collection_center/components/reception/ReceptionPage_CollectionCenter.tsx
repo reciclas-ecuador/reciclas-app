@@ -4,8 +4,9 @@ import { ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
 import { postLogActionCollaborator, postObservation } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { Gradient, Button, Input, KeyboardAvoidingWrapper } from '../../../global'
+import { Gradient, Input, KeyboardAvoidingWrapper } from '../../../global'
 import { MessageCollectionCenter, ScanQRCollectionCenter } from '../../modals'
+import { Button } from 'react-native-paper'
 
 export function ReceptionPageCollectionCenter () {
   const [quantity, setQuantity] = useState('')
@@ -117,8 +118,26 @@ export function ReceptionPageCollectionCenter () {
                 />
                 {scanned &&
                   <View style={ReceptionPageStyles.optionButtons}>
-                    <Button text='Cancelar' buttonColor='#292D32' handlePress={() => { setScanned(false); setOpenCamera(false); setUser('') }} />
-                    <Button text='Registrar' handlePress={registerQuantity} />
+                    <Button
+                      mode='outlined'
+                      buttonColor='#00000030'
+                      textColor='#BDF26D'
+                      onPress={() => { setScanned(false); setOpenCamera(false); setUser('') }}
+                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      style={ReceptionPageStyles.button}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      mode='outlined'
+                      buttonColor='#76b54430'
+                      textColor='#BDF26D'
+                      onPress={registerQuantity}
+                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      style={ReceptionPageStyles.button}
+                    >
+                      Registrar
+                    </Button>
                   </View>}
               </View>
             </View>

@@ -106,8 +106,12 @@ export const ReceptionPageStyles = StyleSheet.create({
   optionButtons: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     marginHorizontal: '12%',
-    gap: 20
+    gap: 15
+  },
+  button: {
+    paddingHorizontal: 5,
+    borderColor: '#000',
+    borderWidth: 0.5
   }
 })
