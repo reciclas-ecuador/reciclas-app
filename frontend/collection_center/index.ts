@@ -10,5 +10,6 @@ export * from './components/reception'
 export * from './components/reception/styles_reception/ReceptionPageStyles_Reception'
 export * from './components/signup'
 export * from './components/signup/styles_signup/SignupPageStyles_Signup'
+export * from './modals'
 // export * from './models/collection_model';
 export * from './services'

@@ -38,55 +38,6 @@ export const ReceptionPageStyles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
-  qrCameraContainer: {
-    height: 320,
-    borderTopRightRadius: 175,
-    borderBottomLeftRadius: 175,
-    borderBottomRightRadius: 10,
-    borderTopLeftRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    marginHorizontal: '5%',
-    marginTop: '5%',
-    borderColor: '#BDF26D',
-    borderRightWidth: 2,
-    borderBottomWidth: 2,
-    borderLeftWidth: 0.1,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4
-      },
-      android: {
-        elevation: 5
-      }
-    })
-  },
-  cameraContent: {
-    marginTop: '-110%',
-    marginBottom: '27%',
-    alignItems: 'center',
-    gap: 20
-  },
-  qrColumnObjective: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 50
-  },
-  qrRowObjective: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 50
-  },
-  cancelButton: {
-    alignSelf: 'center',
-    marginTop: '5%'
-  },
   user: {
     alignItems: 'center',
     marginTop: '5%',
@@ -151,5 +102,12 @@ export const ReceptionPageStyles = StyleSheet.create({
     color: 'white',
     marginTop: '100%',
     fontWeight: 'bold'
+  },
+  optionButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginHorizontal: '12%',
+    gap: 20
   }
 })

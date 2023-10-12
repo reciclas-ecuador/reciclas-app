@@ -16,7 +16,7 @@ export const SignupPageStyles = StyleSheet.create({
     color: 'white',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginVertical: '10%',
+    marginVertical: '5%',
     fontSize: 45,
     alignContent: 'center',
     textShadowColor: 'rgba(119, 166, 73, 1)',
@@ -53,7 +53,7 @@ export const SignupPageStyles = StyleSheet.create({
     textShadowRadius: 4
   },
   divider: {
-    borderBottomWidthColor: 'black',
+    borderBottomColor: 'black',
     borderBottomWidth: 1,
     marginTop: '4%',
     width: '90%',
@@ -68,6 +68,6 @@ export const SignupPageStyles = StyleSheet.create({
   },
   signupButton: {
     alignItems: 'center',
-    marginBottom: '11%'
+    marginBottom: '21%'
   }
 })

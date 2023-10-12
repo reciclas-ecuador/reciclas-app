@@ -6,6 +6,7 @@ import { postCenterEmployee } from '../../services'
 import { KeyboardAvoidingWrapper, Gradient, Button, Input } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../Types'
+import { MessageCollectionCenter } from '../../modals'
 
 type SignupPageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'SignupPage_CollectionCenter'>;
@@ -17,6 +18,7 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
   const [centerEmployeeEmail, setCenterEmployeeEmail] = useState('')
   const [centerEmployeePhone, setCenterEmployeePhone] = useState('')
   const [centerEmployeeLocation, setCenterEmployeeLocation] = useState('')
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
 
   const registerCenterEmployee = async () => {
     postCenterEmployee(centerEmployeeEmail, centerEmployeeName, centerEmployeeLastName, centerEmployeePhone, centerEmployeeLocation)
@@ -25,11 +27,18 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
     setCenterEmployeeEmail('')
     setCenterEmployeePhone('')
     setCenterEmployeeLocation('')
-    navigation.navigate('LoginPage_CollectionCenter')
+    setShowSuccessModal(true)
   }
 
   return (
     <Gradient>
+      <MessageCollectionCenter
+        title='¡Registro exitoso!'
+        description='El registro del empleado del centro de recolección se ha realizado con éxito.'
+        handlePress={() => navigation.navigate('LoginPage_CollectionCenter')}
+        visible={showSuccessModal}
+        setVisible={setShowSuccessModal}
+      />
       <KeyboardAvoidingWrapper>
         <View>
           <TouchableOpacity style={SignupPageStyles.backButton} onPress={() => navigation.navigate('LoginPage_CollectionCenter')}>

@@ -8,7 +8,7 @@ const Tab = createMaterialBottomTabNavigator()
 
 function MyTabs () {
   const theme = useTheme()
-  theme.colors.secondaryContainer = 'transperent'
+  theme.colors.secondaryContainer = 'transparent'
 
   return (
     <Tab.Navigator

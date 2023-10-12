@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { postLogActionCollaborator, postObservation } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { Gradient, Button, Input, KeyboardAvoidingWrapper } from '../../../global'
+import { MessageCollectionCenter, ScanQRCollectionCenter } from '../../modals'
 
 export function ReceptionPageCollectionCenter () {
   const [quantity, setQuantity] = useState('')
@@ -13,6 +14,7 @@ export function ReceptionPageCollectionCenter () {
   const [hasPermission, setHasPermission] = useState(true)
   const [scanned, setScanned] = useState(false)
   const [openCamera, setOpenCamera] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
 
   const registerQuantity = async () => {
     const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, '1', 'marmenthor@gmail.com')
@@ -24,6 +26,7 @@ export function ReceptionPageCollectionCenter () {
     setUser('')
     setScanned(false)
     setOpenCamera(false)
+    setShowSuccessModal(true)
   }
 
   useEffect(() => {
@@ -63,12 +66,19 @@ export function ReceptionPageCollectionCenter () {
 
   return (
     <Gradient>
+      <MessageCollectionCenter
+        title='¡Registro exitoso!'
+        description='El registro de botellas se ha realizado con éxito.'
+        handlePress={() => {}}
+        visible={showSuccessModal}
+        setVisible={setShowSuccessModal}
+      />
       <KeyboardAvoidingWrapper>
         <View>
           <ReciclasLogo style={ReceptionPageStyles.appLogo} />
           <View style={ReceptionPageStyles.centerView}>
-            <View style={[ReceptionPageStyles.content, openCamera ? { borderTopRightRadius: 175 } : null]}>
-              {scanned &&
+            <View style={ReceptionPageStyles.content}>
+              {!openCamera &&
                 <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }}>
                   <Scan width={80} height={80} />
                   <Text style={ReceptionPageStyles.qrText}>Escanear QR</Text>
@@ -82,34 +92,12 @@ export function ReceptionPageCollectionCenter () {
                     <View style={ReceptionPageStyles.userDivider} />
                   </View>
                 </View>}
-              {!scanned && !openCamera &&
-                <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }} disabled={scanned}>
-                  <Scan width={80} height={80} />
-                  <Text style={ReceptionPageStyles.qrText}>Escanear QR</Text>
-                </TouchableOpacity>}
-              {!scanned && openCamera &&
-                <View style={ReceptionPageStyles.qrCameraContainer}>
-                  <BarCodeScanner
-                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                    style={{ width: 500, height: 500, flex: 1 }}
-                  />
-                  <View style={ReceptionPageStyles.cameraContent}>
-                    <View style={ReceptionPageStyles.qrColumnObjective}>
-                      <View style={ReceptionPageStyles.qrRowObjective}>
-                        <View style={{ height: 50, width: 50, borderLeftWidth: 7, borderTopWidth: 2, borderColor: '#BDF26D', borderTopLeftRadius: 20 }} />
-                        <View style={{ height: 50, width: 50, borderRightWidth: 2, borderTopWidth: 7, borderColor: '#BDF26D', borderTopRightRadius: 20 }} />
-                      </View>
-                      <View style={ReceptionPageStyles.qrRowObjective}>
-                        <View style={{ height: 50, width: 50, borderLeftWidth: 2, borderBottomWidth: 7, borderColor: '#BDF26D', borderBottomLeftRadius: 20 }} />
-                        <View style={{ height: 50, width: 50, borderRightWidth: 7, borderBottomWidth: 2, borderColor: '#BDF26D', borderBottomRightRadius: 20 }} />
-                      </View>
-                    </View>
-                  </View>
-                </View>}
-              {!scanned && openCamera &&
-                <View style={ReceptionPageStyles.cancelButton}>
-                  <Button text='Cancelar' handlePress={() => { setScanned(false); setOpenCamera(false) }} />
-                </View>}
+              <ScanQRCollectionCenter
+                handleScan={handleBarCodeScanned}
+                handlePress={() => {}}
+                visible={!scanned && openCamera}
+                setVisible={(visible: boolean) => { setScanned(visible); setOpenCamera(visible) }}
+              />
               <View style={ReceptionPageStyles.inputSection}>
                 <View style={ReceptionPageStyles.quantityInput}>
                   <Input
@@ -128,7 +116,10 @@ export function ReceptionPageCollectionCenter () {
                   defaultValue={observation}
                 />
                 {scanned &&
-                  <Button text='Registrar' handlePress={registerQuantity} />}
+                  <View style={ReceptionPageStyles.optionButtons}>
+                    <Button text='Cancelar' buttonColor='#292D32' handlePress={() => { setScanned(false); setOpenCamera(false); setUser('') }} />
+                    <Button text='Registrar' handlePress={registerQuantity} />
+                  </View>}
               </View>
             </View>
           </View>

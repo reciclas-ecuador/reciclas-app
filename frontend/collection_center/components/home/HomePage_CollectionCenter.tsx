@@ -1,10 +1,11 @@
-import { View, Image, Text, Alert } from 'react-native'
+import { View, Image, Text } from 'react-native'
 import { HomePageStyles } from './styles_home/HomePageStyles_Home'
 import { CollectionCenter, CenterEmployee, RootStackParamList } from '../../../Types'
 import { useEffect, useState } from 'react'
 import { getToDataCollectionCenter, getToDataCenterEmployee } from '../../services'
 import { Gradient } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { ConfirmationCollectionCenter } from '../../modals'
 
 type HomePageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'HomePage_CollectionCenter'>;
@@ -13,6 +14,7 @@ type HomePageCollectionCenterProps = {
 export function HomePageCollectionCenter ({ navigation }: HomePageCollectionCenterProps) {
   const [dataCenterEmployee, setDataCenterEmployee] = useState<CenterEmployee>()
   const [dataCollectionCenter, setDataCollectionCenter] = useState<CollectionCenter>()
+  const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false)
 
   async function fetchData () {
     const dataCenterEmployeeBasic = await getToDataCenterEmployee('antho@email.com')
@@ -28,24 +30,23 @@ export function HomePageCollectionCenter ({ navigation }: HomePageCollectionCent
 
     const handleBack = () => navigation.addListener('beforeRemove', (e) => {
       e.preventDefault()
-      Alert.alert(
-        '¿Cerrar sesión?',
-        'Estás por salir de la pantalla principal. ¿Estás seguro de querer cerrar sesión?',
-        [
-          { text: 'No cerrar sesión', onPress: () => {} },
-          {
-            text: 'Cerrar sesión',
-            // Continue with the original action that triggered the listener
-            onPress: () => navigation.dispatch(e.data.action)
-          }
-        ]
-      )
+      setShowConfirmationModal(true)
     })
     handleBack()
   }, [navigation])
 
   return (
     <Gradient>
+      <ConfirmationCollectionCenter
+        onConfirm={() => navigation.navigate('LoginPage_CollectionCenter')}
+        onNotConfirm={() => {}}
+        title='¿Cerrar sesión?'
+        description='Estás por salir de la pantalla principal, ¿estás seguro de querer cerrar sesión?'
+        confirmText='Cerrar sesión'
+        notConfirmText='Cancelar'
+        visible={showConfirmationModal}
+        setVisible={setShowConfirmationModal}
+      />
       <View style={HomePageStyles.user}>
         <Image style={HomePageStyles.userImage} source={{ uri: 'https://static.wikia.nocookie.net/multiversus/images/7/71/Evil_Morty_Profile_Icon.png/revision/latest?cb=20220816020218' }} />
         <Text style={HomePageStyles.userName}>¡Hola, {dataCenterEmployee?.body?.name.split(' ')[0]}!</Text>
