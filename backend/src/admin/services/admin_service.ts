@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
 import { type EcoEquivalences } from '../../collaborators/types/users'
+import { type UsersInfo } from '../types/admin'
 
 export class AdminService {
   private readonly prisma = new PrismaClient()
@@ -17,10 +18,25 @@ export class AdminService {
     }
   }
 
-  async getTotalUsers(): Promise<{ total: number }> {
-    const total = await this.prisma.collaborator.count()
+  async getUsersInfo(): Promise<UsersInfo> {
+    const [total, totalActive, totalInactive] = await Promise.all([
+      await this.prisma.collaborator.count(),
+      await this.prisma.collaborator.count({
+        where: {
+          status: 'active'
+        }
+      }),
+      await this.prisma.collaborator.count({
+        where: {
+          status: 'inactive'
+        }
+      })
+    ])
+
     return {
-      total
+      total,
+      totalActive,
+      totalInactive
     }
   }
 

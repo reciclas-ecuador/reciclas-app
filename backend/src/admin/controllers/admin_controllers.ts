@@ -21,9 +21,9 @@ router.get('/total-recolected', async (req, res, next) => {
   }
 })
 
-router.get('/total-users', async (req, res, next) => {
+router.get('/users-info', async (req, res, next) => {
   try {
-    const total = await adminService.getTotalUsers()
+    const total = await adminService.getUsersInfo()
     response.success(res, total)
   } catch (error) {
     next(error)

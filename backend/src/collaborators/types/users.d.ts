@@ -5,6 +5,7 @@ export interface CreateUser {
   name: string
   lastname: string
   email: string
+  status: string
   phone: string
   province: string
   city: string
