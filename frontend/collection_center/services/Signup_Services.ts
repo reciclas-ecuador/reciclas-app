@@ -1,16 +1,16 @@
-export const postUser = (userName: string, userLastName: string, userMail: string) => {
-  const url = 'https://jsonplaceholder.typicode.com/posts'
+export const postCenterEmployee = (mail: string, name: string, lastName: string, phone: string, collectCenterId: string) => {
+  const url = 'http://192.168.1.100:3000/api/v1/center-employees'
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({
-      title: `${userName} - ${userLastName}`,
-      body: userMail,
-      userId: 1
+      email: mail,
+      name,
+      lastname: lastName,
+      phone,
+      collectCenterId
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
     }
   })
-    .then((response) => response.json())
-    .then((json) => console.log(json))
 }

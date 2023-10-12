@@ -1,17 +1,21 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { HomePageCollectionCenter, ReceptionPageCollectionCenter } from './components'
 import { HomeCollectionCenter, ReceptionCollectionCenter } from '../assets'
+import { useTheme } from 'react-native-paper'
 
 const Tab = createMaterialBottomTabNavigator()
 
 function MyTabs () {
+  const theme = useTheme()
+  theme.colors.secondaryContainer = 'transparent'
+
   return (
     <Tab.Navigator
       initialRouteName='HomePage_CollectionCenter'
-      activeColor='#FFFFFF'
-      barStyle={{ backgroundColor: '#494D4F', height: '8%' }}
+      activeColor='#BDF26D'
+      inactiveColor='#FFFFFF70'
+      barStyle={{ backgroundColor: '#000', height: '8%' }}
       shifting
     >
       <Tab.Screen
@@ -20,7 +24,7 @@ function MyTabs () {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <HomeCollectionCenter />
+            <HomeCollectionCenter fill='none' stroke={color} strokeWidth={2} />
           )
         }}
       />
@@ -30,9 +34,8 @@ function MyTabs () {
         options={{
           tabBarLabel: 'Recepción',
           tabBarIcon: ({ color }) => (
-            <ReceptionCollectionCenter />
-          ),
-          tabBarColor: '#FFFFFF'
+            <ReceptionCollectionCenter fill={color} />
+          )
         }}
       />
     </Tab.Navigator>
@@ -42,9 +45,7 @@ function MyTabs () {
 export function MenuCollectionCenter () {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
+      <MyTabs />
     </GestureHandlerRootView>
   )
 }

@@ -2,14 +2,24 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { LoginPageStyles } from './styles_login/LoginPageStyles_Login'
 import { Password, ReciclasLogo, User } from '../../../assets'
 import { useState } from 'react'
-import { KeyboardAvoidingWrapper, Gradient, Input, Button } from '../../../global'
+import { KeyboardAvoidingWrapper, Gradient, Input } from '../../../global'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../../Types'
+import { Button } from 'react-native-paper'
 
-export function LoginPageCollectionCenter () {
-  const [user, setUser] = useState('')
+type LoginPageCollectionCenterProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'LoginPage_CollectionCenter'>;
+}
+
+export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCenterProps) {
+  const [centerEmployee, setCenterEmployee] = useState('')
   const [password, setPassword] = useState('')
 
   const loginUser = async () => {
-    console.log(user, password)
+    console.log(centerEmployee, password)
+    setCenterEmployee('')
+    setPassword('')
+    navigation.navigate('Menu_CollectionCenter')
   }
 
   return (
@@ -29,19 +39,35 @@ export function LoginPageCollectionCenter () {
               <Input
                 defaultText='Nombre de usuario'
                 icon={<User />}
-                setInputText={setUser}
+                setInputText={setCenterEmployee}
+                defaultValue={centerEmployee}
               />
               <Input
                 defaultText='Contraseña'
                 icon={<Password />}
                 setInputText={setPassword}
+                defaultValue={password}
               />
             </View>
+            <TouchableOpacity style={LoginPageStyles.otherOptionsContainer} onPress={() => navigation.navigate('SignupPage_CollectionCenter')}>
+              <Text style={LoginPageStyles.otherOptionsText}>
+                ¿No tienes una cuenta? Regístrate
+              </Text>
+            </TouchableOpacity>
             <View style={LoginPageStyles.loginButton}>
-              <Button text='Iniciar sesión' handlePress={loginUser} />
+              <Button
+                mode='outlined'
+                buttonColor='#FFF'
+                textColor='#77A649'
+                onPress={loginUser}
+                labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                style={{ paddingHorizontal: 25 }}
+              >
+                Iniciar sesión
+              </Button>
             </View>
-            <TouchableOpacity>
-              <Text style={LoginPageStyles.forgotPassword}>
+            <TouchableOpacity style={LoginPageStyles.otherOptionsContainer}>
+              <Text style={LoginPageStyles.otherOptionsText}>
                 ¿Olvidaste tu contraseña?
               </Text>
             </TouchableOpacity>
