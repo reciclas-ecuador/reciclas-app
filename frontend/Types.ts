@@ -8,8 +8,77 @@ export interface Data {
     thumbnailUrl: string;
 }
 
-// Graphql News
+// Navigation
+export type RootStackParamList = {
+    LoginPage_CollectionCenter: undefined;
+    SignupPage_CollectionCenter: undefined;
+    HomePage_CollectionCenter: undefined;
+    ReceptionPage_CollectionCenter: undefined;
+    Menu_CollectionCenter: undefined;
+    UserIdentification_CollectionCenter: undefined;
+};
 
+// General
+export interface Error {
+    statusCode: number;
+    error: string;
+    message: string;
+}
+
+// User
+export interface UserBody {
+    email: string;
+    ci: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    status: string;
+    province: string;
+    city: string;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface User {
+    error: Error;
+    body: UserBody;
+}
+
+// Collection Center
+export interface CollectionCenterBody {
+    id: number;
+    name: string;
+    hash: string;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
+    locationId: number;
+    managerEmail: string;
+}
+
+export interface CollectionCenter {
+    error: Error;
+    body: CollectionCenterBody;
+}
+
+// Center employee
+export interface CenterEmployeeBody {
+    email: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    createdAt: string;
+    updatedAt: string;
+    collectCenterId: number;
+}
+
+export interface CenterEmployee {
+    error: Error;
+    body: CenterEmployeeBody;
+}
+
+// Graphql News
 export interface NewsData {
     data: Datos;
     extensions: Extensions;

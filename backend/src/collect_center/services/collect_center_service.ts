@@ -48,6 +48,29 @@ export default class CollectCenterService {
     })
   }
 
+  async setManager(id: number, managerEmail: string): Promise<CollectCenter> {
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: { id }
+    })
+
+    if (collectCenter === null) {
+      throw boom.notFound('Collect center not found')
+    }
+
+    const manager = await this.prisma.centerEmployee.findFirst({
+      where: { email: managerEmail }
+    })
+
+    if (manager === null) {
+      throw boom.notFound('Manager not found')
+    }
+
+    return await this.prisma.collectCenter.update({
+      where: { id },
+      data: { managerEmail }
+    })
+  }
+
   async update(id: number, changes: UpdateCollectCenter): Promise<CollectCenter> {
     const collectCenter = await this.prisma.collectCenter.findFirst({
       where: { id }
@@ -77,6 +100,17 @@ export default class CollectCenterService {
 
   private async validLocationAndManager(locationId: number, managerEmail: string): Promise<boolean> {
     // valid location and manager in a parallel way
+
+    if (managerEmail === undefined || managerEmail === null) {
+      const location = await this.prisma.location.findFirst({ where: { id: locationId } })
+
+      if (location === null) {
+        return false
+      }
+
+      return true
+    }
+
     const [location, manager] = await Promise.all([
       this.prisma.location.findFirst({ where: { id: locationId } }),
       this.prisma.centerEmployee.findFirst({ where: { email: managerEmail } })

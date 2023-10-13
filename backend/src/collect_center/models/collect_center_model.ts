@@ -12,7 +12,7 @@ export const createCollectCenter = Joi.object({
   name: name.required(),
   hash: hash.required(),
   locationId: locationId.required(),
-  managerEmail: managerEmail.required()
+  managerEmail
 })
 
 export const updateCollectCenter = Joi.object({
@@ -25,6 +25,10 @@ export const updateCollectCenter = Joi.object({
 
 export const getByIdSchema = Joi.object({
   id: id.required()
+})
+
+export const setCollectCenterManagerSchema = Joi.object({
+  managerEmail: managerEmail.required()
 })
 
 export const getByLocationIdSchema = Joi.object({

@@ -2,7 +2,7 @@ import { Router } from 'express'
 import LogActionsCollaboratorsService from '../services/log_action_collaborators_service'
 import { Response } from '../../../libs/response'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
-import { CreateLogActionCollaboratorSchema, UpdateLogActionCollaboratorSchema, getByIdSchema, getByUserSchema } from '../models/log_actions_collaborators_model'
+import { CreateLogActionCollaboratorSchema, UpdateLogActionCollaboratorSchema, getAttentionQualitySchema, getByIdSchema, getByUserSchema } from '../models/log_actions_collaborators_model'
 
 const router = Router()
 const logActionCollaboratorService = new LogActionsCollaboratorsService()
@@ -72,6 +72,25 @@ router.patch(
     try {
       const { id } = req.params
       const logActionCollaborator = await logActionCollaboratorService.update(Number(id), req.body)
+      response.success(res, logActionCollaborator)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.patch(
+  '/:id/attention-quality',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  validationHandler(getByIdSchema, 'params'),
+  validationHandler(getAttentionQualitySchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const logActionCollaborator = await logActionCollaboratorService.setAttentionQuality(
+        Number(id),
+        req.body.attentionQuality
+      )
       response.success(res, logActionCollaborator)
     } catch (error) {
       next(error)

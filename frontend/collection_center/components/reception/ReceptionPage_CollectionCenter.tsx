@@ -1,26 +1,33 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
-import { Previous, ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
+import { ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
-import { postQuantity } from '../../services'
+import { postLogActionCollaborator, postObservation } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { Gradient, Button, Input, KeyboardAvoidingWrapper } from '../../../global'
-
-interface ScanData {
-  _id: string;
-}
+import { Gradient, Input, KeyboardAvoidingWrapper } from '../../../global'
+import { MessageCollectionCenter, ScanQRCollectionCenter } from '../../modals'
+import { Button } from 'react-native-paper'
 
 export function ReceptionPageCollectionCenter () {
   const [quantity, setQuantity] = useState('')
   const [observation, setObservation] = useState('')
   const [user, setUser] = useState('')
-  const [scanData, setScanData] = useState<ScanData>()
   const [hasPermission, setHasPermission] = useState(true)
   const [scanned, setScanned] = useState(false)
   const [openCamera, setOpenCamera] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
 
   const registerQuantity = async () => {
-    postQuantity(user, quantity, observation)
+    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, '1', 'marmenthor@gmail.com')
+    if (observation !== '') {
+      postObservation(observation, currentLogActionCollaboratorId)
+    }
+    setQuantity('')
+    setObservation('')
+    setUser('')
+    setScanned(false)
+    setOpenCamera(false)
+    setShowSuccessModal(true)
   }
 
   useEffect(() => {
@@ -40,11 +47,9 @@ export function ReceptionPageCollectionCenter () {
     }
   }
 
-  const handleBarCodeScanned = (data: any) => {
+  const handleBarCodeScanned = (qrInfo: any) => {
     try {
-      const _data = JSON.parse(data)
-      setScanData(_data)
-      setUser(_data._id)
+      setUser(qrInfo.data)
       setScanned(true)
       setOpenCamera(false)
     } catch (error) {
@@ -62,64 +67,79 @@ export function ReceptionPageCollectionCenter () {
 
   return (
     <Gradient>
+      <MessageCollectionCenter
+        title='¡Registro exitoso!'
+        description='El registro de botellas se ha realizado con éxito.'
+        handlePress={() => {}}
+        visible={showSuccessModal}
+        setVisible={setShowSuccessModal}
+      />
       <KeyboardAvoidingWrapper>
         <View>
-          <TouchableOpacity style={ReceptionPageStyles.backButton}>
-            <Previous width={40} height={40} />
-          </TouchableOpacity>
           <ReciclasLogo style={ReceptionPageStyles.appLogo} />
-          <View style={ReceptionPageStyles.content}>
-            {scanned &&
-              <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }}>
-                <Scan width={100} height={100} />
-                <Text style={ReceptionPageStyles.qrText}>Escanear de nuevo</Text>
-              </TouchableOpacity>}
-            {scanned &&
-              <View style={ReceptionPageStyles.user}>
-                <User />
-                <Text style={ReceptionPageStyles.userInfo}>{scanData?._id}</Text>
-              </View>}
-            {!scanned && !openCamera &&
-              <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }} disabled={scanned}>
-                <Scan width={100} height={100} />
-                <Text style={ReceptionPageStyles.qrText}>Escanear QR</Text>
-              </TouchableOpacity>}
-            {!scanned && openCamera &&
-              <View style={ReceptionPageStyles.qrCameraContainer}>
-                <BarCodeScanner
-                  onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                  style={{ width: 500, height: 500, flex: 1 }}
-                />
-                <View style={ReceptionPageStyles.cameraContent}>
-                  <View style={ReceptionPageStyles.qrColumnObjective}>
-                    <View style={ReceptionPageStyles.qrRowObjective}>
-                      <View style={{ height: 50, width: 50, borderLeftWidth: 7, borderTopWidth: 2, borderColor: '#BDF26D', borderTopLeftRadius: 20 }} />
-                      <View style={{ height: 50, width: 50, borderRightWidth: 2, borderTopWidth: 7, borderColor: '#BDF26D', borderTopRightRadius: 20 }} />
-                    </View>
-                    <View style={ReceptionPageStyles.qrRowObjective}>
-                      <View style={{ height: 50, width: 50, borderLeftWidth: 2, borderBottomWidth: 7, borderColor: '#BDF26D', borderBottomLeftRadius: 20 }} />
-                      <View style={{ height: 50, width: 50, borderRightWidth: 7, borderBottomWidth: 2, borderColor: '#BDF26D', borderBottomRightRadius: 20 }} />
-                    </View>
-                  </View>
-                  <Button text='Cancelar' handlePress={() => { setScanned(false); setOpenCamera(false) }} />
-                </View>
-              </View>}
-            <View style={ReceptionPageStyles.inputSection}>
-              <View style={ReceptionPageStyles.quantityInput}>
-                <Input
-                  defaultText='Cantidad de botellas'
-                  icon={<TrashCan />}
-                  setInputText={setQuantity}
-                />
-                <Text style={ReceptionPageStyles.kg}>Kg</Text>
-              </View>
-              <Input
-                defaultText='Observación'
-                icon={<Comment />}
-                setInputText={setObservation}
-              />
+          <View style={ReceptionPageStyles.centerView}>
+            <View style={ReceptionPageStyles.content}>
+              {!openCamera &&
+                <TouchableOpacity style={ReceptionPageStyles.scanQr} onPress={() => { setScanned(false); setOpenCamera(true) }}>
+                  <Scan width={80} height={80} />
+                  <Text style={ReceptionPageStyles.qrText}>Escanear QR</Text>
+                </TouchableOpacity>}
               {scanned &&
-                <Button text='Registrar' handlePress={registerQuantity} />}
+                <View style={ReceptionPageStyles.user}>
+                  <User />
+                  <View style={ReceptionPageStyles.joinUserInfoDivider}>
+                    <View style={ReceptionPageStyles.userDivider} />
+                    <Text style={ReceptionPageStyles.userInfo}>{user}</Text>
+                    <View style={ReceptionPageStyles.userDivider} />
+                  </View>
+                </View>}
+              <ScanQRCollectionCenter
+                handleScan={handleBarCodeScanned}
+                handlePress={() => {}}
+                visible={!scanned && openCamera}
+                setVisible={(visible: boolean) => { setScanned(visible); setOpenCamera(visible) }}
+              />
+              <View style={ReceptionPageStyles.inputSection}>
+                <View style={ReceptionPageStyles.quantityInput}>
+                  <Input
+                    defaultText='Cantidad de botellas'
+                    icon={<TrashCan />}
+                    keyboard='numeric'
+                    setInputText={setQuantity}
+                    defaultValue={quantity}
+                  />
+                  <Text style={ReceptionPageStyles.kg}>Kg</Text>
+                </View>
+                <Input
+                  defaultText='Observación'
+                  icon={<Comment />}
+                  setInputText={setObservation}
+                  defaultValue={observation}
+                />
+                {scanned &&
+                  <View style={ReceptionPageStyles.optionButtons}>
+                    <Button
+                      mode='outlined'
+                      buttonColor='#00000030'
+                      textColor='#BDF26D'
+                      onPress={() => { setScanned(false); setOpenCamera(false); setUser('') }}
+                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      style={ReceptionPageStyles.button}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      mode='outlined'
+                      buttonColor='#76b54430'
+                      textColor='#BDF26D'
+                      onPress={registerQuantity}
+                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      style={ReceptionPageStyles.button}
+                    >
+                      Registrar
+                    </Button>
+                  </View>}
+              </View>
             </View>
           </View>
         </View>

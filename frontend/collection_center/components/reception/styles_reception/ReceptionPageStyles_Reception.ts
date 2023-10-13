@@ -1,71 +1,57 @@
 import Constants from 'expo-constants'
-import { StyleSheet } from 'react-native'
+import { Dimensions, Platform, StyleSheet } from 'react-native'
 
 export const ReceptionPageStyles = StyleSheet.create({
-  backButton: {
-    marginLeft: '3%',
-    marginTop: Constants.statusBarHeight
-  },
   appLogo: {
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    marginTop: Constants.statusBarHeight
+  },
+  centerView: {
+    height: Dimensions.get('window').height - (Dimensions.get('window').height * 0.17),
+    display: 'flex',
+    justifyContent: 'center'
   },
   content: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
-    marginTop: '8%',
     marginHorizontal: '5%'
   },
   scanQr: {
     backgroundColor: '#76b54420',
     alignItems: 'center',
-    marginVertical: '5%',
+    marginTop: '5%',
     borderRadius: 30,
     padding: '5%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderTopWidth: 0.2,
+    borderBottomWidth: 0.2,
+    borderRightWidth: 1.2,
+    borderLeftWidth: 1.2,
+    borderColor: '#BDF26D'
   },
   qrText: {
     color: '#BDF26D',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
     textShadowColor: 'rgba(119, 166, 73, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
-  qrCameraContainer: {
-    height: '49%',
-    borderRadius: 30,
+  user: {
     alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    marginHorizontal: '5%',
-    marginTop: '5%'
+    marginTop: '5%',
+    gap: 5
   },
-  cameraContent: {
-    marginTop: '-142%',
-    marginBottom: '15%',
-    alignItems: 'center',
-    gap: 15
-  },
-  qrColumnObjective: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 70
-  },
-  qrRowObjective: {
+  joinUserInfoDivider: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 70
+    alignItems: 'center'
   },
-  user: {
-    backgroundColor: '#76b54470',
-    borderRadius: 50,
-    alignItems: 'center',
-    paddingVertical: '5%',
-    alignSelf: 'center',
-    padding: '5%'
+  userDivider: {
+    borderBottomWidth: 1,
+    flex: 1,
+    marginHorizontal: '4%'
   },
   userInfo: {
     fontWeight: 'bold',
@@ -78,10 +64,20 @@ export const ReceptionPageStyles = StyleSheet.create({
     backgroundColor: '#494D4F',
     borderRadius: 30,
     alignItems: 'center',
-    paddingTop: '8%',
-    paddingBottom: '8%',
+    paddingVertical: '5%',
     marginTop: '5%',
-    gap: 20
+    gap: 20,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   quantityInput: {
     display: 'flex',
@@ -106,5 +102,16 @@ export const ReceptionPageStyles = StyleSheet.create({
     color: 'white',
     marginTop: '100%',
     fontWeight: 'bold'
+  },
+  optionButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginHorizontal: '12%',
+    gap: 15
+  },
+  button: {
+    paddingHorizontal: 5,
+    borderColor: '#000',
+    borderWidth: 0.5
   }
 })
