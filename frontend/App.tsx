@@ -9,10 +9,8 @@ import Navigator from "./navigator/Navigator";
 export default function App() {
   return (
     // <Text>Aqui tu componente</Text>
-    // <GestureHandlerRootView style={{ flex: 1 }}>
-    //   <NavigationContainer>
-    //     <Navigator />
-    //   </NavigationContainer>
-    // </GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Navigator />
+    </GestureHandlerRootView>
   )
 }
