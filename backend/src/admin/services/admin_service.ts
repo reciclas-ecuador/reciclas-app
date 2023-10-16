@@ -3,6 +3,7 @@ import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
 import { type EcoEquivalences } from '../../collaborators/types/users'
 import { type UsersInfo } from '../types/admin'
 
+//
 export class AdminService {
   private readonly prisma = new PrismaClient()
 

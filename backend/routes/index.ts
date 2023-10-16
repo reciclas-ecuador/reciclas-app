@@ -9,6 +9,7 @@ import { authController } from '../src/auth/controllers'
 
 const router = Router()
 
+// Add the necessary endpoints
 const useRoutes = (app: Express): void => {
   app.use('/api/v1', router)
 
