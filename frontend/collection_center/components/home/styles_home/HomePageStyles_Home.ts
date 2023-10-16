@@ -1,24 +1,13 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import Constants from 'expo-constants'
 
 export const HomePageStyles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-    backgroundColor: '#77A649'
-  },
   user: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
-    marginTop: Constants.statusBarHeight + 10,
+    marginTop: Constants.statusBarHeight + 30,
     marginHorizontal: '5%',
     padding: '10%'
   },
@@ -32,14 +21,17 @@ export const HomePageStyles = StyleSheet.create({
     fontSize: 25,
     alignContent: 'center',
     fontWeight: 'bold',
-    marginTop: '5%'
+    marginTop: '5%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   summary: {
-    backgroundColor: '#494D4F1F',
+    backgroundColor: 'rgba(192, 192, 192, .2)',
     borderRadius: 30,
     alignItems: 'center',
     verticalAlign: 'center',
-    marginTop: '15%',
+    marginTop: '5%',
     marginHorizontal: '5%'
   },
   grayContainer: {
@@ -49,25 +41,44 @@ export const HomePageStyles = StyleSheet.create({
     alignItems: 'center',
     verticalAlign: 'center',
     padding: '5%',
-    marginTop: '5%'
+    marginTop: '5%',
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   sectionTitle: {
     color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     alignContent: 'center',
-    marginTop: '5%'
+    marginTop: '5%',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   quantityText: {
     color: 'white',
     fontSize: 20,
     alignContent: 'center',
-    marginBottom: '5%'
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   },
   quantity: {
     color: 'white',
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
-    alignContent: 'center'
+    alignContent: 'center',
+    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   }
 })

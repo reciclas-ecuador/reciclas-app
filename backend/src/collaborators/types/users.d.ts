@@ -5,6 +5,7 @@ export interface CreateUser {
   name: string
   lastname: string
   email: string
+  status: string
   phone: string
   province: string
   city: string
@@ -14,9 +15,11 @@ export interface CreateUser {
 export type UpdateUser = Partial<CreateUser>
 
 interface EcoEquivalence {
+  name: string
   value: number
   unit: string
 }
+<<<<<<< HEAD
 export interface UserEcoEquivalences {
   user: Collaborator
   ecoEquivalences: {
@@ -28,4 +31,19 @@ export interface UserEcoEquivalences {
     co2: EcoEquivalence
     ligthsOn: EcoEquivalence
   }
+=======
+
+export interface EcoEquivalences {
+  totalRecycled: EcoEquivalence
+  trees: EcoEquivalence
+  water: EcoEquivalence
+  energy: EcoEquivalence
+  oil: EcoEquivalence
+  co2: EcoEquivalence
+  ligthsOn: EcoEquivalence
+>>>>>>> master
+}
+export interface UserEcoEquivalences {
+  user: Collaborator
+  ecoEquivalences: EcoEquivalences
 }

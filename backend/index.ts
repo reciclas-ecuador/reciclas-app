@@ -9,7 +9,17 @@ import { swaggerSpecs } from './swaggerConfig'
 const app = express()
 const PORT = process.env.PORT ?? 3000
 
-app.use(cors())
+const whitelist = ['http://localhost:3000', 'http://localhost:3001']
+app.use(cors({
+  origin: (origin, callback) => {
+    // if (origin === undefined) return new Error('Not allowed by CORS')
+    if (origin === undefined || whitelist.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}))
 app.use(express.json())
 
 // swagger docs

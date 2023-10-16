@@ -8,6 +8,10 @@ import { type UpdateUser, type CreateUser, type UserEcoEquivalences } from './..
 
 import { PrismaClient, type Collaborator } from '@prisma/client'
 import boom from '@hapi/boom'
+<<<<<<< HEAD
+=======
+import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
+>>>>>>> master
 
 export default class UsersService {
   private readonly prisma: PrismaClient = new PrismaClient()
@@ -77,6 +81,7 @@ export default class UsersService {
     // we are supposed totalRecycled is in kg
     return {
       user: restOfUser,
+<<<<<<< HEAD
       ecoEquivalences: {
         totalRecycled: {
           value: Number((totalRecycled * ecoEquivalences.totalRecycled.value).toFixed(2)), // kg
@@ -107,6 +112,9 @@ export default class UsersService {
           unit: ecoEquivalences.ligthsOn.unit
         }
       }
+=======
+      ecoEquivalences: transformEcoEquivalences(totalRecycled)
+>>>>>>> master
     }
   }
 }
