@@ -22,12 +22,13 @@ const UserQr_home = () => {
       <Gradient>
         {/* <Text>UserQr_home</Text> */}
         <View style={styles.logoHome}>
-          <ReciclasLogo width={80} height={80} />
+          <ReciclasLogo width={70} height={70} />
           <Text
             style={{
               color: "white",
-              fontSize: 20,
-              marginTop: 30,
+              fontSize: 30,
+              marginTop: 15,
+              fontWeight: "bold",
             }}
           >
             Reciclaje
@@ -109,7 +110,7 @@ export default UserQr_home;
 const styles = StyleSheet.create({
   logoHome: {
     width: "100%",
-    marginTop: 40,
+    marginTop: 60,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
