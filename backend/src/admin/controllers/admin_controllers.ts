@@ -6,10 +6,6 @@ const router = Router()
 const adminService = new AdminService()
 const response = new Response()
 
-router.get('/admintest', (req, res) => {
-  res.json({ message: 'Hello from Express!' })
-})
-
 /** Add the necessary endpoints */
 
 router.get('/total-recolected', async (req, res, next) => {
