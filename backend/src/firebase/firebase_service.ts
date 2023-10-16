@@ -1,31 +1,23 @@
 import * as FirebaseAdmin from 'firebase-admin'
 import boom from '@hapi/boom'
 import { type DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier'
-import { type RegisteredUser, type RegisterCenterEmployee, type RegisterUser, type Role } from '../types/auth'
-import UsersService from '../../collaborators/services/users_service'
-import CenterEmployeesService from '../../center_employees/services/center_employees_service'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = require('../../../reciclas-app-firebase-adminsdk.json')
+import { type RegisteredUser, type RegisterCenterEmployee, type RegisterUser, type Role, type Message } from './types'
 
-class FirebaseAuthService {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const serviceAccount = require('../../reciclas-app-firebase-adminsdk.json')
+
+class FirebaseService {
   private readonly admin: FirebaseAdmin.app.App
-  private readonly usersService: UsersService
-  private readonly centerEmployeesService: CenterEmployeesService
 
   constructor() {
-    this.usersService = new UsersService()
-    this.centerEmployeesService = new CenterEmployeesService()
     this.admin = FirebaseAdmin.initializeApp({
       credential: FirebaseAdmin.credential.cert(serviceAccount)
     })
   }
 
   async createUser(data: RegisterUser): Promise<RegisteredUser> {
-    const { email, password, role, ...restOfData } = data
-    if (role !== 'USER') {
-      throw boom.badRequest('You can be only a user')
-    }
-    await this.usersService.create({ email, ...restOfData })
+    const { email, password, role } = data
+
     const user = await this.admin.auth().createUser({
       email,
       password
@@ -39,14 +31,7 @@ class FirebaseAuthService {
   }
 
   async createEmployee(data: RegisterCenterEmployee): Promise<RegisteredUser> {
-    const { email, password, role, ...restOfData } = data
-    if (role !== 'CENTER_EMPLOYEE') {
-      throw boom.badRequest('You can be only a center employee')
-    }
-    await this.centerEmployeesService.create({
-      email,
-      ...restOfData
-    })
+    const { email, password, role } = data
     const user = await this.admin.auth().createUser({
       email,
       password
@@ -80,5 +65,21 @@ class FirebaseAuthService {
     }
     return user.customClaims.role
   }
+
+  // Cloud Messaging
+
+  async sendNotificationToUser(registrationToken: string, message: Message): Promise<void> {
+    await this.admin.messaging().send({
+      token: registrationToken,
+      notification: {
+        title: message.title,
+        body: message.body
+      },
+      data: {
+        redirectTo: message.redirectTo
+      }
+    })
+  }
 }
-export const firebaseAuthService = new FirebaseAuthService()
+
+export const firebaseService = new FirebaseService()

@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import { firebaseAuthService } from '../services/firebase_auth_service'
 import CollectCenterService from '../../collect_center/services/collect_center_service'
 import { validationHandler } from '../../../middlewares/validation_handler'
-import { hashSchema, loginSchema, registerCenterEmployeeSchema, registerUserSchema } from '../models/auth_model'
+import { hashSchema, registerCenterEmployeeSchema, registerUserSchema } from '../models/auth_model'
+import AuthService from '../services/auth_service'
 
 const collectCenterService = new CollectCenterService()
+const authService = new AuthService()
 const router = Router()
 
 router.post(
@@ -13,7 +14,7 @@ router.post(
   async (req, res, next) => {
     try {
       const { body } = req
-      const user = await firebaseAuthService.createUser(body)
+      const user = await authService.createUser(body)
       res.json(user)
     } catch (error) {
       next(error)
@@ -26,7 +27,7 @@ router.post(
   async (req, res, next) => {
     try {
       const { body } = req
-      const user = await firebaseAuthService.createEmployee(body)
+      const user = await authService.createEmployee(body)
       res.json(user)
     } catch (error) {
       next(error)
@@ -48,11 +49,11 @@ router.post(
 
 router.post(
   '/login',
-  validationHandler(loginSchema, 'body'),
+  // validationHandler(loginSchema, 'body'),
   async (req, res, next) => {
     try {
       const { idToken } = req.body
-      const user = await firebaseAuthService.verifyIdToken(idToken)
+      const user = await authService.verifyIdToken(idToken)
       res.json({ role: user.role })
     } catch (error) {
       next(error)
