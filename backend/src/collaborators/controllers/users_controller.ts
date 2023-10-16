@@ -131,7 +131,7 @@ router.get('/:email/ecoequivalences', validationHandler(getByEmailSchema, 'param
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/User'
+ *              $ref: '#/components/schemas/CreateUser'
  *      responses:
  *        201:
  *          description: The user was created successfully
@@ -161,6 +161,50 @@ router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, n
   }
 })
 
+/**
+ *  @swagger
+ *  /users:
+ *    put:
+ *      summary: Update a user
+ *      tags: [Users]
+ *      parameters:
+ *        - name: email
+ *          in: path
+ *          description: The email of the user
+ *          schema:
+ *            type: string
+ *            format: email
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UpdateUser'
+ *      responses:
+ *        200:
+ *          description: The user was updated successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+ */
 router.patch(
   '/:email',
   validationHandler(getByEmailSchema, 'params'),
@@ -178,6 +222,38 @@ router.patch(
   }
 )
 
+/**
+ *  @swagger
+ *  /users:
+ *    delete:
+ *      summary: Delete a user
+ *      tags: [Users]
+ *      parameters:
+ *        - name: email
+ *          in: path
+ *          description: The email of the user
+ *          schema:
+ *            type: string
+ *            format: email
+ *      responses:
+ *        200:
+ *          description: The user was deleted successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+ */
 router.delete(
   '/:email',
   validationHandler(getByEmailSchema, 'params'),

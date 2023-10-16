@@ -148,6 +148,67 @@ const province = Joi.string().trim()
 const city = Joi.string().trim()
 const address = Joi.string().trim()
 
+/**
+ *@swagger
+ *components:
+ *  schemas:
+ *    CreateUser:
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
+ *          description: The user email and unique identifier
+ *          format: email
+ *        ci:
+ *          type: string
+ *          minLength: 10
+ *          maxLength: 10
+ *          description: The identification card number of the user
+ *        name:
+ *          type: string
+ *          description: The name of the user
+ *        lastname:
+ *          type: string
+ *          description: The lastname of the user
+ *        phone:
+ *          type: string
+ *          minLength: 10
+ *          maxLength: 10
+ *          description: The phone number of the user
+ *        status:
+ *          type: string
+ *          enum: [active, inactive]
+ *          description: The status of the user, can be active or inactive
+ *        province:
+ *          type: string
+ *          description: The province of the user
+ *        city:
+ *          type: string
+ *          description: The city of the user
+ *        address:
+ *          type: string
+ *          description: The address of the user
+ *      required:
+ *        - email
+ *        - ci
+ *        - name
+ *        - lastname
+ *        - phone
+ *        - status
+ *        - province
+ *        - city
+ *        - address
+ *      example:
+ *        email: jhondoe@email.com
+ *        name: Jhon
+ *        lastname: Doe
+ *        phone: "0999999999"
+ *        status: active
+ *        province: Pichincha
+ *        city: Quito
+ *        address: Av. Amazonas N23-56
+ *
+ */
 export const createUserSchema = Joi.object({
   ci: ci.required(),
   name: name.required(),
@@ -159,6 +220,63 @@ export const createUserSchema = Joi.object({
   city: city.required(),
   address: address.required()
 })
+
+/**
+ *@swagger
+ *components:
+ *  schemas:
+ *    UpdateUser:
+ *      type: object
+ *      properties:
+ *        ci:
+ *          type: string
+ *          minLength: 10
+ *          maxLength: 10
+ *          description: The identification card number of the user
+ *        name:
+ *          type: string
+ *          description: The name of the user
+ *        lastname:
+ *          type: string
+ *          description: The lastname of the user
+ *        phone:
+ *          type: string
+ *          minLength: 10
+ *          maxLength: 10
+ *          description: The phone number of the user
+ *        status:
+ *          type: string
+ *          enum: [active, inactive]
+ *          description: The status of the user, can be active or inactive
+ *        province:
+ *          type: string
+ *          description: The province of the user
+ *        city:
+ *          type: string
+ *          description: The city of the user
+ *        address:
+ *          type: string
+ *          description: The address of the user
+ *      required:
+ *        - email
+ *        - ci
+ *        - name
+ *        - lastname
+ *        - phone
+ *        - status
+ *        - province
+ *        - city
+ *        - address
+ *      example:
+ *        name: Jhon
+ *        lastname: Doe
+ *        phone: "0999999999"
+ *        status: active
+ *        province: Pichincha
+ *        city: Quito
+ *        address: Av. Amazonas N23-56
+ *
+ */
 
 export const updateUserSchema = Joi.object({
   ci,
