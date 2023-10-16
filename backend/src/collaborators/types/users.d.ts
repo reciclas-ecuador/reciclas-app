@@ -19,19 +19,6 @@ interface EcoEquivalence {
   value: number
   unit: string
 }
-<<<<<<< HEAD
-export interface UserEcoEquivalences {
-  user: Collaborator
-  ecoEquivalences: {
-    totalRecycled: EcoEquivalence
-    trees: EcoEquivalence
-    water: EcoEquivalence
-    energy: EcoEquivalence
-    oil: EcoEquivalence
-    co2: EcoEquivalence
-    ligthsOn: EcoEquivalence
-  }
-=======
 
 export interface EcoEquivalences {
   totalRecycled: EcoEquivalence
@@ -41,7 +28,6 @@ export interface EcoEquivalences {
   oil: EcoEquivalence
   co2: EcoEquivalence
   ligthsOn: EcoEquivalence
->>>>>>> master
 }
 export interface UserEcoEquivalences {
   user: Collaborator
