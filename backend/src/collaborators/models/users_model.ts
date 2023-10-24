@@ -60,6 +60,7 @@ import Joi from 'joi'
  *        - address
  *      example:
  *        email: jhondoe@email.com
+ *        ci: 1717171717
  *        name: Jhon
  *        lastname: Doe
  *        phone: "0999999999"
@@ -143,6 +144,7 @@ const ci = Joi.string().trim().length(10)
 const name = Joi.string().trim()
 const lastname = Joi.string().trim()
 const email = Joi.string().trim().email()
+const status = Joi.string().valid('active', 'inactive')
 const phone = Joi.string().trim().length(10)
 const province = Joi.string().trim()
 const city = Joi.string().trim()
@@ -200,6 +202,7 @@ const address = Joi.string().trim()
  *        - address
  *      example:
  *        email: jhondoe@email.com
+ *        ci: 1717171717
  *        name: Jhon
  *        lastname: Doe
  *        phone: "0999999999"
@@ -214,7 +217,7 @@ export const createUserSchema = Joi.object({
   name: name.required(),
   lastname: lastname.required(),
   email: email.required(),
-  status: Joi.string().valid('active', 'inactive').required(),
+  status: status.required(),
   phone: phone.required(),
   province: province.required(),
   city: city.required(),
@@ -257,17 +260,8 @@ export const createUserSchema = Joi.object({
  *        address:
  *          type: string
  *          description: The address of the user
- *      required:
- *        - email
- *        - ci
- *        - name
- *        - lastname
- *        - phone
- *        - status
- *        - province
- *        - city
- *        - address
  *      example:
+ *        ci: 1717171717
  *        name: Jhon
  *        lastname: Doe
  *        phone: "0999999999"
@@ -283,6 +277,7 @@ export const updateUserSchema = Joi.object({
   name,
   lastname,
   // email,
+  status,
   phone,
   province,
   city,

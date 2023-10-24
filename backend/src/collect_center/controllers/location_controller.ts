@@ -8,6 +8,27 @@ const router = Router()
 const locationService = new LocationService()
 const response = new Response()
 
+/**
+ * @swagger
+ *  /locations:
+ *    get:
+ *      summary: Get all locations registered
+ *      tags: [Locations]
+ *      responses:
+ *        200:
+ *          description: List of locations
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/Location'
+*/
 router.get(
   '/',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -20,6 +41,37 @@ router.get(
     }
   })
 
+/**
+ *  @swagger
+ *  /locations/{id}:
+ *    get:
+ *      summary: Get a location by id
+ *      tags: [Locations]
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the location
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: The description description by id
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/Location'
+ *        404:
+ *          description: The location was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/:id',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -33,6 +85,37 @@ router.get(
     }
   })
 
+/**
+ *  @swagger
+ *  /locations:
+ *    post:
+ *      summary: Create a new location
+ *      tags: [Locations]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateLocation'
+ *      responses:
+ *        201:
+ *          description: The location was created successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/Location'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+*/
 router.post(
   '/',
   checkTokenAndRoles(['ADMIN']),
@@ -46,6 +129,49 @@ router.post(
     }
   })
 
+/**
+ *  @swagger
+ *  /locations/{id}:
+ *    patch:
+ *      summary: Update a location
+ *      tags: [Locations]
+ *      parameters:
+ *        - id: integer
+ *          in: path
+ *          description: The id of the location
+ *          schema:
+ *            type: integer
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UpdateLocation'
+ *      responses:
+ *        200:
+ *          description: The location was updated successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/Location'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The location was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.patch(
   '/:id',
   checkTokenAndRoles(['ADMIN']),
@@ -61,6 +187,37 @@ router.patch(
   }
 )
 
+/**
+ *  @swagger
+ *  /locations/{id}:
+ *    delete:
+ *      summary: Delete a location by id
+ *      tags: [Locations]
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the location
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: The location was deleted successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/Location'
+ *        404:
+ *          description: The location was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.delete(
   '/:id',
   checkTokenAndRoles(['ADMIN']),

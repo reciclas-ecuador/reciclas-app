@@ -22,9 +22,14 @@ router.use(checkTokenAndRoles(['ADMIN']))
  *          content:
  *            application/json:
  *              schema:
- *                type: array
- *                items:
- *                  $ref: '#/components/schemas/User'
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/User'
  */
 router.get('/', async (_req, res, next) => {
   try {
@@ -67,7 +72,7 @@ router.get('/', async (_req, res, next) => {
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/NotFound'
- */
+*/
 router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req, res, next) => {
   try {
     const users = await usersService.getOne(req.params.email)
@@ -82,7 +87,7 @@ router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req,
  *  @swagger
  *  /users/{email}/ecoequivalences:
  *    get:
- *      summary: Get a user by email
+ *      summary: Get a user ecoequivalences by email
  *      tags: [Users]
  *      parameters:
  *          - name: email
@@ -150,7 +155,7 @@ router.get('/:email/ecoequivalences', validationHandler(getByEmailSchema, 'param
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/BadRequest'
- */
+*/
 router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, next) => {
   try {
     const users = await usersService.create(req.body)
@@ -164,7 +169,7 @@ router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, n
 /**
  *  @swagger
  *  /users:
- *    put:
+ *    patch:
  *      summary: Update a user
  *      tags: [Users]
  *      parameters:
@@ -204,7 +209,7 @@ router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, n
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/NotFound'
- */
+*/
 router.patch(
   '/:email',
   validationHandler(getByEmailSchema, 'params'),
@@ -253,7 +258,7 @@ router.patch(
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/NotFound'
- */
+*/
 router.delete(
   '/:email',
   validationHandler(getByEmailSchema, 'params'),

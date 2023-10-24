@@ -8,6 +8,27 @@ const router = Router()
 const logActionCollaboratorService = new LogActionsCollaboratorsService()
 const response = new Response()
 
+/**
+ * @swagger
+ *  /log-actions-collaborators:
+ *    get:
+ *      summary: Get all actions of collaborators
+ *      tags: [Log Actions Collaborators]
+ *      responses:
+ *        200:
+ *          description: List of times that a collaborator delivered bottles
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/LogActionsCollaborators'
+*/
 router.get(
   '/',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -20,6 +41,37 @@ router.get(
     }
   })
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators/{id}:
+ *    get:
+ *      summary: Get an specific action when a user delivered bottles by id
+ *      tags: [Log Actions Collaborators]
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the log action collaborator
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: The log action description description by id
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *        404:
+ *          description: The log action collaborator was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/:id',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -34,6 +86,40 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators/user/{email}:
+ *    get:
+ *      summary: Get all actions when a user delivered bottles by email
+ *      tags: [Log Actions Collaborators]
+ *      parameters:
+ *          - name: email
+ *            in: path
+ *            description: The email of the user
+ *            schema:
+ *              type: string
+ *              format: email
+ *      responses:
+ *        200:
+ *          description: The log actions of the collaborators description by email
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/LogActionsCollaborators'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/user/:email',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE', 'USER']),
@@ -49,6 +135,37 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators:
+ *    post:
+ *      summary: Create a new Action when a user delivered bottles
+ *      tags: [Log Actions Collaborators]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateLogActionsCollaborators'
+ *      responses:
+ *        201:
+ *          description: The log actions collaborators was created successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+*/
 router.post(
   '/',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -68,6 +185,49 @@ router.post(
   }
 )
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators/{id}:
+ *    patch:
+ *      summary: Update a Log Action Collaborator
+ *      tags: [Log Actions Collaborators]
+ *      parameters:
+ *        - id: integer
+ *          in: path
+ *          description: The id of the log action collaborator
+ *          schema:
+ *            type: integer
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UpdateLogActionsCollaborators'
+ *      responses:
+ *        200:
+ *          description: The log action collaborator was updated successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The log action collaborator was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.patch(
   '/:id',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -84,6 +244,55 @@ router.patch(
   }
 )
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators/{id}/attention-quality:
+ *    patch:
+ *      summary: Assign a qualification to the attention received
+ *      tags: [Log Actions Collaborators]
+ *      parameters:
+ *        - id: integer
+ *          in: path
+ *          description: The id of the log action collaborator
+ *          schema:
+ *            type: integer
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                attentionQuality:
+ *                  type: integer
+ *                  minimum: 1
+ *                  maximum: 5
+ *                  description: The qualification of the attention received
+ *      responses:
+ *        200:
+ *          description: The attention quality was assigned successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The log action collaborator was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.patch(
   '/:id/attention-quality',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -103,6 +312,37 @@ router.patch(
   }
 )
 
+/**
+ *  @swagger
+ *  /log-actions-collaborators/{id}:
+ *    delete:
+ *      summary: Delete a log actions collaborators by id
+ *      tags: [Log Actions Collaborators]
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the log actions collaborators
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: The log actions collaborators was deleted successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *        404:
+ *          description: The log actions collaborators was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.delete(
   '/:id',
   checkTokenAndRoles(['ADMIN']),

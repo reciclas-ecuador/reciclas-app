@@ -9,6 +9,16 @@ export default class CollectCenterService {
     return await this.prisma.collectCenter.findMany()
   }
 
+  async getStadistics(): Promise<any> {
+    const [total] = await Promise.all([
+      await this.prisma.collectCenter.count()
+    ])
+
+    return {
+      total
+    }
+  }
+
   async getAllEmployees(id: number): Promise<CollectCenter[]> {
     return await this.prisma.collectCenter.findMany({
       where: { id },

@@ -22,6 +22,8 @@ export const swaggerSpecs = {
 /**
  *  @swagger
  *  tags:
+ *    - name: Admin
+ *      description: The admin managing API
  *    - name: Auth
  *      description: The authentication managing API
  *    - name: Users
