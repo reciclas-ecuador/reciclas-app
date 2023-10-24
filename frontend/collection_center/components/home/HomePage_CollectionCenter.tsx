@@ -3,9 +3,10 @@ import { HomePageStyles } from './styles_home/HomePageStyles_Home'
 import { CollectionCenter, CenterEmployee, RootStackParamList } from '../../../Types'
 import { useEffect, useState } from 'react'
 import { getToDataCollectionCenter, getToDataCenterEmployee } from '../../services'
-import { Gradient } from '../../../global'
+import { Gradient, useCollectionCenterContext } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ConfirmationCollectionCenter } from '../../modals'
+import { FIREBASE_AUTH } from '../../../firebaseConfig'
 
 type HomePageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'HomePage_CollectionCenter'>;
@@ -15,10 +16,12 @@ export function HomePageCollectionCenter ({ navigation }: HomePageCollectionCent
   const [dataCenterEmployee, setDataCenterEmployee] = useState<CenterEmployee>()
   const [dataCollectionCenter, setDataCollectionCenter] = useState<CollectionCenter>()
   const [showConfirmationModal, setShowConfirmationModal] = useState<boolean>(false)
+  const { activeUser, setActiveUser, setCurrentCenterId } = useCollectionCenterContext()
 
   async function fetchData () {
-    const dataCenterEmployeeBasic = await getToDataCenterEmployee('antho@email.com')
+    const dataCenterEmployeeBasic = await getToDataCenterEmployee(activeUser)
     setDataCenterEmployee(dataCenterEmployeeBasic)
+    setCurrentCenterId(String(dataCenterEmployeeBasic?.body?.collectCenterId))
     const dataCollectionCenterBasic = await getToDataCollectionCenter(dataCenterEmployeeBasic?.body?.collectCenterId)
     setDataCollectionCenter(dataCollectionCenterBasic)
   }
@@ -38,7 +41,12 @@ export function HomePageCollectionCenter ({ navigation }: HomePageCollectionCent
   return (
     <Gradient>
       <ConfirmationCollectionCenter
-        onConfirm={() => navigation.navigate('LoginPage_CollectionCenter')}
+        onConfirm={() => {
+          setActiveUser('')
+          setCurrentCenterId('')
+          FIREBASE_AUTH.signOut()
+          navigation.navigate('LoginPage_CollectionCenter')
+        }}
         onNotConfirm={() => {}}
         title='¿Cerrar sesión?'
         description='Estás por salir de la pantalla principal, ¿estás seguro de querer cerrar sesión?'

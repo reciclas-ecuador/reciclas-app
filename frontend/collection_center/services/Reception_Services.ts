@@ -1,5 +1,5 @@
-export const postLogActionCollaborator = (submitDate: string, quantity: string, collaboratorEmail: string, collectCenterId: string, receiverEmail: string):Promise<string> => {
-  const url = 'http://192.168.1.100:3000/api/v1/log-actions-collaborators'
+export const postLogActionCollaborator = async (submitDate: string, quantity: string, collaboratorEmail: string, collectCenterId: string, receiverEmail: string): Promise<string> => {
+  const url = 'http://192.168.1.105:3000/api/v1/log-actions-collaborators'
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -20,7 +20,7 @@ export const postLogActionCollaborator = (submitDate: string, quantity: string, 
 }
 
 export const postObservation = (comment: string, logActionsCollaboratorId: string) => {
-  const url = 'http://192.168.1.100:3000/api/v1/observations'
+  const url = 'http://192.168.1.105:3000/api/v1/observations'
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({

@@ -4,9 +4,9 @@ import { ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
 import { postLogActionCollaborator, postObservation } from '../../services'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import { Gradient, Input, KeyboardAvoidingWrapper } from '../../../global'
+import { Gradient, Input, KeyboardAvoidingWrapper, useCollectionCenterContext } from '../../../global'
 import { MessageCollectionCenter, ScanQRCollectionCenter } from '../../modals'
-import { Button } from 'react-native-paper'
+import { Button, ActivityIndicator } from 'react-native-paper'
 
 export function ReceptionPageCollectionCenter () {
   const [quantity, setQuantity] = useState('')
@@ -16,9 +16,12 @@ export function ReceptionPageCollectionCenter () {
   const [scanned, setScanned] = useState(false)
   const [openCamera, setOpenCamera] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
+  const { activeUser, currentCenterId } = useCollectionCenterContext()
+  const [isLoading, setIsLoading] = useState(false)
 
   const registerQuantity = async () => {
-    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, '1', 'marmenthor@gmail.com')
+    setIsLoading(true)
+    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, currentCenterId, activeUser)
     if (observation !== '') {
       postObservation(observation, currentLogActionCollaboratorId)
     }
@@ -28,6 +31,7 @@ export function ReceptionPageCollectionCenter () {
     setScanned(false)
     setOpenCamera(false)
     setShowSuccessModal(true)
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -116,7 +120,8 @@ export function ReceptionPageCollectionCenter () {
                   setInputText={setObservation}
                   defaultValue={observation}
                 />
-                {scanned &&
+                {isLoading ? <ActivityIndicator animating={isLoading} color='#77A649' size={42} /> : null}
+                {!isLoading && scanned &&
                   <View style={ReceptionPageStyles.optionButtons}>
                     <Button
                       mode='outlined'

@@ -15,9 +15,10 @@ type Props = {
   setInputText: (text: string) => void;
   edit?: boolean;
   defaultValue?: string;
+  secureTextEntry?: boolean;
 };
 
-export function Input ({ defaultText, icon, keyboard = 'default', setInputText, edit = true, defaultValue }: Props) {
+export function Input ({ defaultText, icon, keyboard = 'default', setInputText, edit = true, defaultValue, secureTextEntry = false }: Props) {
   const [isTextInputFocused, setTextInputFocus] = useState(false)
 
   const handleViewPress = () => {
@@ -45,6 +46,7 @@ export function Input ({ defaultText, icon, keyboard = 'default', setInputText, 
           onChangeText={(text) => setInputText(text)}
           editable={edit}
           value={defaultValue}
+          secureTextEntry={secureTextEntry}
         />
       </View>
     </TouchableWithoutFeedback>
