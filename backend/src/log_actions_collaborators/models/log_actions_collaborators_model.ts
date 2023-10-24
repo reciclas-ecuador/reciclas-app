@@ -65,6 +65,7 @@ const attentionQuality = Joi.number().min(1).max(5)
 const collaboratorEmail = Joi.string().trim().email()
 const collectCenterId = Joi.number().positive()
 const receiverEmail = Joi.string().trim().email()
+const token = Joi.string().trim()
 
 /**
  *@swagger
@@ -112,12 +113,15 @@ const receiverEmail = Joi.string().trim().email()
  *        receiverEmail: david@email.com
 */
 export const CreateLogActionCollaboratorSchema = Joi.object({
-  submitDate: submitDate.required(),
-  quantity: quantity.required(),
-  attentionQuality,
-  collaboratorEmail: collaboratorEmail.required(),
-  collectCenterId: collectCenterId.required(),
-  receiverEmail: receiverEmail.required()
+  data: Joi.object({
+    submitDate: submitDate.required(),
+    quantity: quantity.required(),
+    attentionQuality,
+    collaboratorEmail: collaboratorEmail.required(),
+    collectCenterId: collectCenterId.required(),
+    receiverEmail: receiverEmail.required()
+  }).required(),
+  token: token.required()
 })
 
 /**
