@@ -13,6 +13,8 @@ export interface CreateCollectCenter {
   address: string
   name: string
   hash: string
+  lat: string
+  lng: string
 
   locationId: number
   managerEmail: string

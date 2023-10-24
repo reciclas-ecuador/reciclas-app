@@ -55,12 +55,14 @@ router.post(
   validationHandler(CreateLogActionCollaboratorSchema, 'body'),
   async (req, res, next) => {
     try {
-      const { data, token } = req.body
+      const data = req.body
+      const token = req.headers.authorization?.split(' ')[1]
+
       const logActionCollaborator = await logActionCollaboratorService.create(data, {
         title: 'Califica el servicio recibido',
         body: 'La calidad de tu atención es importante para nosotros, por favor califícala',
         redirectTo: 'attention-quality'
-      }, token)
+      }, token as string)
       response.success(res, logActionCollaborator, 201)
     } catch (error) {
       next(error)

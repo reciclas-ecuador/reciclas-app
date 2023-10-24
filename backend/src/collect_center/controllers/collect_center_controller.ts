@@ -22,6 +22,20 @@ router.get(
 )
 
 router.get(
+  '/location/:locationId',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  validationHandler(getByLocationIdSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const collectCenters = await collectCenterService.getAllByLocation(Number(req.params.locationId))
+      response.success(res, collectCenters)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.get(
   '/:id',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByIdSchema, 'params'),
@@ -50,13 +64,14 @@ router.get(
 )
 
 router.get(
-  '/location/:locationId',
+  '/:id/total-today-recolected',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
-  validationHandler(getByLocationIdSchema, 'params'),
+  validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
-      const collectCenters = await collectCenterService.getAllByLocation(Number(req.params.locationId))
-      response.success(res, collectCenters)
+      const { id } = req.params
+      const { collectCenter, total } = await collectCenterService.getTotalRecolectedByIdDiary(Number(id))
+      response.success(res, { collectCenter, total })
     } catch (error) {
       next(error)
     }
