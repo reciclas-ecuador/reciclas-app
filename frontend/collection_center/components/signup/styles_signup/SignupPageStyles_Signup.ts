@@ -27,7 +27,6 @@ export const SignupPageStyles = StyleSheet.create({
     backgroundColor: '#494D4F',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    flex: 1,
     ...Platform.select({
       ios: {
         shadowColor: 'black',
@@ -60,7 +59,7 @@ export const SignupPageStyles = StyleSheet.create({
     alignSelf: 'center'
   },
   signupInputs: {
-    marginVertical: '10%',
+    marginVertical: '5%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -68,6 +67,7 @@ export const SignupPageStyles = StyleSheet.create({
   },
   signupButton: {
     alignItems: 'center',
-    marginBottom: '21%'
+    marginTop: '5%',
+    marginBottom: '10.4%'
   }
 })
