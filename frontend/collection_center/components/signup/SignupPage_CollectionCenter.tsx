@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import { SignupPageStyles } from './styles_signup/SignupPageStyles_Signup'
-import { User, Mail, Previous, ReciclasLogo, Phone, Location } from '../../../assets'
-import { useState } from 'react'
-import { postCenterEmployee } from '../../services'
-import { KeyboardAvoidingWrapper, Gradient, Input } from '../../../global'
+import { User, Mail, Previous, ReciclasLogo, Phone, Location, Password } from '../../../assets'
+import { useEffect, useState } from 'react'
+import { postCenterEmployee, getCollectionsCenters } from '../../services'
+import { KeyboardAvoidingWrapper, Gradient, Input, SelectionInput } from '../../../global'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../../Types'
+import { RootStackParamList, CollectionCenters } from '../../../Types'
 import { MessageCollectionCenter } from '../../modals'
 import { Button } from 'react-native-paper'
 
@@ -18,11 +18,13 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
   const [centerEmployeeLastName, setCenterEmployeeLastName] = useState('')
   const [centerEmployeeEmail, setCenterEmployeeEmail] = useState('')
   const [centerEmployeePhone, setCenterEmployeePhone] = useState('')
+  const [centerEmployeePassword, setCenterEmployeePassword] = useState('')
   const [centerEmployeeLocation, setCenterEmployeeLocation] = useState('')
+  const [dataCollectionCenters, setDataCollectionCenters] = useState<CollectionCenters>()
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
 
   const registerCenterEmployee = async () => {
-    postCenterEmployee(centerEmployeeEmail, centerEmployeeName, centerEmployeeLastName, centerEmployeePhone, centerEmployeeLocation)
+    postCenterEmployee(centerEmployeeEmail, centerEmployeeName, centerEmployeeLastName, centerEmployeePhone, centerEmployeePassword, centerEmployeeLocation.split(' - ')[1])
     setCenterEmployeeName('')
     setCenterEmployeeLastName('')
     setCenterEmployeeEmail('')
@@ -30,6 +32,20 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
     setCenterEmployeeLocation('')
     setShowSuccessModal(true)
   }
+
+  const fetchCollectionCenters = async () => {
+    const dataCollectionCentersBasic = await getCollectionsCenters()
+    setDataCollectionCenters(dataCollectionCentersBasic)
+  }
+
+  const collectionCenterOptions: string[] = []
+  dataCollectionCenters?.body?.forEach((element) => {
+    collectionCenterOptions.push(`${element.name} - ${element.id}`)
+  })
+
+  useEffect(() => {
+    fetchCollectionCenters()
+  }, [])
 
   return (
     <Gradient>
@@ -78,11 +94,19 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
                 defaultValue={centerEmployeePhone}
               />
               <Input
+                defaultText='Contraseña'
+                icon={<Password />}
+                setInputText={setCenterEmployeePassword}
+                defaultValue={centerEmployeePassword}
+                secureTextEntry
+              />
+              <SelectionInput
+                instructionText='Selecciona un centro de recolección'
                 defaultText='Centro de recolección'
                 icon={<Location fill='#000' stroke='#000' strokeWidth='8' />}
-                keyboard='numeric'
                 setInputText={setCenterEmployeeLocation}
                 defaultValue={centerEmployeeLocation}
+                options={collectionCenterOptions}
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
