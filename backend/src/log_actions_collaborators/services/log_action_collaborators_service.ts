@@ -1,9 +1,15 @@
 import { type LogActionsCollaborator, PrismaClient } from '@prisma/client'
 import { type UpdateLogActionCollaborator, type CreateLogActionCollaborator } from '../types/log_action_collaborators'
 import boom from '@hapi/boom'
+import { firebaseService } from '../../firebase/firebase_service'
+import { type Message } from '../../firebase/types'
 
 export default class LogActionsCollaboratorsService {
   private readonly prisma: PrismaClient = new PrismaClient()
+  private readonly firebaseService: typeof firebaseService
+  constructor() {
+    this.firebaseService = firebaseService
+  }
 
   async getAll(): Promise<LogActionsCollaborator[]> {
     return await this.prisma.logActionsCollaborator.findMany()
@@ -35,7 +41,7 @@ export default class LogActionsCollaboratorsService {
     return logActionCollaborator
   }
 
-  async create(data: CreateLogActionCollaborator): Promise<LogActionsCollaborator> {
+  async create(data: CreateLogActionCollaborator, message: Message, token: string): Promise<LogActionsCollaborator> {
     const { collaboratorEmail, collectCenterId, receiverEmail } = data
 
     const existAllValues = await this.validUserCenterAndReceiver(
@@ -48,7 +54,10 @@ export default class LogActionsCollaboratorsService {
       throw boom.badRequest('Invalid values')
     }
 
-    return await this.prisma.logActionsCollaborator.create({ data })
+    const logActionCollaborator = await this.prisma.logActionsCollaborator.create({ data })
+    await this.sendNotificationToUser(message, token) // comment to try without token, also comment validation_handler.ts, checkTokenAndRoles
+
+    return logActionCollaborator
   }
 
   async setAttentionQuality(id: number, attentionQuality: number): Promise<LogActionsCollaborator> {
@@ -110,5 +119,14 @@ export default class LogActionsCollaboratorsService {
     }
 
     return true
+  }
+
+  // Cloud Messaging
+
+  private async sendNotificationToUser(
+    message: Message,
+    token: string
+  ): Promise<void> {
+    await this.firebaseService.sendNotificationToUser(token, message)
   }
 }

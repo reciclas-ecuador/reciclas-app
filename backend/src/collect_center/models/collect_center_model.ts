@@ -5,6 +5,8 @@ const address = Joi.string().trim()
 const name = Joi.string().trim()
 const hash = Joi.string().trim()
 const locationId = Joi.number()
+const lat = Joi.string().trim()
+const lng = Joi.string().trim()
 const managerEmail = Joi.string().trim().email()
 
 export const createCollectCenter = Joi.object({
@@ -12,6 +14,8 @@ export const createCollectCenter = Joi.object({
   name: name.required(),
   hash: hash.required(),
   locationId: locationId.required(),
+  lat: lat.required(),
+  lng: lng.required(),
   managerEmail
 })
 

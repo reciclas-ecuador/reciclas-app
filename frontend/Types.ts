@@ -62,6 +62,11 @@ export interface CollectionCenter {
     body: CollectionCenterBody;
 }
 
+export interface CollectionCenters {
+    error: Error;
+    body: CollectionCenterBody[];
+}
+
 // Center employee
 export interface CenterEmployeeBody {
     email: string;

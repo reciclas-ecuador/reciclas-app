@@ -1,16 +1,17 @@
 import { View, Text } from 'react-native'
 import { Button, Modal, Portal } from 'react-native-paper'
 
-type confirmationCollectionCenterProps = {
+type messageCollectionCenterProps = {
   handlePress: () => void;
   title: string;
   description: string;
   buttonText?: string;
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  errorMessage?: boolean;
 }
 
-export function MessageCollectionCenter ({ handlePress, title, description, buttonText = 'Aceptar', visible, setVisible }: confirmationCollectionCenterProps) {
+export function MessageCollectionCenter ({ handlePress, title, description, buttonText = 'Aceptar', visible, setVisible, errorMessage = false }: messageCollectionCenterProps) {
   return (
     <Portal>
       <Modal
@@ -21,13 +22,13 @@ export function MessageCollectionCenter ({ handlePress, title, description, butt
         dismissable={false}
         dismissableBackButton={false}
       >
-        <Text style={{ fontSize: 20, color: '#BDF26D', fontWeight: 'bold', alignContent: 'center' }}>{title}</Text>
+        <Text style={{ fontSize: 20, color: (errorMessage ? 'orange' : '#BDF26D'), fontWeight: 'bold', alignContent: 'center', textAlign: 'center' }}>{title}</Text>
         <View style={{ borderBottomColor: '#FFF', borderBottomWidth: 2, width: '90%', marginVertical: '5%' }} />
         <Text style={{ fontSize: 17, color: '#FFF', alignContent: 'center', marginBottom: '8%', textAlign: 'center' }}>{description}</Text>
         <Button
           mode='outlined'
-          textColor='#BDF26D'
-          buttonColor='#76b54420'
+          textColor={errorMessage ? 'orange' : '#BDF26D'}
+          buttonColor={errorMessage ? '#dc7c0520' : '#76b54420'}
           onPress={() => { handlePress(); setVisible(false) }}
         >
           {buttonText}
