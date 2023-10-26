@@ -16,6 +16,7 @@ import {
   ReceptionPageCollectionCenter,
 } from "../collection_center";
 import DetailsNews from "../events/DetailsNews";
+import HomeMaps from "../maps/Home";
 
 const Stack = createNativeStackNavigator();
 const tab = createBottomTabNavigator();
@@ -45,7 +46,7 @@ const Navigator = () => {
       notFocused: "bar-chart",
     },
     TabNavigator: { focused: "calendar-outline", notFocused: "calendar" },
-    HomePageCollectionCenter: {
+    HomeMaps: { // HomePageCollectionCenter
       focused: "bicycle-outline",
       notFocused: "bicycle-sharp",
     },
@@ -132,8 +133,8 @@ const Navigator = () => {
           })}
         />
         <Stack.Screen
-          name="HomePageCollectionCenter"
-          component={HomePageCollectionCenter}
+          name="HomeMaps"
+          component={HomeMaps}
           listeners={() => ({
             tabPress: () => {
               Animated.spring(tabOffsetValue, {
