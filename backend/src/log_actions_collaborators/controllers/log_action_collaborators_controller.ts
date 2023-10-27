@@ -12,8 +12,10 @@ const response = new Response()
  * @swagger
  *  /log-actions-collaborators:
  *    get:
- *      summary: Get all actions of collaborators
+ *      summary: Get all actions of collaborators. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of times that a collaborator delivered bottles
@@ -45,8 +47,10 @@ router.get(
  *  @swagger
  *  /log-actions-collaborators/{id}:
  *    get:
- *      summary: Get an specific action when a user delivered bottles by id
+ *      summary: Get an specific action when a user delivered bottles by id. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path
@@ -90,8 +94,10 @@ router.get(
  *  @swagger
  *  /log-actions-collaborators/user/{email}:
  *    get:
- *      summary: Get all actions when a user delivered bottles by email
+ *      summary: Get all actions when a user delivered bottles by email. It is available for ADMIN, CENTER_EMPLOYEE and USERS users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: email
  *            in: path
@@ -139,14 +145,22 @@ router.get(
  *  @swagger
  *  /log-actions-collaborators:
  *    post:
- *      summary: Create a new Action when a user delivered bottles
+ *      summary: Create a new Action when a user delivered bottles. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/CreateLogActionsCollaborators'
+ *              type: object
+ *              properties:
+ *                data:
+ *                  $ref: '#/components/schemas/CreateLogActionsCollaborators'
+ *                token:
+ *                  type: string
+ *                  exmaple: 'Firebase Cloud Messaging Token'
  *      responses:
  *        201:
  *          description: The log actions collaborators was created successfully
@@ -158,7 +172,13 @@ router.get(
  *                  error:
  *                    example: null
  *                  body:
- *                    $ref: '#/components/schemas/LogActionsCollaborators'
+ *                    type: object
+ *                    properties:
+ *                      data:
+ *                        $ref: '#/components/schemas/LogActionsCollaborators'
+ *                      token:
+ *                        type: string
+ *                        example: 'Firebase Cloud Messaging Token'
  *        400:
  *          description: Some of the required fields are missing
  *          content:
@@ -190,8 +210,10 @@ router.post(
  *  @swagger
  *  /log-actions-collaborators/{id}:
  *    patch:
- *      summary: Update a Log Action Collaborator
+ *      summary: Update a Log Action Collaborator. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -249,8 +271,10 @@ router.patch(
  *  @swagger
  *  /log-actions-collaborators/{id}/attention-quality:
  *    patch:
- *      summary: Assign a qualification to the attention received
+ *      summary: Assign a qualification to the attention received. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -317,8 +341,10 @@ router.patch(
  *  @swagger
  *  /log-actions-collaborators/{id}:
  *    delete:
- *      summary: Delete a log actions collaborators by id
+ *      summary: Delete a log actions collaborators by id. It is available just for ADMIN users
  *      tags: [Log Actions Collaborators]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path

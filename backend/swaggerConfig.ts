@@ -27,9 +27,9 @@ export const swaggerSpecs = {
  *    - name: Auth
  *      description: The authentication managing API
  *    - name: Users
- *      description: The users managing API
+ *      description: The users managing API. All endpoints are available just for ADMIN users
  *    - name: Center Employees
- *      description: The center employees managing API
+ *      description: The center employees managing API. All endpoints are available just for ADMIN users
  *    - name: Collect Centers
  *      description: The collect centers managing API
  *    - name: Locations

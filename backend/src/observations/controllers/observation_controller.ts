@@ -13,8 +13,10 @@ const response = new Response()
  * @swagger
  *  /observations:
  *    get:
- *      summary: Get all observations registered
+ *      summary: Get all observations registered. It is available just for ADMIN users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of observations
@@ -47,8 +49,10 @@ router.get(
  *  @swagger
  *  /observations/{id}:
  *    get:
- *      summary: Get a observation by id
+ *      summary: Get a observation by id. It is available just for ADMIN users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path
@@ -93,8 +97,10 @@ router.get(
  *  @swagger
  *  /observations/log-action-collaborator/{logActionCollaboratorId}:
  *    get:
- *      summary: Get all observation that belongs to a log action collaborator
+ *      summary: Get all observation that belongs to a log action collaborator. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: logActionCollaboratorId
  *            in: path
@@ -141,8 +147,10 @@ router.get(
  *  @swagger
  *  /observations:
  *    post:
- *      summary: Create a new observation
+ *      summary: Create a new observation. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -187,8 +195,10 @@ router.post(
  *  @swagger
  *  /observations/{id}:
  *    patch:
- *      summary: Update a observation
+ *      summary: Update a observation. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -247,8 +257,10 @@ router.patch(
  *  @swagger
  *  /observations/{id}:
  *    delete:
- *      summary: Delete a observation by id
+ *      summary: Delete a observation by id. It is available just for ADMIN users
  *      tags: [Observations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path

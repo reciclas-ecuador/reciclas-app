@@ -19,8 +19,10 @@ const response = new Response()
  * @swagger
  *  /collect-centers:
  *    get:
- *      summary: Get all locations registered
+ *      summary: Get all collect centers registered. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of collect centers registered
@@ -49,6 +51,41 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /collect-centers/location/{locationId}:
+ *    get:
+ *      summary: Get all collect centers in a location. It is available for ADMIN and CENTER_EMPLOYEE users
+ *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: locationId
+ *            in: path
+ *            description: The id of the location to find the collect centers
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: The collect center description by id
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/CollectCenter'
+ *        404:
+ *          description: The collect center was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/location/:locationId',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
@@ -67,8 +104,10 @@ router.get(
  *  @swagger
  *  /collect-centers/{id}:
  *    get:
- *      summary: Get a collect center description by id
+ *      summary: Get a collect center description by id. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path
@@ -112,8 +151,10 @@ router.get(
  *  @swagger
  *  /collect-centers/{id}/employees:
  *    get:
- *      summary: Get all employees assigned to a collect center
+ *      summary: Get all employees assigned to a collect center. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path
@@ -155,14 +196,16 @@ router.get(
 
 /**
  *  @swagger
- *  /collect-centers/location/{locationId}:
+ *  /collect-centers/{id}/total-today-recolected:
  *    get:
- *      summary: Get all employees assigned to a collect center
+ *      summary: Get total recolected by a collect center on the current day. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
- *          - name: locationId
+ *          - name: id
  *            in: path
- *            description: The id of the location to find the collect centers
+ *            description: The id of the collect center
  *            schema:
  *              type: integer
  *      responses:
@@ -176,9 +219,13 @@ router.get(
  *                  error:
  *                    example: null
  *                  body:
- *                    type: array
- *                    items:
- *                      $ref: '#/components/schemas/CollectCenter'
+ *                    type: object
+ *                    properties:
+ *                      collectCenter:
+ *                        $ref: '#/components/schemas/CollectCenter'
+ *                      total:
+ *                        type: integer
+ *                        example: 100
  *        404:
  *          description: The collect center was not found
  *          content:
@@ -205,8 +252,10 @@ router.get(
  *  @swagger
  *  /collect-centers:
  *    post:
- *      summary: Create a new collect center
+ *      summary: Create a new collect center. It is available just for ADMIN users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -250,8 +299,10 @@ router.post(
  *  @swagger
  *  /collect-centers/{id}/manager:
  *    patch:
- *      summary: Assign a manager to a collect center
+ *      summary: Assign a manager to a collect center. It is available just for ADMIN users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -315,8 +366,10 @@ router.patch(
  *  @swagger
  *  /collect-centers/{id}:
  *    patch:
- *      summary: Update a collect center
+ *      summary: Update a collect center. It is available just for ADMIN users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -374,8 +427,10 @@ router.patch(
  *  @swagger
  *  /collect-centers/{id}/update-hash:
  *    patch:
- *      summary: Assign a new hash to a collect center
+ *      summary: Assign a new hash to a collect center. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -438,8 +493,10 @@ router.patch(
  *  @swagger
  *  /collect-centers/{id}:
  *    delete:
- *      summary: Delete a collect center by id
+ *      summary: Delete a collect center by id. It is available just for ADMIN users
  *      tags: [Collect Centers]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path

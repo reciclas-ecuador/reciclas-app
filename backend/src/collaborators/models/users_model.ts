@@ -138,7 +138,7 @@ import Joi from 'joi'
  *          ligthsOn:
  *            value: 100
  *            unit: hrs
- */
+*/
 
 const ci = Joi.string().trim().length(10)
 const name = Joi.string().trim()

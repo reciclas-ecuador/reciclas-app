@@ -16,6 +16,8 @@ router.use(checkTokenAndRoles(['ADMIN']))
  *    get:
  *      summary: Get all center employees registered
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of locations
@@ -49,6 +51,8 @@ router.get(
  *    get:
  *      summary: Get a center employee by email
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: email
  *            in: path
@@ -95,6 +99,8 @@ router.get(
  *    get:
  *      summary: Get all employees by collect center id
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: Collect Center Id
  *            in: path
@@ -143,6 +149,8 @@ router.get(
  *    post:
  *      summary: Create a new Center Employee
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -187,6 +195,8 @@ router.post(
  *    patch:
  *      summary: Update a center employee
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - name: email
  *          in: path
@@ -246,6 +256,8 @@ router.patch(
  *    delete:
  *      summary: Delete a center employee
  *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - name: email
  *          in: path

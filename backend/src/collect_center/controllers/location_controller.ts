@@ -12,8 +12,10 @@ const response = new Response()
  * @swagger
  *  /locations:
  *    get:
- *      summary: Get all locations registered
+ *      summary: Get all locations registered. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Locations]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of locations
@@ -45,8 +47,10 @@ router.get(
  *  @swagger
  *  /locations/{id}:
  *    get:
- *      summary: Get a location by id
+ *      summary: Get a location by id. It is available for ADMIN and CENTER_EMPLOYEE users
  *      tags: [Locations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path
@@ -89,8 +93,10 @@ router.get(
  *  @swagger
  *  /locations:
  *    post:
- *      summary: Create a new location
+ *      summary: Create a new location. It is available just for ADMIN users
  *      tags: [Locations]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -133,8 +139,10 @@ router.post(
  *  @swagger
  *  /locations/{id}:
  *    patch:
- *      summary: Update a location
+ *      summary: Update a location. It is available just for ADMIN users
  *      tags: [Locations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - id: integer
  *          in: path
@@ -191,8 +199,10 @@ router.patch(
  *  @swagger
  *  /locations/{id}:
  *    delete:
- *      summary: Delete a location by id
+ *      summary: Delete a location by id. It is available just for ADMIN users
  *      tags: [Locations]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: id
  *            in: path

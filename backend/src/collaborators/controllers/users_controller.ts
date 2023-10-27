@@ -16,6 +16,8 @@ router.use(checkTokenAndRoles(['ADMIN']))
  *    get:
  *      summary: Get all registered users
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: List of users
@@ -47,6 +49,8 @@ router.get('/', async (_req, res, next) => {
  *    get:
  *      summary: Get a user by email
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: email
  *            in: path
@@ -89,6 +93,8 @@ router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req,
  *    get:
  *      summary: Get a user ecoequivalences by email
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *          - name: email
  *            in: path
@@ -131,6 +137,8 @@ router.get('/:email/ecoequivalences', validationHandler(getByEmailSchema, 'param
  *    post:
  *      summary: Create a new user
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -172,6 +180,8 @@ router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, n
  *    patch:
  *      summary: Update a user
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - name: email
  *          in: path
@@ -233,6 +243,8 @@ router.patch(
  *    delete:
  *      summary: Delete a user
  *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - name: email
  *          in: path
