@@ -173,6 +173,7 @@ router.post(
   async (req, res, next) => {
     try {
       const { data, token } = req.body
+
       const logActionCollaborator = await logActionCollaboratorService.create(data, {
         title: 'Califica el servicio recibido',
         body: 'La calidad de tu atención es importante para nosotros, por favor califícala',

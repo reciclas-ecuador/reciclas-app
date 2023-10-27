@@ -9,14 +9,40 @@ export default class CollectCenterService {
     return await this.prisma.collectCenter.findMany()
   }
 
-  async getStadistics(): Promise<any> {
-    const [total] = await Promise.all([
-      await this.prisma.collectCenter.count()
-    ])
+  async getTotalRecolectedByIdDiary(id: number): Promise<{ collectCenter: CollectCenter, total: number }> {
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: {
+        id
+      },
+      include: { logActionCollaborators: true }
+    })
 
-    return {
-      total
+    if (collectCenter === null) {
+      throw boom.notFound('Collect center not found')
     }
+
+    const { logActionCollaborators, ...restOfData } = collectCenter
+
+    const todayRecolected = logActionCollaborators.filter((log) => new Date(log.submitDate) >= new Date(new Date().setHours(0, 0, 0, 0)))
+
+    const total = todayRecolected.reduce((acc, recolect) => acc + recolect.quantity, 0)
+
+    return { collectCenter: restOfData, total }
+  }
+
+  async getAllRecolectedById(id: number): Promise<{ collectCenter: CollectCenter, total: number }> {
+    const collectCenter = await this.prisma.collectCenter.findFirst({
+      where: { id },
+      include: { logActionCollaborators: true }
+    })
+
+    if (collectCenter === null) {
+      throw boom.notFound('Collect center not found')
+    }
+
+    const total = collectCenter.logActionCollaborators.reduce((acc, recolect) => acc + recolect.quantity, 0)
+
+    return { collectCenter, total }
   }
 
   async getAllEmployees(id: number): Promise<CollectCenter[]> {

@@ -50,15 +50,14 @@ router.get(
 )
 
 router.get(
-  '/stadistics',
-  // checkTokenAndRoles(['ADMIN']),
-  async (_, res, next) => {
+  '/location/:locationId',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  validationHandler(getByLocationIdSchema, 'params'),
+  async (req, res, next) => {
     try {
-      console.log('endpoint stadistics')
-      const collectCenters = await collectCenterService.getStadistics()
+      const collectCenters = await collectCenterService.getAllByLocation(Number(req.params.locationId))
       response.success(res, collectCenters)
     } catch (error) {
-      console.log({ error })
       next(error)
     }
   }
@@ -188,13 +187,14 @@ router.get(
  *                $ref: '#/components/schemas/NotFound'
 */
 router.get(
-  '/location/:locationId',
+  '/:id/total-today-recolected',
   checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
-  validationHandler(getByLocationIdSchema, 'params'),
+  validationHandler(getByIdSchema, 'params'),
   async (req, res, next) => {
     try {
-      const collectCenters = await collectCenterService.getAllByLocation(Number(req.params.locationId))
-      response.success(res, collectCenters)
+      const { id } = req.params
+      const { collectCenter, total } = await collectCenterService.getTotalRecolectedByIdDiary(Number(id))
+      response.success(res, { collectCenter, total })
     } catch (error) {
       next(error)
     }

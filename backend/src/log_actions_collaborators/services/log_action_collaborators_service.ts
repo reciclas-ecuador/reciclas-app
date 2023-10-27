@@ -55,7 +55,7 @@ export default class LogActionsCollaboratorsService {
     }
 
     const logActionCollaborator = await this.prisma.logActionsCollaborator.create({ data })
-    await this.sendNotificationToUser(message, token)
+    await this.sendNotificationToUser(message, token) // comment to try without token, also comment validation_handler.ts, checkTokenAndRoles
 
     return logActionCollaborator
   }
