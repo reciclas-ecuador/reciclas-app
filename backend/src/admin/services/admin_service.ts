@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client'
 import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
 import { type EcoEquivalences } from '../../collaborators/types/users'
 import { type SummaryStadistics, type UsersInfo } from '../types/admin'
+import client from '../../../libs/prismadb'
 
 //
 export class AdminService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getSummaryStadistics(): Promise<SummaryStadistics> {
     const [totalUsers, totalRecolected, totalEmployees, averageAttentionQuality] = await Promise.all([

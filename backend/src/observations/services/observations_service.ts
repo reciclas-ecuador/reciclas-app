@@ -1,9 +1,10 @@
-import { type Observation, PrismaClient } from '@prisma/client'
+import { type Observation } from '@prisma/client'
 import boom from '@hapi/boom'
 import { type UpdateObservation, type CreateObservation } from '../types/observations'
+import client from '../../../libs/prismadb'
 
 export default class ObservationsService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getAll(): Promise<Observation[]> {
     return await this.prisma.observation.findMany()
