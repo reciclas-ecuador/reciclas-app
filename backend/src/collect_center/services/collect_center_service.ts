@@ -1,9 +1,10 @@
-import { type CollectCenter, PrismaClient } from '@prisma/client'
+import { type CollectCenter } from '@prisma/client'
 import boom from '@hapi/boom'
 import { type CreateCollectCenter, type UpdateCollectCenter } from '../types/collect_center'
+import client from '../../../libs/prismadb'
 
 export default class CollectCenterService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getAll(): Promise<CollectCenter[]> {
     return await this.prisma.collectCenter.findMany()

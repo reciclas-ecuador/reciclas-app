@@ -1,9 +1,10 @@
-import { type Location, PrismaClient } from '@prisma/client'
+import { type Location } from '@prisma/client'
 import { type UpdateLocation, type CreateLocation } from '../types/location'
 import boom from '@hapi/boom'
+import client from '../../../libs/prismadb'
 
 export default class LocationService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getAll(): Promise<Location[]> {
     return await this.prisma.location.findMany()

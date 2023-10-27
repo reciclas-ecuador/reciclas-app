@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client'
 import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
 import { type EcoEquivalences } from '../../collaborators/types/users'
 import { type UsersInfo } from '../types/admin'
+import client from '../../../libs/prismadb'
 
 //
 export class AdminService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getTotalRecolected(): Promise<{ total: number }> {
     const total: any = await this.prisma.$queryRaw`
