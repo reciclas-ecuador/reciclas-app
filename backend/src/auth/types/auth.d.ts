@@ -21,5 +21,6 @@ export interface LoginUser {
 export interface RegisteredUser {
   uid: string
   email: string
+  name: string
   role: Role
 }

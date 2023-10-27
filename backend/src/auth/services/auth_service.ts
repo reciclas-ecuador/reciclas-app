@@ -22,10 +22,13 @@ export default class AuthService {
     if (role !== 'USER') {
       throw boom.badRequest('You can be only a user')
     }
-    await this.usersService.create({ email, ...restOfData })
+    const user = await this.usersService.create({ email, ...restOfData })
 
     const registeredUserData = await this.firebaseService.createUser(data)
-    return registeredUserData
+    return {
+      ...registeredUserData,
+      name: user.name
+    }
   }
 
   async createEmployee(data: RegisterCenterEmployee): Promise<RegisteredUser> {
@@ -33,14 +36,17 @@ export default class AuthService {
     if (role !== 'CENTER_EMPLOYEE') {
       throw boom.badRequest('You can be only a center employee')
     }
-    await this.centerEmployeesService.create({
+    const user = await this.centerEmployeesService.create({
       email,
       ...restOfData
     })
 
     const registeredEmployeeData = await this.firebaseService.createEmployee(data)
 
-    return registeredEmployeeData
+    return {
+      ...registeredEmployeeData,
+      name: user.name
+    }
   }
 
   async verifyIdToken(idToken: string): Promise<DecodedIdToken & { role: Role }> {
