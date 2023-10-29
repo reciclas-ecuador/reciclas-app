@@ -10,6 +10,15 @@ export default class CollectCenterService {
     return await this.prisma.collectCenter.findMany()
   }
 
+  async getAllPublic(): Promise<Array<Pick<CollectCenter, 'id' | 'name'>>> {
+    return await this.prisma.collectCenter.findMany({
+      select: {
+        id: true,
+        name: true
+      }
+    })
+  }
+
   async getTotalRecolectedByIdDiary(id: number): Promise<{ collectCenter: CollectCenter, total: number }> {
     const collectCenter = await this.prisma.collectCenter.findFirst({
       where: {

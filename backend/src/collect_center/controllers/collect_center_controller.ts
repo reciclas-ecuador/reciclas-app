@@ -19,7 +19,7 @@ const response = new Response()
  * @swagger
  *  /collect-centers:
  *    get:
- *      summary: Get all collect centers registered. It is available for ADMIN and CENTER_EMPLOYEE users
+ *      summary: Get all collect centers registered. It is public
  *      tags: [Collect Centers]
  *      security:
  *        - bearerAuth: []
@@ -44,6 +44,18 @@ router.get(
   async (_, res, next) => {
     try {
       const collectCenters = await collectCenterService.getAll()
+      response.success(res, collectCenters)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.get(
+  '/all',
+  async (_, res, next) => {
+    try {
+      const collectCenters = await collectCenterService.getAllPublic()
       response.success(res, collectCenters)
     } catch (error) {
       next(error)

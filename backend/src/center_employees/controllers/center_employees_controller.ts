@@ -8,8 +8,6 @@ const router = Router()
 const centerEmployeeService = new CenterEmployeesService()
 const response = new Response()
 
-router.use(checkTokenAndRoles(['ADMIN']))
-
 /**
  * @swagger
  *  /center-employees:
@@ -35,6 +33,7 @@ router.use(checkTokenAndRoles(['ADMIN']))
 */
 router.get(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   async (_req, res, next) => {
     try {
       const centerEmployees = await centerEmployeeService.getAll()
@@ -81,6 +80,7 @@ router.get(
 */
 router.get(
   '/:email',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByEmailSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -130,6 +130,7 @@ router.get(
 */
 router.get(
   '/collect-center/:collectCenterId',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByCollectCenterIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -178,6 +179,7 @@ router.get(
 */
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(CreateCenterEmployeeSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -237,6 +239,7 @@ router.post(
 */
 router.patch(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   validationHandler(UpdateCenterEmployeeSchema, 'body'),
   async (req, res, next) => {
@@ -286,6 +289,7 @@ router.patch(
 */
 router.delete(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   async (req, res, next) => {
     try {
