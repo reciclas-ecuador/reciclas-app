@@ -4,7 +4,7 @@ import { type DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier'
 import { type RegisteredUser, type RegisterCenterEmployee, type RegisterUser, type Role, type Message } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = require('../../reciclas-app-firebase-adminsdk.json')
+const serviceAccount = require('../../fireKey.json')
 
 class FirebaseService {
   private readonly admin: FirebaseAdmin.app.App

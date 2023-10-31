@@ -1,10 +1,37 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import { Gradient } from "../../../global";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Chip, Divider } from "react-native-paper";
 
+const { width, height } = Dimensions.get("screen");
+
+const imageW = width * 0.6;
+const imageH = imageW * 1;
+const data = [
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
+    title: "Eco",
+  },
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/13130602/media/592ccac0a949b39f058a297fd1faa38e.jpg?compress=1&resize=1200x1200",
+    title: "Reciclaje",
+  },
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    title: "Eco2",
+  },
+];
 const UserChart_home = () => {
   return (
     <Gradient>
@@ -14,6 +41,7 @@ const UserChart_home = () => {
           fontSize: 20,
           fontWeight: "bold",
           marginTop: 40,
+          textAlign: "center",
         }}
       >
         Mis Eco - equivalencias: 18
@@ -77,69 +105,70 @@ const UserChart_home = () => {
           }}
         />
       </View>
+
       {/* ----- */}
-      <View style={styles.content_glass}>
-        <Text style={{ color: "white" }}>Evitaste el consumo de:</Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "flex-start",
+
+      {/* <View style={styles.columns}></View> */}
+      <Text style={{ color: "white", marginTop: 30, fontSize: 20 }}>
+        Evitaste el consumo de:
+      </Text>
+
+      {/* <SafeAreaView> */}
+      <View
+        style={{
+          flex: 1,
+          // height: 400,
+          // borderColor: "white",
+          // borderWidth: 1,
+          // width: "90%",
+
+          // marginVertical: 10,
+        }}
+      >
+        {/* <StatusBar hidden /> sirve par quitar la hora */}
+        <FlatList
+          data={data}
+          // fadingEdgeLength={15}
+          horizontal
+          pagingEnabled
+          // keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  width,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  // borderColor: "white",
+                  borderWidth: 1,
+                  height: "80%",
+
+                  // paddingVertical: 15,
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 20, marginVertical: 10 }}
+                >
+                  {item.title}
+                </Text>
+                <Image
+                  source={{ uri: item.uri }}
+                  style={{
+                    width: imageW,
+                    height: imageH,
+                    resizeMode: "cover",
+                    borderRadius: 10,
+                  }}
+                />
+              </View>
+            );
           }}
-        >
-          <View style={styles.columns}>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              Arboles
-              <Divider />
-              {/* {"\n"} */}
-              0.006
-            </Chip>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              Litros de agua {"\n"} 0.05
-            </Chip>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              <Text>Kwh de energia</Text>
-              <Text>Kwh de energia</Text>
-            </Chip>
-          </View>
-          <View style={styles.columns}>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              Litros de petroleo
-            </Chip>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              Kilos de CO2
-            </Chip>
-            <Chip
-              style={styles.chip_style}
-              icon="information"
-              onPress={() => console.log("Pressed")}
-            >
-              Horas de un foco
-            </Chip>
-          </View>
-        </View>
+        />
       </View>
+      {/* </SafeAreaView> */}
+      {/* </View> */}
+      {/* </View> */}
     </Gradient>
   );
 };
