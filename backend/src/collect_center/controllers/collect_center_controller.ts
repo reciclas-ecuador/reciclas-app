@@ -19,7 +19,7 @@ const response = new Response()
  * @swagger
  *  /collect-centers:
  *    get:
- *      summary: Get all collect centers registered. It is public
+ *      summary: Get all collect centers registered. It is available for ADMIN users
  *      tags: [Collect Centers]
  *      security:
  *        - bearerAuth: []
@@ -40,7 +40,7 @@ const response = new Response()
 */
 router.get(
   '/',
-  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  checkTokenAndRoles(['ADMIN']),
   async (_, res, next) => {
     try {
       const collectCenters = await collectCenterService.getAll()
@@ -51,6 +51,27 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ *  /collect-centers/all:
+ *    get:
+ *      summary: Get all collect centers registered. It is public
+ *      tags: [Collect Centers]
+ *      responses:
+ *        200:
+ *          description: List of collect centers registered
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/CollectCenterMinified'
+*/
 router.get(
   '/all',
   async (_, res, next) => {

@@ -1,3 +1,4 @@
+// import boom from '@hapi/boom'
 import { Router } from 'express'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { createUserSchema, getByEmailSchema, updateUserSchema } from '../models/users_model'
@@ -79,6 +80,9 @@ router.get('/', async (_req, res, next) => {
 */
 router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req, res, next) => {
   try {
+    // if (req.params.email === req.user?.user?.email) {
+    //   throw boom.forbidden('User has no permissions')
+    // }
     const users = await usersService.getOne(req.params.email)
 
     response.success(res, users)

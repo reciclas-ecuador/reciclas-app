@@ -189,8 +189,7 @@ export const registerCenterEmployeeSchema = Joi.object({
 })
 
 export const loginSchema = Joi.object({
-  email: email.required(),
-  password: password.required()
+  idToken: Joi.string().trim().required()
 })
 
 export const hashSchema = Joi.object({

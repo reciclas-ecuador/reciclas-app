@@ -12,7 +12,7 @@ const response = new Response()
  * @swagger
  *  /center-employees:
  *    get:
- *      summary: Get all center employees registered
+ *      summary: Get all center employees registered. Only ADMIN users can get all center employees
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []
@@ -48,7 +48,7 @@ router.get(
  *  @swagger
  *  /center-employees/{email}:
  *    get:
- *      summary: Get a center employee by email
+ *      summary: Get a center employee by email. Only ADMIN and CENTER EMPLOYEES users can get a center employee by email
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []
@@ -97,7 +97,7 @@ router.get(
  *  @swagger
  *  /center-employees/{collectCenterId}:
  *    get:
- *      summary: Get all employees by collect center id
+ *      summary: Get all employees by collect center id. Only ADMIN and CENTER EMPLOYEES users can get all employees by collect center id
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []
@@ -148,7 +148,7 @@ router.get(
  *  @swagger
  *  /center-employees:
  *    post:
- *      summary: Create a new Center Employee
+ *      summary: Create a new Center Employee. Only ADMIN users can create a new center employee
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []
@@ -195,7 +195,7 @@ router.post(
  *  @swagger
  *  /center-employees/{email}:
  *    patch:
- *      summary: Update a center employee
+ *      summary: Update a center employee. Only ADMIN users can update a center employee
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []
@@ -257,7 +257,7 @@ router.patch(
  *  @swagger
  *  /center-employees/{email}:
  *    delete:
- *      summary: Delete a center employee
+ *      summary: Delete a center employee. Only ADMIN users can delete a center employee
  *      tags: [Center Employees]
  *      security:
  *        - bearerAuth: []

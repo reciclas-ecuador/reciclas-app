@@ -32,7 +32,7 @@ export const checkTokenAndRoles = (allowedRoles: Role[]) => {
         next(boom.forbidden('User has no permissions'))
         return
       }
-      // req.user = decodedToken
+      req.user = decodedToken
       next()
     } catch (error) {
       next(error)

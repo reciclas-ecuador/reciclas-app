@@ -99,6 +99,18 @@ import Joi from 'joi'
  *        createdAt: 2021-01-01T00:00:00.000Z
  *        updatedAt: 2021-01-01T00:00:00.000Z
  *        collectCenterEmployees: []
+ *    CollectCenterMinified:
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: integer
+ *          description: The unique identifier
+ *        name:
+ *          type: string
+ *          description: The name of the collect center
+ *      example:
+ *        id: 1
+ *        name: Centro de recolección 1
 */
 const id = Joi.number()
 const address = Joi.string().trim()

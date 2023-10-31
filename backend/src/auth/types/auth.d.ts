@@ -1,3 +1,4 @@
+import { type CenterEmployee, type Collaborator, type CollectCenter } from '@prisma/client'
 import { type CreateCenterEmployee } from '../../center_employees/types/center_employees'
 import { type CreateUser } from '../../collaborators/types/users'
 
@@ -23,4 +24,11 @@ export interface RegisteredUser {
   email: string
   name: string
   role: Role
+}
+
+export interface LoginResponse {
+  user?: Collaborator | CenterEmployee
+  role: Role
+  collectCenter?: CollectCenter
+  total?: number
 }

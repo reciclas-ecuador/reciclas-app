@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import CollectCenterService from '../../collect_center/services/collect_center_service'
 import { validationHandler } from '../../../middlewares/validation_handler'
-import { hashSchema, registerCenterEmployeeSchema, registerUserSchema } from '../models/auth_model'
+import { hashSchema, loginSchema, registerCenterEmployeeSchema, registerUserSchema } from '../models/auth_model'
 import AuthService from '../services/auth_service'
 import { Response } from '../../../libs/response'
 
@@ -187,12 +187,12 @@ router.post(
 */
 router.post(
   '/login',
-  // validationHandler(loginSchema, 'body'),
+  validationHandler(loginSchema, 'body'),
   async (req, res, next) => {
     try {
       const { idToken } = req.body
       const user = await authService.verifyIdToken(idToken)
-      response.success(res, { role: user.role })
+      response.success(res, user)
     } catch (error) {
       next(error)
     }
