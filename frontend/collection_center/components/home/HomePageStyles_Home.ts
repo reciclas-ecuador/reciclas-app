@@ -22,7 +22,7 @@ export const HomePageStyles = StyleSheet.create({
     alignContent: 'center',
     fontWeight: 'bold',
     marginTop: '5%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -60,7 +60,7 @@ export const HomePageStyles = StyleSheet.create({
     fontWeight: 'bold',
     alignContent: 'center',
     marginTop: '5%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -68,7 +68,7 @@ export const HomePageStyles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     alignContent: 'center',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -77,8 +77,41 @@ export const HomePageStyles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignContent: 'center',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
+  },
+  chartAppLogo: {
+    position: 'absolute',
+    top: '37%'
+  },
+  percentage: {
+    fontSize: 30,
+    color: '#BDF26DCC',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
+  },
+  dailyGoal: {
+    fontSize: 15,
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
+  },
+  successText: {
+    fontSize: 15,
+    color: '#BDF26DCC',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
+  },
+  chartContainer: {
+    padding: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 30
   }
 })

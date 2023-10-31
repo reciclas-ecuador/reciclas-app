@@ -2,17 +2,18 @@
 import { initializeApp } from 'firebase/app'
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth'
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage'
+// import { getMessaging } from 'firebase/messaging'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDH3WmKzppPnyXfyMjzyad4LjEss58NOQs',
-  authDomain: 'reciclas-app-f0286.firebaseapp.com',
-  projectId: 'reciclas-app-f0286',
-  storageBucket: 'reciclas-app-f0286.appspot.com',
-  messagingSenderId: '979849589331',
-  appId: '1:979849589331:web:c18d965a3bfada1fa2cca6'
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_CONFIG_APP_ID
 }
 
 // Initialize Firebase
@@ -20,3 +21,4 @@ export const FIREBASE_APP = initializeApp(firebaseConfig)
 export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 })
+// export const FIREBASE_MESSAGING = getMessaging(FIREBASE_APP)

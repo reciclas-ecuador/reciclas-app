@@ -1,9 +1,10 @@
-import { type CenterEmployee, PrismaClient } from '@prisma/client'
+import { type CenterEmployee } from '@prisma/client'
 import boom from '@hapi/boom'
 import { type CreateCenterEmployee, type UpdateCenterEmployee } from '../types/center_employees'
+import client from '../../../libs/prismadb'
 
 export default class CenterEmployeesService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
 
   async getAll(): Promise<CenterEmployee[]> {
     return await this.prisma.centerEmployee.findMany()

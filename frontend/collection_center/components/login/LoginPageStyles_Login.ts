@@ -12,7 +12,7 @@ export const LoginPageStyles = StyleSheet.create({
     marginRight: 'auto',
     fontSize: 45,
     alignContent: 'center',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -23,7 +23,7 @@ export const LoginPageStyles = StyleSheet.create({
     fontSize: 25,
     alignContent: 'center',
     letterSpacing: 5,
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -34,7 +34,7 @@ export const LoginPageStyles = StyleSheet.create({
     fontSize: 15,
     alignContent: 'center',
     marginTop: '4%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -64,7 +64,7 @@ export const LoginPageStyles = StyleSheet.create({
     fontWeight: 'bold',
     alignContent: 'center',
     marginTop: '8%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -73,7 +73,7 @@ export const LoginPageStyles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     alignContent: 'center',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -95,7 +95,7 @@ export const LoginPageStyles = StyleSheet.create({
   otherOptionsText: {
     fontSize: 15,
     color: '#FFFFFF98',
-    textShadowColor: 'rgba(119, 166, 73, 0.7)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },

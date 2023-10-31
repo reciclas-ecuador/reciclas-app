@@ -1,16 +1,20 @@
-export const postLogActionCollaborator = async (submitDate: string, quantity: string, collaboratorEmail: string, collectCenterId: string, receiverEmail: string): Promise<string> => {
-  const url = 'http://192.168.1.105:3000/api/v1/log-actions-collaborators'
+export const postLogActionCollaborator = async (submitDate: string, quantity: string, collaboratorEmail: string, collectCenterId: string, receiverEmail: string, idToken: string): Promise<string> => {
+  const url = `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/api/v1/log-actions-collaborators`
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({
-      submitDate,
-      quantity,
-      collaboratorEmail,
-      collectCenterId,
-      receiverEmail
+      data: {
+        submitDate,
+        quantity,
+        collaboratorEmail,
+        collectCenterId,
+        receiverEmail
+      },
+      token: idToken
     }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: `Bearer ${idToken}`
     }
   })
     .then(response => response.json())
@@ -19,8 +23,8 @@ export const postLogActionCollaborator = async (submitDate: string, quantity: st
     })
 }
 
-export const postObservation = (comment: string, logActionsCollaboratorId: string) => {
-  const url = 'http://192.168.1.105:3000/api/v1/observations'
+export const postObservation = (comment: string, logActionsCollaboratorId: string, idToken: string) => {
+  const url = `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/api/v1/observations`
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -28,7 +32,8 @@ export const postObservation = (comment: string, logActionsCollaboratorId: strin
       logActionsCollaboratorId
     }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
+      'Content-type': 'application/json; charset=UTF-8',
+      Authorization: `Bearer ${idToken}`
     }
   })
 }

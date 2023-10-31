@@ -34,7 +34,7 @@ export const ReceptionPageStyles = StyleSheet.create({
     color: '#BDF26D',
     fontSize: 17,
     fontWeight: 'bold',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -91,7 +91,7 @@ export const ReceptionPageStyles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: '2%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -113,5 +113,12 @@ export const ReceptionPageStyles = StyleSheet.create({
     paddingHorizontal: 5,
     borderColor: '#000',
     borderWidth: 0.5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   }
 })

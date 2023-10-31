@@ -8,10 +8,32 @@ const router = Router()
 const centerEmployeeService = new CenterEmployeesService()
 const response = new Response()
 
-router.use(checkTokenAndRoles(['ADMIN']))
-
+/**
+ * @swagger
+ *  /center-employees:
+ *    get:
+ *      summary: Get all center employees registered. Only ADMIN users can get all center employees
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      responses:
+ *        200:
+ *          description: List of locations
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/CenterEmployee'
+*/
 router.get(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   async (_req, res, next) => {
     try {
       const centerEmployees = await centerEmployeeService.getAll()
@@ -22,8 +44,43 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /center-employees/{email}:
+ *    get:
+ *      summary: Get a center employee by email. Only ADMIN and CENTER EMPLOYEES users can get a center employee by email
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: email
+ *            in: path
+ *            description: The email of the center employee
+ *            schema:
+ *              type: string
+ *              format: email
+ *      responses:
+ *        200:
+ *          description: The center employee description by email
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/CenterEmployee'
+ *        404:
+ *          description: The center employee was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/:email',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByEmailSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -36,8 +93,44 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /center-employees/{collectCenterId}:
+ *    get:
+ *      summary: Get all employees by collect center id. Only ADMIN and CENTER EMPLOYEES users can get all employees by collect center id
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: Collect Center Id
+ *            in: path
+ *            description: The Collect Center Id that the center employee belongs to
+ *            schema:
+ *              type: integer
+ *      responses:
+ *        200:
+ *          description: List of center employees that belongs to the collect center
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/CenterEmployee'
+ *        404:
+ *          description: The Collect Center was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.get(
   '/collect-center/:collectCenterId',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
   validationHandler(getByCollectCenterIdSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -51,8 +144,42 @@ router.get(
   }
 )
 
+/**
+ *  @swagger
+ *  /center-employees:
+ *    post:
+ *      summary: Create a new Center Employee. Only ADMIN users can create a new center employee
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateCenterEmployee'
+ *      responses:
+ *        201:
+ *          description: The center employee was created successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/CenterEmployee'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+*/
 router.post(
   '/',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(CreateCenterEmployeeSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -64,8 +191,55 @@ router.post(
   }
 )
 
+/**
+ *  @swagger
+ *  /center-employees/{email}:
+ *    patch:
+ *      summary: Update a center employee. Only ADMIN users can update a center employee
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - name: email
+ *          in: path
+ *          description: The email of the center employee
+ *          schema:
+ *            type: string
+ *            format: email
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UpdateCenterEmployee'
+ *      responses:
+ *        200:
+ *          description: The center employee was updated successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/CenterEmployee'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The center employee was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.patch(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   validationHandler(UpdateCenterEmployeeSchema, 'body'),
   async (req, res, next) => {
@@ -79,8 +253,43 @@ router.patch(
   }
 )
 
+/**
+ *  @swagger
+ *  /center-employees/{email}:
+ *    delete:
+ *      summary: Delete a center employee. Only ADMIN users can delete a center employee
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - name: email
+ *          in: path
+ *          description: The email of the center employee
+ *          schema:
+ *            type: string
+ *            format: email
+ *      responses:
+ *        200:
+ *          description: The center employee was deleted successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/CenterEmployee'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
 router.delete(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   async (req, res, next) => {
     try {

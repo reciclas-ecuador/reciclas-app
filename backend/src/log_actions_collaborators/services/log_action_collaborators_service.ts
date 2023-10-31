@@ -1,11 +1,12 @@
-import { type LogActionsCollaborator, PrismaClient } from '@prisma/client'
+import { type LogActionsCollaborator, type PrismaClient } from '@prisma/client'
 import { type UpdateLogActionCollaborator, type CreateLogActionCollaborator } from '../types/log_action_collaborators'
 import boom from '@hapi/boom'
 import { firebaseService } from '../../firebase/firebase_service'
 import { type Message } from '../../firebase/types'
+import client from '../../../libs/prismadb'
 
 export default class LogActionsCollaboratorsService {
-  private readonly prisma: PrismaClient = new PrismaClient()
+  private readonly prisma: PrismaClient = client
   private readonly firebaseService: typeof firebaseService
   constructor() {
     this.firebaseService = firebaseService

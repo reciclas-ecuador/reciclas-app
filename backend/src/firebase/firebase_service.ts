@@ -46,8 +46,9 @@ class FirebaseService {
 
   async verifyIdToken(idToken: string): Promise<DecodedIdToken & { role: Role }> {
     try {
+      console.log('[/login]]', idToken)
       const rta = await this.admin.auth().verifyIdToken(idToken) as DecodedIdToken & { role: Role }
-
+      console.log('[rta]', rta)
       return rta
     } catch (error) {
       throw boom.unauthorized('Token invalid or expired')
