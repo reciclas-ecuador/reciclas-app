@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { ReceptionPageStyles } from './styles_reception/ReceptionPageStyles_Reception'
+import { ReceptionPageStyles } from './ReceptionPageStyles_Reception'
 import { ReciclasLogo, TrashCan, Comment, User, Scan } from '../../../assets'
 import { useEffect, useState } from 'react'
 import { postLogActionCollaborator, postObservation } from '../../services'
@@ -16,14 +16,14 @@ export function ReceptionPageCollectionCenter () {
   const [scanned, setScanned] = useState(false)
   const [openCamera, setOpenCamera] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
-  const { activeUser, currentCenterId } = useCollectionCenterContext()
+  const { activeCenterEmployee, idToken } = useCollectionCenterContext()
   const [isLoading, setIsLoading] = useState(false)
 
   const registerQuantity = async () => {
     setIsLoading(true)
-    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, currentCenterId, activeUser)
+    const currentLogActionCollaboratorId = await postLogActionCollaborator(new Date().toISOString(), quantity, user, String(activeCenterEmployee.collectCenterId), activeCenterEmployee.email, idToken)
     if (observation !== '') {
-      postObservation(observation, currentLogActionCollaboratorId)
+      postObservation(observation, currentLogActionCollaboratorId, idToken)
     }
     setQuantity('')
     setObservation('')
@@ -80,7 +80,7 @@ export function ReceptionPageCollectionCenter () {
       />
       <KeyboardAvoidingWrapper>
         <View>
-          <ReciclasLogo style={ReceptionPageStyles.appLogo} />
+          <ReciclasLogo style={ReceptionPageStyles.appLogo} fill='#BDF26D' />
           <View style={ReceptionPageStyles.centerView}>
             <View style={ReceptionPageStyles.content}>
               {!openCamera &&
@@ -106,7 +106,7 @@ export function ReceptionPageCollectionCenter () {
               <View style={ReceptionPageStyles.inputSection}>
                 <View style={ReceptionPageStyles.quantityInput}>
                   <Input
-                    defaultText='Cantidad de botellas'
+                    defaultText='Peso'
                     icon={<TrashCan />}
                     keyboard='numeric'
                     setInputText={setQuantity}
@@ -120,7 +120,7 @@ export function ReceptionPageCollectionCenter () {
                   setInputText={setObservation}
                   defaultValue={observation}
                 />
-                {isLoading ? <ActivityIndicator animating={isLoading} color='#77A649' size={42} /> : null}
+                {isLoading ? <ActivityIndicator animating={isLoading} color='#77A649' size={41} /> : null}
                 {!isLoading && scanned &&
                   <View style={ReceptionPageStyles.optionButtons}>
                     <Button
@@ -128,7 +128,7 @@ export function ReceptionPageCollectionCenter () {
                       buttonColor='#00000030'
                       textColor='#BDF26D'
                       onPress={() => { setScanned(false); setOpenCamera(false); setUser('') }}
-                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      labelStyle={ReceptionPageStyles.buttonText}
                       style={ReceptionPageStyles.button}
                     >
                       Cancelar
@@ -138,7 +138,7 @@ export function ReceptionPageCollectionCenter () {
                       buttonColor='#76b54430'
                       textColor='#BDF26D'
                       onPress={registerQuantity}
-                      labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
+                      labelStyle={ReceptionPageStyles.buttonText}
                       style={ReceptionPageStyles.button}
                     >
                       Registrar

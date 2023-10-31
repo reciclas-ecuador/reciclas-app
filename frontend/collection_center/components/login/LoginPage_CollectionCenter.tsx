@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { LoginPageStyles } from './styles_login/LoginPageStyles_Login'
+import { LoginPageStyles } from './LoginPageStyles_Login'
 import { Password, ReciclasLogo, User } from '../../../assets'
 import { useState } from 'react'
 import { KeyboardAvoidingWrapper, Gradient, Input, useCollectionCenterContext } from '../../../global'
@@ -20,7 +20,7 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
   const [password, setPassword] = useState('')
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
   const [showLoginErrorModal, setShowLoginErrorModal] = useState(false)
-  const { setActiveUser } = useCollectionCenterContext()
+  const { setFirebaseActiveUser, setIdToken, setActiveCenterEmployee, setKgCollectedToday } = useCollectionCenterContext()
   const [isLoading, setIsLoading] = useState(false)
 
   const loginUser = async () => {
@@ -28,9 +28,12 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
     try {
       const response = await signInWithEmailAndPassword(FIREBASE_AUTH, centerEmployee, password)
       const idToken = await getIdToken(response.user)
-      const userRole = await postCenterEmployeeIdToken(idToken)
-      if (userRole === 'CENTER_EMPLOYEE') {
-        setActiveUser(String(response.user.email))
+      const loginResponse = await postCenterEmployeeIdToken(idToken)
+      if (loginResponse.body.role === 'CENTER_EMPLOYEE') {
+        setIdToken(idToken)
+        setFirebaseActiveUser(response.user)
+        setActiveCenterEmployee(loginResponse.body.user)
+        setKgCollectedToday(loginResponse.body.total)
         setCenterEmployee('')
         setPassword('')
         navigation.navigate('Menu_CollectionCenter')
@@ -50,7 +53,7 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
     <Gradient>
       <KeyboardAvoidingWrapper>
         <View>
-          <ReciclasLogo style={LoginPageStyles.appLogo} />
+          <ReciclasLogo style={LoginPageStyles.appLogo} fill='#BDF26D' />
           <Text style={LoginPageStyles.appTitle}>RE·CICLAS</Text>
           <Text style={LoginPageStyles.appSubTitle}>ECUADOR</Text>
           <Text style={LoginPageStyles.appDescription}>
@@ -61,7 +64,7 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
             <Text style={LoginPageStyles.rolText}>Administración</Text>
             <View style={LoginPageStyles.loginInputs}>
               <Input
-                defaultText='Nombre de usuario'
+                defaultText='Correo'
                 icon={<User />}
                 setInputText={setCenterEmployee}
                 defaultValue={centerEmployee}
@@ -89,7 +92,7 @@ export function LoginPageCollectionCenter ({ navigation }: LoginPageCollectionCe
                 ¿Olvidaste tu contraseña?
               </Text>
             </TouchableOpacity>
-            <ReciclasLogo width={30} height={30} style={LoginPageStyles.bottomAppLogo} />
+            <ReciclasLogo width={30} height={30} style={LoginPageStyles.bottomAppLogo} fill='#BDF26D' />
           </View>
           <MessageCollectionCenter
             handlePress={() => {}}

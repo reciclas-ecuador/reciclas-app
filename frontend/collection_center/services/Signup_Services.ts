@@ -1,5 +1,7 @@
+import { CollectionCenters } from '../../Types'
+
 export const postCenterEmployee = (email: string, name: string, lastname: string, phone: string, password: string, collectCenterId: string) => {
-  const url = 'http://192.168.1.105:3000/api/v1/auth/register-employee'
+  const url = `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/api/v1/auth/register-employee`
   fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -17,8 +19,8 @@ export const postCenterEmployee = (email: string, name: string, lastname: string
   })
 }
 
-export const getCollectionsCenters = () => {
-  const url = 'http://192.168.1.105:3000/api/v1/collect-centers'
+export const getCollectionsCenters = async (): Promise<CollectionCenters> => {
+  const url = `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/api/v1/collect-centers/all`
   return fetch(url)
     .then(response => {
       if (!response.ok) {

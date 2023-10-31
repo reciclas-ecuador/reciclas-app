@@ -19,7 +19,7 @@ export const SignupPageStyles = StyleSheet.create({
     marginVertical: '5%',
     fontSize: 45,
     alignContent: 'center',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },
@@ -47,7 +47,7 @@ export const SignupPageStyles = StyleSheet.create({
     fontWeight: 'bold',
     alignContent: 'center',
     marginTop: '8%',
-    textShadowColor: 'rgba(119, 166, 73, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: 0, height: 0.7 },
     textShadowRadius: 4
   },

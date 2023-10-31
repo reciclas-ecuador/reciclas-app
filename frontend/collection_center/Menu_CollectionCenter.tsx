@@ -65,7 +65,7 @@ function MyTabs () {
             paddingHorizontal: '16.5%'
           },
           tabBarInactiveTintColor: 'grey',
-          tabBarActiveTintColor: '#76b544',
+          tabBarActiveTintColor: '#BDF26D',
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color }) => {
             if (route.name === 'HomePage_CollectionCenter') {
@@ -107,7 +107,7 @@ function MyTabs () {
             width: 50,
             height: 4,
             position: 'absolute',
-            backgroundColor: '#76b544',
+            backgroundColor: '#BDF26D',
             bottom: '5.5%',
             borderRadius: 50,
             transform: [{ translateX: tabOffsetValue }]

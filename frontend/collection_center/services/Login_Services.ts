@@ -1,5 +1,7 @@
-export const postCenterEmployeeIdToken = async (idToken: string): Promise<string> => {
-  const url = 'http://192.168.1.105:3000/api/v1/auth/login'
+import { CenterEmployeeLogin } from '../../Types'
+
+export const postCenterEmployeeIdToken = async (idToken: string): Promise<CenterEmployeeLogin> => {
+  const url = `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/api/v1/auth/login`
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -16,7 +18,7 @@ export const postCenterEmployeeIdToken = async (idToken: string): Promise<string
       return response.json()
     })
     .then(data => {
-      return String(data.role)
+      return data
     })
     .catch(error => {
       console.error('Fetch error:', error)
