@@ -13,6 +13,9 @@ export const InputStyles = StyleSheet.create({
     alignItems: 'center'
   },
   textInput: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 0, height: 0.7 },
+    textShadowRadius: 4
   }
 })

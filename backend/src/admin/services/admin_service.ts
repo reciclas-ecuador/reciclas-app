@@ -1,11 +1,27 @@
-import { PrismaClient } from '@prisma/client'
 import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
 import { type EcoEquivalences } from '../../collaborators/types/users'
-import { type UsersInfo } from '../types/admin'
+import { type SummaryStadistics, type UsersInfo } from '../types/admin'
+import client from '../../../libs/prismadb'
 
 //
 export class AdminService {
-  private readonly prisma = new PrismaClient()
+  private readonly prisma = client
+
+  async getSummaryStadistics(): Promise<SummaryStadistics> {
+    const [totalUsers, totalRecolected, totalEmployees, averageAttentionQuality] = await Promise.all([
+      await this.prisma.collaborator.count(),
+      await this.getTotalRecolected(),
+      await this.getTotalEmployees(),
+      await this.getAverageAttentionQuality()
+    ])
+
+    return {
+      totalUsers,
+      totalRecolected: totalRecolected.total,
+      totalEmployees: totalEmployees.total,
+      averageAttentionQuality: averageAttentionQuality.average
+    }
+  }
 
   async getTotalRecolected(): Promise<{ total: number }> {
     const total: any = await this.prisma.$queryRaw`
@@ -38,6 +54,16 @@ export class AdminService {
       total,
       totalActive,
       totalInactive
+    }
+  }
+
+  async getCollectCentersInfo(): Promise<any> {
+    const [total] = await Promise.all([
+      await this.prisma.collectCenter.count()
+    ])
+
+    return {
+      total
     }
   }
 

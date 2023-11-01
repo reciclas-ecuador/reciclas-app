@@ -1,19 +1,27 @@
 import { createContext, useState, ReactNode, useContext } from 'react'
+import { User } from 'firebase/auth'
+import { CenterEmployeeBody } from '../../Types'
 
 type contextType = {
-  activeUser: string;
-  setActiveUser: ((user: string) => void);
-  currentCenterId: string;
-  setCurrentCenterId: ((centerId: string) => void);
+  firebaseActiveUser: User;
+  setFirebaseActiveUser: ((user: User) => void);
+  activeCenterEmployee: CenterEmployeeBody;
+  setActiveCenterEmployee: ((centerEmployee: CenterEmployeeBody) => void);
+  idToken: string;
+  setIdToken: ((idToken: string) => void);
+  kgCollectedToday: number;
+  setKgCollectedToday: ((totalCollectedToday: number) => void);
 }
 
 const CollectionCenterContext = createContext<contextType | undefined>(undefined)
 
 export function CollectionCenterContextProvider ({ children }: { children: ReactNode }) {
-  const [activeUser, setActiveUser] = useState<string>('')
-  const [currentCenterId, setCurrentCenterId] = useState<string>('')
+  const [firebaseActiveUser, setFirebaseActiveUser] = useState<User>({} as User)
+  const [activeCenterEmployee, setActiveCenterEmployee] = useState<CenterEmployeeBody>({} as CenterEmployeeBody)
+  const [idToken, setIdToken] = useState<string>('')
+  const [totalCollectedToday, setTotalCollectedToday] = useState<number>(0)
   return (
-    <CollectionCenterContext.Provider value={{ activeUser, setActiveUser, currentCenterId, setCurrentCenterId }}>
+    <CollectionCenterContext.Provider value={{ firebaseActiveUser, setFirebaseActiveUser, activeCenterEmployee, setActiveCenterEmployee, idToken, setIdToken, kgCollectedToday: totalCollectedToday, setKgCollectedToday: setTotalCollectedToday }}>
       {children}
     </CollectionCenterContext.Provider>
   )

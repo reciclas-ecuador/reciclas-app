@@ -25,6 +25,19 @@ export interface Error {
     message: string;
 }
 
+// Center Employee Login
+export interface CenterEmployeeLogin {
+    error: Error;
+    body: CenterEmployeeLoginBody;
+}
+
+export interface CenterEmployeeLoginBody {
+    role: string;
+    user: CenterEmployeeBody;
+    collectCenter: CollectionCenterBody;
+    total: number;
+}
+
 // User
 export interface UserBody {
     email: string;
@@ -51,6 +64,8 @@ export interface CollectionCenterBody {
     name: string;
     hash: string;
     address: string;
+    lat: string;
+    lng: string;
     createdAt: string;
     updatedAt: string;
     locationId: number;
@@ -65,6 +80,16 @@ export interface CollectionCenter {
 export interface CollectionCenters {
     error: Error;
     body: CollectionCenterBody[];
+}
+
+export interface RecolectionCollectionCenter {
+    error: Error;
+    body: RecolectionCollectionCenterBody;
+}
+
+export interface RecolectionCollectionCenterBody {
+    collectCenter: CollectionCenterBody;
+    total: number;
 }
 
 // Center employee

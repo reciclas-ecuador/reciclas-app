@@ -5,12 +5,13 @@ import { type UpdateUser, type CreateUser, type UserEcoEquivalences } from './..
  *
 */
 
-import { PrismaClient, type Collaborator } from '@prisma/client'
+import { type PrismaClient, type Collaborator } from '@prisma/client'
 import boom from '@hapi/boom'
 import { transformEcoEquivalences } from '../../../libs/ecoequivalences'
+import prisma from '../../../libs/prismadb'
 
 export default class UsersService {
-  private readonly prisma: PrismaClient = new PrismaClient()
+  private readonly prisma: PrismaClient = prisma
 
   async getAll(): Promise<Collaborator[]> {
     return await this.prisma.collaborator.findMany()

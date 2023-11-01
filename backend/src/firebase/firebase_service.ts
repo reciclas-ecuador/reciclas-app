@@ -4,7 +4,7 @@ import { type DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier'
 import { type RegisteredUser, type RegisterCenterEmployee, type RegisterUser, type Role, type Message } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = require('../../reciclas-app-firebase-adminsdk.json')
+const serviceAccount = require('../../fireKey.json')
 
 class FirebaseService {
   private readonly admin: FirebaseAdmin.app.App
@@ -46,8 +46,9 @@ class FirebaseService {
 
   async verifyIdToken(idToken: string): Promise<DecodedIdToken & { role: Role }> {
     try {
+      console.log('[/login]]', idToken)
       const rta = await this.admin.auth().verifyIdToken(idToken) as DecodedIdToken & { role: Role }
-
+      console.log('[rta]', rta)
       return rta
     } catch (error) {
       throw boom.unauthorized('Token invalid or expired')

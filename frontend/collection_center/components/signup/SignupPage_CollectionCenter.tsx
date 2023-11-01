@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import { SignupPageStyles } from './styles_signup/SignupPageStyles_Signup'
+import { SignupPageStyles } from './SignupPageStyles_Signup'
 import { User, Mail, Previous, ReciclasLogo, Phone, Location, Password } from '../../../assets'
 import { useEffect, useState } from 'react'
 import { postCenterEmployee, getCollectionsCenters } from '../../services'
@@ -7,7 +7,7 @@ import { KeyboardAvoidingWrapper, Gradient, Input, SelectionInput } from '../../
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList, CollectionCenters } from '../../../Types'
 import { MessageCollectionCenter } from '../../modals'
-import { Button } from 'react-native-paper'
+import { Button, ActivityIndicator } from 'react-native-paper'
 
 type SignupPageCollectionCenterProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'SignupPage_CollectionCenter'>;
@@ -22,8 +22,10 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
   const [centerEmployeeLocation, setCenterEmployeeLocation] = useState('')
   const [dataCollectionCenters, setDataCollectionCenters] = useState<CollectionCenters>()
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const registerCenterEmployee = async () => {
+    setIsLoading(true)
     postCenterEmployee(centerEmployeeEmail, centerEmployeeName, centerEmployeeLastName, centerEmployeePhone, centerEmployeePassword, centerEmployeeLocation.split(' - ')[1])
     setCenterEmployeeName('')
     setCenterEmployeeLastName('')
@@ -31,6 +33,7 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
     setCenterEmployeePhone('')
     setCenterEmployeeLocation('')
     setShowSuccessModal(true)
+    setIsLoading(false)
   }
 
   const fetchCollectionCenters = async () => {
@@ -61,7 +64,7 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
           <TouchableOpacity style={SignupPageStyles.backButton} onPress={() => navigation.navigate('LoginPage_CollectionCenter')}>
             <Previous width={40} height={40} />
           </TouchableOpacity>
-          <ReciclasLogo style={SignupPageStyles.appLogo} />
+          <ReciclasLogo style={SignupPageStyles.appLogo} fill='#BDF26D' />
           <Text style={SignupPageStyles.appTitle}>RE·CICLAS</Text>
           <View style={SignupPageStyles.grayContainer}>
             <Text style={SignupPageStyles.processText}>Registro</Text>
@@ -110,16 +113,9 @@ export function SignupPageCollectionCenter ({ navigation }: SignupPageCollection
               />
             </View>
             <View style={SignupPageStyles.signupButton}>
-              <Button
-                mode='outlined'
-                buttonColor='#FFF'
-                textColor='#77A649'
-                onPress={registerCenterEmployee}
-                labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
-                style={{ paddingHorizontal: 25 }}
-              >
-                Registrar
-              </Button>
+              {isLoading
+                ? <ActivityIndicator animating={isLoading} color='#77A649' size={42} />
+                : <Button mode='outlined' buttonColor='#FFF' textColor='#77A649' onPress={registerCenterEmployee} labelStyle={{ fontSize: 18, fontWeight: 'bold' }} style={{ paddingHorizontal: 25 }}>Registrar</Button>}
             </View>
           </View>
         </View>

@@ -5,3 +5,4 @@ node_modules
 /prisma/migrations
 ds.txt
 reciclas-app-firebase-adminsdk.json
+fireKey.json
