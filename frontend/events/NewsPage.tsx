@@ -67,9 +67,10 @@ export function NewsPage() {
         </>
       ) : (
         <>
-          <Header styles={{ marginTop: 20 }} />
+          {/* <Header styles={{ marginTop: 20 }} /> */}
           <FlatList
-            style={{ marginBottom: 80 }}
+            // style={{ marginBottom: 80 }}
+            ListHeaderComponent={<Header styles={{ marginTop: 60 }} />}
             data={dataNew}
             renderItem={({ item }) => <News {...item} />}
             keyExtractor={(news) => news.node.id}

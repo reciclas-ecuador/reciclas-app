@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { Text, View, StyleSheet } from 'react-native';
 import { ReciclasLogo } from '../assets'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeMaps = () => {
@@ -38,7 +38,8 @@ const HomeMaps = () => {
       <Header styles={{ marginTop: 60 }} />
       <View style={{ backgroundColor: '#494D4F', height: 481, width: 360, borderRadius: 25, alignItems: 'center', justifyContent: 'center' }}>
         <View style={{ overflow: 'hidden', height: 320, width: 320, borderRadius: 25 }}>
-          <MapView style={{ ...StyleSheet.absoluteFillObject }} />
+          <MapView style={{ ...StyleSheet.absoluteFillObject }}>
+          </MapView>
         </View>
         <TouchableOpacity style={{ bottom: -19, backgroundColor: 'white', borderRadius: 25, padding: 15 }}>
           <Text style={{ fontSize: 15, fontWeight: '700' }}>Como llegar</Text>
