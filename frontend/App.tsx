@@ -7,7 +7,7 @@ import LoginAthentication from "./LoginAthentication";
 
 // *** Luego de probar sus views por favor borrar antes de subir ***
 export default function App() {
-  const [loginState, setLoginState] = useState(false);
+  const [loginState, setLoginState] = useState(true);
   const { height } = useWindowDimensions();
   return (
     // <Text>Aqui tu componente</Text>

@@ -1,33 +1,32 @@
-import { ScrollView, Text, View } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
-import { ReciclasLogo } from '../assets'
-import { FlatList } from 'react-native-gesture-handler'
-import News from './components/News'
-import { GetDataForNews } from './services/GetDataForNews'
-import React, { useEffect, useState } from 'react'
-import { Edge } from '../Types'
-import SkeletonNews from './components/SkeletonNews'
+import { ScrollView, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { ReciclasLogo } from "../assets";
+import { FlatList } from "react-native-gesture-handler";
+import News from "./components/News";
+import { GetDataForNews } from "./services/GetDataForNews";
+import React, { useEffect, useState } from "react";
+import { Edge } from "../Types";
+import SkeletonNews from "./components/SkeletonNews";
 
 export function NewsPage() {
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const [dataNew, setDataNew] = useState<Edge[]>()
+  const [dataNew, setDataNew] = useState<Edge[]>();
 
   async function fetchData() {
-    const dataNews = await GetDataForNews()
+    const dataNews = await GetDataForNews();
     if (dataNews !== undefined) {
-      setDataNew(dataNews.data.eventos.edges)
+      setDataNew(dataNews.data.eventos.edges);
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const Header = ({ styles }: { styles?: React.CSSProperties }) => {
     return (
-<<<<<<< HEAD
       <View style={{ marginBottom: 30, alignItems: "center", ...styles }}>
         <ReciclasLogo
           // style={{ marginBottom: 10 }}
@@ -44,34 +43,29 @@ export function NewsPage() {
             letterSpacing: 2,
           }}
         >
-=======
-      <View style={{ marginBottom: 30, alignItems: 'center', ...styles }}>
-        <ReciclasLogo style={{ marginBottom: 10 }} width={70} height={70} />
-        <Text style={{ fontSize: 30, fontWeight: '600', color: 'white' }}>
->>>>>>> 36945694a21c01a48b1ff5125fd049fb7e053a16
           Eventos
         </Text>
       </View>
-    )
+    );
   };
 
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ justifyContent: "center", alignItems: "center" }}>
       <LinearGradient
         colors={[
-          'rgba(119, 166, 73, 1)',
-          'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 0, 0, 1)',
+          "rgba(119, 166, 73, 1)",
+          "rgba(0, 0, 0, 0.8)",
+          "rgba(0, 0, 0, 1)",
+          "rgba(0, 0, 0, 1)",
+          "rgba(0, 0, 0, 1)",
         ]}
         style={{
-          position: 'absolute',
+          position: "absolute",
           left: 0,
           right: 0,
           top: 0,
-          height: '100%',
-          backgroundColor: '#77A649',
+          height: "100%",
+          backgroundColor: "#77A649",
         }}
       />
       {loading ? (
@@ -97,11 +91,11 @@ export function NewsPage() {
             showsVerticalScrollIndicator={false}
             // stickyHeaderIndices={[0]} // fixed to header
             contentContainerStyle={{
-              alignItems: 'center'
+              alignItems: "center",
             }}
           />
         </>
       )}
     </View>
-  )
+  );
 }
