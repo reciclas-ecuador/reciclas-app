@@ -16,11 +16,11 @@ export default function App() {
 
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
-        {/* <StatusBar
+        <StatusBar
           backgroundColor="transparent"
           barStyle="dark-content"
           translucent={true}
-        /> */}
+        />
         {loginState ? <LoginAthentication /> : <Navigator />}
       </SafeAreaView>
     </GestureHandlerRootView>

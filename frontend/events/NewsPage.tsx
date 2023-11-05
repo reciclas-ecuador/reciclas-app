@@ -28,8 +28,21 @@ export function NewsPage() {
   const Header = ({ styles }: { styles?: React.CSSProperties }) => {
     return (
       <View style={{ marginBottom: 30, alignItems: "center", ...styles }}>
-        <ReciclasLogo style={{ marginBottom: 10 }} width={70} height={70} />
-        <Text style={{ fontSize: 30, fontWeight: "600", color: "white" }}>
+        <ReciclasLogo
+          // style={{ marginBottom: 10 }}
+          width={70}
+          height={70}
+          fill={"#bdf26d"}
+        />
+        <Text
+          style={{
+            color: "white",
+            fontSize: 30,
+            marginTop: 15,
+            fontWeight: "bold",
+            letterSpacing: 2,
+          }}
+        >
           Eventos
         </Text>
       </View>

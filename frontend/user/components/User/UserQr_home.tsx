@@ -22,13 +22,14 @@ const UserQr_home = () => {
       <Gradient>
         {/* <Text>UserQr_home</Text> */}
         <View style={styles.logoHome}>
-          <ReciclasLogo width={70} height={70} />
+          <ReciclasLogo width={70} height={70} fill="#bdf26d" />
           <Text
             style={{
               color: "white",
               fontSize: 30,
               marginTop: 15,
               fontWeight: "bold",
+              letterSpacing: 2,
             }}
           >
             Reciclaje
