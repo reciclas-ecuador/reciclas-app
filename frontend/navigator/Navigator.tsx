@@ -16,6 +16,8 @@ import {
   ReceptionPageCollectionCenter,
 } from "../collection_center";
 import DetailsNews from "../events/DetailsNews";
+import HomeMaps from "../maps/Home";
+import { ChatCohere } from "../cohere/ChatCohere";
 
 const Stack = createNativeStackNavigator();
 const tab = createBottomTabNavigator();
@@ -45,7 +47,7 @@ const Navigator = () => {
       notFocused: "bar-chart",
     },
     TabNavigator: { focused: "calendar-outline", notFocused: "calendar" },
-    HomePageCollectionCenter: {
+    ChatCohere: { // HomePageCollectionCenter
       focused: "bicycle-outline",
       notFocused: "bicycle-sharp",
     },
@@ -132,8 +134,8 @@ const Navigator = () => {
           })}
         />
         <Stack.Screen
-          name="HomePageCollectionCenter"
-          component={HomePageCollectionCenter}
+          name="ChatCohere"
+          component={ChatCohere}
           listeners={() => ({
             tabPress: () => {
               Animated.spring(tabOffsetValue, {
