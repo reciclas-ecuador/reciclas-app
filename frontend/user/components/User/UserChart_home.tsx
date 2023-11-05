@@ -21,15 +21,27 @@ const imageH = imageW * 1;
 const data = [
   {
     uri: "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
-    title: "Eco",
+    title: "Arboles",
   },
   {
     uri: "https://cdn.dribbble.com/users/3281732/screenshots/13130602/media/592ccac0a949b39f058a297fd1faa38e.jpg?compress=1&resize=1200x1200",
-    title: "Reciclaje",
+    title: "Litros de agua",
   },
   {
     uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
-    title: "Eco2",
+    title: "Kwh Energía",
+  },
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    title: "Litros de Petroleo",
+  },
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    title: "Kg de CO2",
+  },
+  {
+    uri: "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
+    title: "Horas de un foco",
   },
 ];
 const UserChart_home = () => {
