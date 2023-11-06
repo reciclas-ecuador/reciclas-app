@@ -29,6 +29,18 @@ export default class UsersService {
     return user
   }
 
+  async getOneByCi(ci: string): Promise<Collaborator> {
+    const user = await this.prisma.collaborator.findFirst({
+      where: { ci }
+    })
+
+    if (user === null) {
+      throw boom.notFound('Collaborator not found')
+    }
+
+    return user
+  }
+
   async create(body: CreateUser): Promise<Collaborator> {
     return await this.prisma.collaborator.create({ data: body })
   }
@@ -48,6 +60,21 @@ export default class UsersService {
     })
   }
 
+  async softRemove(email: string): Promise<Collaborator> {
+    const user = await this.prisma.collaborator.findFirst(
+      { where: { email } }
+    )
+
+    if (user === null) {
+      throw boom.notFound('Collaborator not found')
+    }
+
+    return await this.prisma.collaborator.update({
+      where: { email },
+      data: { status: 'inactive' }
+    })
+  }
+
   async remove(email: string): Promise<Collaborator> {
     const user = await this.prisma.collaborator.findFirst(
       { where: { email } }
@@ -57,7 +84,21 @@ export default class UsersService {
       throw boom.notFound('Collaborator not found')
     }
 
-    return await this.prisma.collaborator.delete({ where: { email } })
+    const deleteLogActions = this.prisma.logActionsCollaborator.deleteMany({
+      where: { collaboratorEmail: email }
+    })
+
+    const deleteUser = this.prisma.logActionsCollaborator.deleteMany({
+      where: { collaboratorEmail: email }
+    })
+
+    const [rtaLogActions, rtaUser] = await this.prisma.$transaction([deleteLogActions, deleteUser])
+
+    if (rtaLogActions.count === 0 || rtaUser.count === 0) {
+      throw boom.badImplementation('Error deleting user')
+    }
+
+    return user
   }
 
   async getEcoEquivalences(email: string): Promise<UserEcoEquivalences> {

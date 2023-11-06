@@ -1,4 +1,4 @@
-// import boom from '@hapi/boom'
+import boom from '@hapi/boom'
 import { Router } from 'express'
 import { checkTokenAndRoles, validationHandler } from '../../../middlewares/validation_handler'
 import { createUserSchema, getByEmailSchema, updateUserSchema } from '../models/users_model'
@@ -8,8 +8,6 @@ import UsersService from '../services/users_service'
 const router = Router()
 const response = new Response()
 const usersService = new UsersService()
-
-router.use(checkTokenAndRoles(['ADMIN']))
 
 /**
  * @swagger
@@ -34,15 +32,18 @@ router.use(checkTokenAndRoles(['ADMIN']))
  *                    items:
  *                      $ref: '#/components/schemas/User'
  */
-router.get('/', async (_req, res, next) => {
-  try {
-    const users = await usersService.getAll()
+router.get(
+  '/',
+  checkTokenAndRoles(['ADMIN']),
+  async (_req, res, next) => {
+    try {
+      const users = await usersService.getAll()
 
-    response.success(res, users)
-  } catch (error) {
-    next(error)
-  }
-})
+      response.success(res, users)
+    } catch (error) {
+      next(error)
+    }
+  })
 
 /**
  *  @swagger
@@ -78,18 +79,29 @@ router.get('/', async (_req, res, next) => {
  *              schema:
  *                $ref: '#/components/schemas/NotFound'
 */
-router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req, res, next) => {
-  try {
-    // if (req.params.email === req.user?.user?.email) {
-    //   throw boom.forbidden('User has no permissions')
-    // }
-    const users = await usersService.getOne(req.params.email)
+router.get(
+  '/:email',
+  checkTokenAndRoles(['ADMIN', 'USER']),
+  validationHandler(getByEmailSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      if (req.user?.role === 'ADMIN') {
+        const users = await usersService.getOne(req.params.email)
+        response.success(res, users)
+      }
 
-    response.success(res, users)
-  } catch (error) {
-    next(error)
-  }
-})
+      if (req.user?.role === 'USER') {
+        if (req.params.email !== req.user.user?.email) {
+          throw boom.unauthorized('You are not authorized to access this resource')
+        }
+
+        const users = await usersService.getOne(req.params.email)
+        response.success(res, users)
+      }
+    } catch (error) {
+      next(error)
+    }
+  })
 
 /**
  *  @swagger
@@ -125,15 +137,66 @@ router.get('/:email', validationHandler(getByEmailSchema, 'params'), async (req,
  *              schema:
  *                $ref: '#/components/schemas/NotFound'
  */
-router.get('/:email/ecoequivalences', validationHandler(getByEmailSchema, 'params'), async (req, res, next) => {
-  try {
-    const total = await usersService.getEcoEquivalences(req.params.email)
+router.get(
+  '/:email/ecoequivalences',
+  checkTokenAndRoles(['ADMIN', 'USER']),
+  validationHandler(getByEmailSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const total = await usersService.getEcoEquivalences(req.params.email)
 
-    response.success(res, total)
-  } catch (error) {
-    next(error)
-  }
-})
+      response.success(res, total)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+/**
+ *  @swagger
+ *  /users/ci/{ci}:
+ *    get:
+ *      summary: Get a user by the ci
+ *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: ci
+ *            in: path
+ *            description: The identification card of the user
+ *            schema:
+ *              type: string
+ *      responses:
+ *        200:
+ *          description: The user description by ci
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
+router.get(
+  '/ci/:ci',
+  checkTokenAndRoles(['ADMIN']),
+  async (req, res, next) => {
+    try {
+      console.log('ci', req.params.ci)
+      const user = await usersService.getOneByCi(req.params.ci)
+      console.log({ user })
+      response.success(res, user)
+    } catch (error) {
+      next(error)
+    }
+  })
 
 /**
  *  @swagger
@@ -168,19 +231,23 @@ router.get('/:email/ecoequivalences', validationHandler(getByEmailSchema, 'param
  *              schema:
  *                $ref: '#/components/schemas/BadRequest'
 */
-router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, next) => {
-  try {
-    const users = await usersService.create(req.body)
+router.post(
+  '/',
+  checkTokenAndRoles(['ADMIN']),
+  validationHandler(createUserSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const users = await usersService.create(req.body)
 
-    response.success(res, users, 201)
-  } catch (error) {
-    next(error)
-  }
-})
+      response.success(res, users, 201)
+    } catch (error) {
+      next(error)
+    }
+  })
 
 /**
  *  @swagger
- *  /users:
+ *  /users/{email}:
  *    patch:
  *      summary: Update a user
  *      tags: [Users]
@@ -226,6 +293,7 @@ router.post('/', validationHandler(createUserSchema, 'body'), async (req, res, n
 */
 router.patch(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   validationHandler(updateUserSchema, 'body'),
   async (req, res, next) => {
@@ -233,6 +301,63 @@ router.patch(
       const { email } = req.params
       const { body } = req
       const users = await usersService.update(email, body)
+
+      response.success(res, users)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+/**
+ *  @swagger
+ *  /users/{email}/remove:
+ *    patch:
+ *      summary: Change the status of a user to removed (inactive)
+ *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - name: email
+ *          in: path
+ *          description: The email of the user
+ *          schema:
+ *            type: string
+ *            format: email
+ *      responses:
+ *        200:
+ *          description: The user was soft removed successfully
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        400:
+ *          description: Some of the required fields are missing
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/BadRequest'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
+router.patch(
+  '/:email/remove',
+  checkTokenAndRoles(['ADMIN']),
+  validationHandler(getByEmailSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { email } = req.params
+      console.log('[sof remove]')
+      const users = await usersService.softRemove(email)
 
       response.success(res, users)
     } catch (error) {
@@ -277,6 +402,7 @@ router.patch(
 */
 router.delete(
   '/:email',
+  checkTokenAndRoles(['ADMIN']),
   validationHandler(getByEmailSchema, 'params'),
   async (req, res, next) => {
     try {
