@@ -58,7 +58,7 @@ model CenterEmployee {
   collectCenterSupervised CollectCenter? @relation("collect_center_manager")
 
   // One to many: with CollectCenter
-  collectCenter CollectCenter @relation("collect_center_employees",fields: [collectCenterId], references: [id]) 
+  collectCenter CollectCenter @relation("collect_center_employees", fields: [collectCenterId], references: [id], onDelete: Cascade) 
   collectCenterId Int @map("collect_center_id")
 
   // CenterEmployee has many logActionCollaborators
@@ -83,7 +83,7 @@ model CollectCenter {
   locationId Int @map("location_id")
 
   // Foreign key: with CenterEmployee - One to one
-  manager CenterEmployee? @relation("collect_center_manager", fields: [managerEmail], references: [email])
+  manager CenterEmployee? @relation("collect_center_manager", fields: [managerEmail], references: [email], onDelete: SetNull)
   managerEmail String? @unique @map("center_employee_email")
 
   // Foreign key: with CenterEmployee - One to many
@@ -105,15 +105,15 @@ model LogActionsCollaborator {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Foreign key: with Collaborator
-  collaborator Collaborator @relation(fields: [collaboratorEmail], references: [email])
+  collaborator Collaborator @relation(fields: [collaboratorEmail], references: [email], onDelete: Cascade)
   collaboratorEmail String @map("collaborator_email")
 
   // Foreign key: with CollectCenter
-  collectCenter CollectCenter @relation(fields: [collectCenterId], references: [id])
+  collectCenter CollectCenter @relation(fields: [collectCenterId], references: [id], onDelete: Cascade)
   collectCenterId Int @map("collect_center_id")
 
   // Foreign key: with CenterEmployee
-  receiver CenterEmployee @relation(fields: [receiverEmail], references: [email])
+  receiver CenterEmployee @relation(fields: [receiverEmail], references: [email], onDelete: Cascade)
   receiverEmail String @map("receiver_id")
 
   // LogActionsCollaborator has many observations

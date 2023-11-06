@@ -19,6 +19,12 @@ export default class CollectCenterService {
     })
   }
 
+  async getStadistics(): Promise<{ totalCenters: number }> {
+    const totalCenters = await this.prisma.collectCenter.count()
+
+    return { totalCenters }
+  }
+
   async getTotalRecolectedByIdDiary(id: number): Promise<{ collectCenter: CollectCenter, total: number }> {
     const collectCenter = await this.prisma.collectCenter.findFirst({
       where: {

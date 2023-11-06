@@ -85,6 +85,42 @@ router.get(
 )
 
 /**
+ * @swagger
+ *  /collect-centers/stadistics:
+ *    get:
+ *      summary: Get general stadistics about collect centers. It is available for ADMIN users
+ *      tags: [Collect Centers]
+ *      responses:
+ *        200:
+ *          description: List of collect centers registered
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    type: object
+ *                    properties:
+ *                      totalCenters:
+ *                        type: integer
+ *                        example: 100
+*/
+router.get(
+  '/stadistics',
+  checkTokenAndRoles(['ADMIN']),
+  async (_, res, next) => {
+    try {
+      const collectCenters = await collectCenterService.getStadistics()
+      response.success(res, collectCenters)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+/**
  *  @swagger
  *  /collect-centers/location/{locationId}:
  *    get:
