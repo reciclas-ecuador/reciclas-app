@@ -186,6 +186,7 @@ const UserChart_home = () => {
 };
 
 export default UserChart_home;
+
 const styles = StyleSheet.create({
   content_glass: {
     flex: 1,
