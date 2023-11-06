@@ -27,28 +27,9 @@ export function NewsPage() {
 
   const Header = ({ styles }: { styles?: React.CSSProperties }) => {
     return (
-<<<<<<< HEAD
-      <View style={{ marginBottom: 30, alignItems: "center", ...styles }}>
-        <ReciclasLogo
-          // style={{ marginBottom: 10 }}
-          width={70}
-          height={70}
-          fill={"#bdf26d"}
-        />
-        <Text
-          style={{
-            color: "white",
-            fontSize: 30,
-            marginTop: 15,
-            fontWeight: "bold",
-            letterSpacing: 2,
-          }}
-        >
-=======
       <View style={{ marginBottom: 30, alignItems: 'center', ...styles }}>
         <ReciclasLogo style={{ marginBottom: 10 }} width={70} height={70} />
         <Text style={{ fontSize: 30, fontWeight: '600', color: 'white' }}>
->>>>>>> 36945694a21c01a48b1ff5125fd049fb7e053a16
           Eventos
         </Text>
       </View>

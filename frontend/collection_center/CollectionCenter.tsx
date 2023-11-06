@@ -12,14 +12,14 @@ export function CollectionCenter() {
     <CollectionCenterContextProvider>
       <PaperProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="UserIdentification_CollectionCenter">
+          <Stack.Navigator initialRouteName='UserIdentification_CollectionCenter'>
             <Stack.Screen
-              name="UserIdentification_CollectionCenter"
+              name='UserIdentification_CollectionCenter'
               component={UserIdentificationCollectionCenter}
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="Menu_CollectionCenter"
+              name='Menu_CollectionCenter'
               component={MenuCollectionCenter}
               options={{ headerShown: false }}
             />
