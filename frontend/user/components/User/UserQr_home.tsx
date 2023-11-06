@@ -22,6 +22,12 @@ const UserQr_home = () => {
       <Gradient>
         {/* <Text>UserQr_home</Text> */}
         <View style={styles.logoHome}>
+          <ReciclasLogo
+            // style={{ marginBottom: 10 }}
+            width={70}
+            height={70}
+            fill={"#bdf26d"}
+          />
           <Text
             style={{
               color: "white",
@@ -35,6 +41,12 @@ const UserQr_home = () => {
           </Text>
         </View>
         <View style={styles.glassContent}>
+          <Text
+            variant="bodySmall"
+            style={{ color: "white", marginVertical: 20 }}
+          >
+            Presenta tu código en el Punto de Reciclaje
+          </Text>
           <View
             style={{
               borderColor: "white",
@@ -66,28 +78,11 @@ const UserQr_home = () => {
             }}
           />
           <View>
-            {/* <Button
-              icon="qrcode-scan"
-              mode="elevated"
-              onPress={() => console.log("Pressed")}
-              style={{
-                width: "50%",
-                margin: 20,
-                // display: "flex",
-                // alignContent: "center",
-                // justifyContent: "center",
-                // alignItems: "center",
-              }}
-              buttonColor="#bdf26d"
-            >
-              Ok
-            </Button> */}
-
             <Text
               variant="titleLarge"
               style={{ color: "white", marginVertical: 20 }}
             >
-              Genera tu codigo QR!
+              Genera tu código QR
             </Text>
             <View>
               <Button
@@ -122,7 +117,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 15,
     borderRadius: 20,
-    margin: "auto",
+    // margin: "auto",
     marginLeft: 20,
     display: "flex",
     flexDirection: "column",

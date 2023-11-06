@@ -20,27 +20,27 @@ const imageW = width * 0.6;
 const imageH = imageW * 1;
 const data = [
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
+    uri: "https://album.es/fotos/uploads/imagenes/thumbs/arbol_DSC00308_1200px.jpg?compress=1&resize=1200x1200",
     title: "Arboles",
   },
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/13130602/media/592ccac0a949b39f058a297fd1faa38e.jpg?compress=1&resize=1200x1200",
+    uri: "https://schippers.com.br/wp-content/uploads/2021/07/As-desvantagens-do-cloro-comum-no-tratamento-da-agua-de-bebida2.jpg?compress=1&resize=1200x1200",
     title: "Litros de agua",
   },
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/NIGU_Strain_tower.JPG/1200px-NIGU_Strain_tower.JPG?compress=1&resize=1200x1200",
     title: "Kwh Energía",
   },
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Petroleo_de.jpg/1200px-Petroleo_de.jpg?compress=1&resize=1200x1200",
     title: "Litros de Petroleo",
   },
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    uri: "https://www.freeingenergy.com/wp-content/uploads/2019/05/Pollution-and-smoke-123rf-25873187_l-1200px.jpg?compress=1&resize=1200x1200",
     title: "Kg de CO2",
   },
   {
-    uri: "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
+    uri: "https://static.buscapromos.com/storage/2022/11/03195634/61zja4HOlmL._AC_SL1000_.jpg?compress=1&resize=1200x1200",
     title: "Horas de un foco",
   },
 ];
@@ -121,7 +121,14 @@ const UserChart_home = () => {
       {/* ----- */}
 
       {/* <View style={styles.columns}></View> */}
-      <Text style={{ color: "white", marginTop: 30, fontSize: 20 }}>
+      <Text
+        style={{
+          color: "white",
+          marginTop: 30,
+          fontSize: 15,
+          alignSelf: "center",
+        }}
+      >
         Evitaste el consumo de:
       </Text>
 

@@ -43,7 +43,7 @@ const UserMain_home = () => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = {
-    backgroundColor: "white",
+    backgroundColor: "#c0c0c0",
     padding: 30,
     margin: 20,
     borderRadius: 10,
@@ -109,16 +109,34 @@ const UserMain_home = () => {
                 // alignContent: "center",
               }}
             >
-              <MaterialCommunityIcons
+              {/* <MaterialCommunityIcons
                 name="progress-star"
                 size={24}
                 color="white"
-              />
-              TU PROGRESO
+              /> */}
+              PROGRESO
             </Text>
             {/* <Text style={{ color: "white", zIndex: 5 }}>
               {JSON.stringify(dataUser)}
             </Text> */}
+            <Text
+              variant="bodyMedium"
+              style={{ color: "white", marginVertical: 5 }}
+            >
+              LLevas acumulado: 18 kg
+            </Text>
+            <Text
+              variant="bodyMedium"
+              style={{ color: "white", marginVertical: 5 }}
+            >
+              Nivel: Cliente Frecuente
+            </Text>
+            <Text
+              variant="bodyMedium"
+              style={{ color: "white", marginVertical: 5 }}
+            >
+              Medallas obtenidas: 🥇
+            </Text>
 
             <ProgressChart
               data={data}
@@ -147,13 +165,17 @@ const UserMain_home = () => {
             </Text>
             <TextInput
               mode="outlined"
-              label="Nombre"
+              label="Nombre y Apellido"
               placeholder="Type something"
+              activeOutlineColor="#000"
+              outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
               right={<TextInput.Affix text="/100" />}
             />
             <TextInput
               mode="outlined"
-              label="Apellido"
+              label="Cédula"
+              activeOutlineColor="#000"
+              outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
               placeholder="Type something"
               right={<TextInput.Affix text="/100" />}
             />
@@ -161,6 +183,8 @@ const UserMain_home = () => {
             <TextInput
               mode="outlined"
               label="Correo"
+              activeOutlineColor="#000"
+              outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
               placeholder="Type something"
               right={<TextInput.Affix text="/40" />}
             />
@@ -186,13 +210,14 @@ const UserMain_home = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 alignItems: "center",
-                marginTop: 20,
+                marginTop: 25,
               }}
             >
               <Button
                 icon="account-edit"
                 mode="outlined"
                 style={{ borderColor: "#bdf26d" }}
+                textColor="#bdf26d"
                 onPress={() => console.log("Pressed")}
               >
                 Actualizar

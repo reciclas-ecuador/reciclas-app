@@ -47,11 +47,12 @@ const Navigator = () => {
       notFocused: "bar-chart",
     },
     TabNavigator: { focused: "calendar-outline", notFocused: "calendar" },
-    ChatCohere: { // HomePageCollectionCenter
-      focused: "bicycle-outline",
-      notFocused: "bicycle-sharp",
+    ChatCohere: {
+      // HomePageCollectionCenter
+      focused: "leaf-outline",
+      notFocused: "leaf",
     },
-    UserQr_home: { focused: "leaf-outline", notFocused: "leaf" },
+    UserQr_home: { focused: "bicycle-outline", notFocused: "bicycle-sharp" },
   };
 
   return (
@@ -64,6 +65,7 @@ const Navigator = () => {
           tabBarStyle: {
             backgroundColor: "#494D4f",
             borderColor: "#494D4f",
+            height: 60,
           },
           // tabBarIcon: ({ focused, color, size }) => {
           //   let iconName: string;
@@ -164,7 +166,7 @@ const Navigator = () => {
           height: 4,
           position: "absolute",
           backgroundColor: "#494",
-          bottom: 45,
+          bottom: 50,
           left: 14,
           borderRadius: 50,
           transform: [{ translateX: tabOffsetValue }],
