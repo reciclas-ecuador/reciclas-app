@@ -1,8 +1,8 @@
-import { Gradient } from "../../../global";
+import { Gradient } from "../../global";
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Dimensions } from "react-native";
-import { getToDataUser } from "../../services/user_service";
-import { Data } from "../../../Types";
+import { getToDataUser } from "../services/user_service";
+import { Data } from "../../Types";
 import {
   AntDesign,
   MaterialCommunityIcons,

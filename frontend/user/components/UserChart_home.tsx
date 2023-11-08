@@ -9,7 +9,7 @@ import {
   StatusBar,
   SafeAreaView,
 } from "react-native";
-import { Gradient } from "../../../global";
+import { Gradient } from "../../global";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Chip, Divider } from "react-native-paper";

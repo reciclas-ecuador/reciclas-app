@@ -1,9 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { Gradient } from "../../../global";
-import { Button, Divider, Text } from "react-native-paper";
-import { ReciclasLogo } from "../../../assets";
-import QRCode from "react-native-qrcode-svg";
 import { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Gradient } from "../../global";
+import { Button, Divider, Text } from "react-native-paper";
+import { ReciclasLogo } from "../../assets";
+import QRCode from "react-native-qrcode-svg";
 
 let baseUser = {
   _id: "david@gmail.com",

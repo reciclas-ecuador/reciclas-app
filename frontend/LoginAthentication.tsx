@@ -1,29 +1,37 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
-import { GradientLogin } from './global'
-import { ReciclasLogo } from './assets'
+import React from "react";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { GradientLogin } from "./global";
+import { ReciclasLogo } from "./assets";
 import {
   Button,
   Dialog,
   PaperProvider,
   Portal,
   TextInput,
-  Text
-} from 'react-native-paper'
-import { useForm } from './hooks/useForm'
-import { signInwithEmail } from './utils/signInWithEmail'
+  Text,
+  Modal,
+  Divider,
+} from "react-native-paper";
+import { useForm } from "./hooks/useForm";
+import { signInwithEmail } from "./utils/signInWithEmail";
+import { registerWithEmail } from "./utils/registerWithEmail";
 
 const LoginAthentication = () => {
-  const [visible, setVisible] = React.useState(false)
+  const [visible, setVisible] = React.useState(false);
+  const [showRegis, setShowRegis] = React.useState(false);
 
   const { form, onChange } = useForm({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
-  const { email, password } = form
+  const { email, password } = form;
 
-  const hideDialog = () => setVisible(!visible)
+  const hideDialog = () => setVisible(!visible);
+
+  // Modal
+  const showRegister = () => setShowRegis(!showRegis);
+
   return (
     <PaperProvider>
       <GradientLogin>
@@ -31,73 +39,78 @@ const LoginAthentication = () => {
           <ReciclasLogo
             width={70}
             height={70}
-            fill='#bdf26d'
+            fill="#bdf26d"
             onPress={() => hideDialog()}
           />
           <View>
             <Text
-              variant='bodySmall'
+              variant="bodySmall"
               style={{
-                color: 'white',
+                color: "white",
                 fontSize: 40,
                 paddingTop: 25,
-                // fontWeight: "cursive",
-                // marginTop: 5,
-                letterSpacing: 2
+                letterSpacing: 2,
               }}
             >
               RE-CICLAS
             </Text>
           </View>
-          <Text style={{ color: 'white', letterSpacing: 3 }}>ECUADOR</Text>
+          <Text style={{ color: "white", letterSpacing: 3 }}>ECUADOR</Text>
         </SafeAreaView>
         <View style={styles.content_glass}>
           <TextInput
-            mode='outlined'
-            label='Correo'
-            placeholder='Escribe tu correo'
-            onChangeText={(value) => onChange(value, 'email')}
+            mode="outlined"
+            label="Correo"
+            placeholder="Escribe tu correo"
+            onChangeText={(value) =>
+              onChange(value.charAt(0).toUpperCase(), "email")
+            }
             // right={<TextInput.Affix text="/100" />}
-            outlineStyle={{ borderColor: '#fff', borderRadius: 10 }}
-            textColor='#000'
-            cursorColor='#000'
-            activeOutlineColor='#000'
-            outlineColor='#fff'
+            outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+            textColor="#000"
+            cursorColor="#000"
+            activeOutlineColor="#000"
+            outlineColor="#fff"
             style={{
-              width: '90%',
-              marginVertical: 20
+              width: "90%",
+              marginVertical: 20,
             }}
           />
           <TextInput
-            mode='outlined'
-            label='Password'
-            placeholder='Escribe tu password'
+            mode="outlined"
+            label="Password"
+            placeholder="Escribe tu password"
             // right={<TextInput.Affix text="/100" />}
-            onChangeText={(value) => onChange(value, 'password')}
-            outlineStyle={{ borderColor: '#fff', borderRadius: 10 }}
+            onChangeText={(value) => onChange(value, "password")}
+            outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
             // underlineStyle={{ borderColor: "#000" }}
-            textColor='#000'
-            cursorColor='#000'
-            activeOutlineColor='#000'
-            outlineColor='#fff'
-            secureTextEntry
-            style={{ width: '90%', marginVertical: 10 }}
+            textColor="#000"
+            cursorColor="#000"
+            activeOutlineColor="#000"
+            outlineColor="#fff"
+            // secureTextEntry
+            style={{ width: "90%", marginVertical: 10 }}
           />
           <Button
-            icon='login'
-            mode='elevated'
+            icon="login"
+            mode="elevated"
             style={{
-              backgroundColor: '#bdf26d',
-              width: '70%',
-              marginVertical: 20
+              backgroundColor: "#bdf26d",
+              width: "70%",
+              marginVertical: 20,
             }}
             onPress={() => signInwithEmail(email, password)}
           >
             Ingresar
           </Button>
           <Text
-            variant='labelLarge'
-            style={{ color: 'white', marginVertical: 10 }}
+            variant="labelLarge"
+            style={{
+              color: "white",
+              marginVertical: 10,
+              textDecorationLine: "underline",
+            }}
+            onPress={() => showRegister()}
           >
             Registrate
           </Text>
@@ -105,14 +118,14 @@ const LoginAthentication = () => {
         <ReciclasLogo
           width={40}
           height={40}
-          fill='#bdf26d'
-          style={{ position: 'absolute', bottom: 40, alignSelf: 'center' }}
+          fill="#bdf26d"
+          style={{ position: "absolute", bottom: 40, alignSelf: "center" }}
         />
         {/* <Text style={{ color: "white" }}>Ecuador</Text> */}
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Icon icon='alert' />
-            <Dialog.Title style={{ color: '#000', alignSelf: 'center' }}>
+            <Dialog.Icon icon="alert" />
+            <Dialog.Title style={{ color: "#000", alignSelf: "center" }}>
               Centro de acopio
             </Dialog.Title>
             <Dialog.Content>
@@ -120,40 +133,162 @@ const LoginAthentication = () => {
             </Dialog.Content>
             <Dialog.Actions>
               <Button onPress={() => setVisible(false)}>Cancel</Button>
-              <Button onPress={() => console.log('Ok')}>Ok</Button>
+              <Button onPress={() => console.log("Ok")}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
+
+        {/* Modal */}
+        <Portal>
+          <Modal
+            visible={showRegis}
+            onDismiss={showRegister}
+            contentContainerStyle={{
+              backgroundColor: "#c0c0c0",
+              borderRadius: 10,
+              width: "90%",
+              marginHorizontal: "5%",
+              alignItems: "center",
+            }}
+          >
+            <ScrollView
+              style={{
+                borderRadius: 30,
+                height: "64%",
+                width: "90%",
+                paddingTop: 20,
+              }}
+            >
+              <TextInput
+                mode="outlined"
+                label="Nombre y Apellido"
+                placeholder="Nombre y Apellido"
+                // onChangeText={(value) =>
+                //   onChange(value.charAt(0).toUpperCase(), "email")
+                // }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <TextInput
+                mode="outlined"
+                label="Cédula"
+                placeholder="Ingrese cédula"
+                // onChangeText={(value) =>
+                //   onChange(value.charAt(0).toUpperCase(), "email")
+                // }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <TextInput
+                mode="outlined"
+                label="Ciudad"
+                placeholder="Ingrese el ciudad"
+                // onChangeText={(value) =>
+                //   onChange(value, "email")
+                // }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <TextInput
+                mode="outlined"
+                label="Correo"
+                placeholder="Ingrese el correo"
+                onChangeText={(value) =>
+                  onChange(value, "email")
+                }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <TextInput
+                mode="outlined"
+                label="Contraseña"
+                placeholder="Ingrese el contraseña"
+                onChangeText={(value) =>
+                  onChange(value, "password")
+                }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <TextInput
+                mode="outlined"
+                label="Confirme la contraseña"
+                placeholder="Confirme la contraseña"
+                // onChangeText={(value) =>
+                //   onChange(value, "email")
+                // }
+                // right={<TextInput.Affix text="/100" />}
+                outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
+                textColor="#000"
+                cursorColor="#000"
+                activeOutlineColor="#000"
+                outlineColor="#fff"
+              />
+              <Divider
+                style={{ backgroundColor: "black", marginVertical: 30 }}
+              />
+              <Button
+                icon="file-plus"
+                mode="elevated"
+                style={{
+                  backgroundColor: "#bdf26d",
+                  width: "80%",
+                  marginBottom: 25,
+                  marginHorizontal: "10%",
+                }}
+                onPress={() => registerWithEmail(email, password)}
+              // onPress={() => signInwithEmail(email, password)}
+              >
+                Registrate
+              </Button>
+            </ScrollView>
+          </Modal>
+        </Portal>
       </GradientLogin>
     </PaperProvider>
-  )
-}
+  );
+};
 
-export default LoginAthentication
+export default LoginAthentication;
 
 const styles = StyleSheet.create({
   logoHome: {
-    width: '100%',
+    width: "100%",
     marginTop: 60,
-    display: 'flex',
-    // justifyContent: "center",
-    alignItems: 'center'
+    display: "flex",
+    alignItems: "center",
   },
   content_glass: {
     flex: 1,
-    width: '90%',
-    height: '40%',
-    position: 'absolute',
+    width: "90%",
+    height: "40%",
+    position: "absolute",
     bottom: 180,
     borderRadius: 20,
-    margin: 'auto',
+    margin: "auto",
     marginLeft: 20,
-    display: 'flex',
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    backgroundColor: 'rgba(192, 192, 192, .2)',
-    alignItems: 'center',
-    // justifyContent: "center",
-    alignContent: 'center'
-  }
-})
+    display: "flex",
+    backgroundColor: "rgba(192, 192, 192, .2)",
+    alignItems: "center",
+    alignContent: "center",
+  },
+});
