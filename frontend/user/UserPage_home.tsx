@@ -5,8 +5,8 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import UserMain_home from "./components/User/UserMain_home";
-import UserQr_home from "./components/User/UserQr_home";
+import UserMain_home from "./components/UserMain_home";
+import UserQr_home from "./components/UserQr_home";
 
 const Tab = createMaterialBottomTabNavigator();
 function MyTabs() {
