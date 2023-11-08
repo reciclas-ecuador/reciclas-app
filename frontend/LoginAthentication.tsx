@@ -14,6 +14,7 @@ import {
 } from "react-native-paper";
 import { useForm } from "./hooks/useForm";
 import { signInwithEmail } from "./utils/signInWithEmail";
+import { registerWithEmail } from "./utils/registerWithEmail";
 
 const LoginAthentication = () => {
   const [visible, setVisible] = React.useState(false);
@@ -204,9 +205,9 @@ const LoginAthentication = () => {
                 mode="outlined"
                 label="Correo"
                 placeholder="Ingrese el correo"
-                // onChangeText={(value) =>
-                //   onChange(value, "email")
-                // }
+                onChangeText={(value) =>
+                  onChange(value, "email")
+                }
                 // right={<TextInput.Affix text="/100" />}
                 outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
                 textColor="#000"
@@ -218,9 +219,9 @@ const LoginAthentication = () => {
                 mode="outlined"
                 label="Contraseña"
                 placeholder="Ingrese el contraseña"
-                // onChangeText={(value) =>
-                //   onChange(value, "email")
-                // }
+                onChangeText={(value) =>
+                  onChange(value, "password")
+                }
                 // right={<TextInput.Affix text="/100" />}
                 outlineStyle={{ borderColor: "#fff", borderRadius: 10 }}
                 textColor="#000"
@@ -254,7 +255,8 @@ const LoginAthentication = () => {
                   marginBottom: 25,
                   marginHorizontal: "10%",
                 }}
-                // onPress={() => signInwithEmail(email, password)}
+                onPress={() => registerWithEmail(email, password)}
+              // onPress={() => signInwithEmail(email, password)}
               >
                 Registrate
               </Button>

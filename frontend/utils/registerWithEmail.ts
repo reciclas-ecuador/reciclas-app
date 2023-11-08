@@ -5,7 +5,7 @@ import { Alert } from 'react-native'
 
 export const registerWithEmail = async (email: string, password: string, name: string) => {
   const actionCodeSettings = {
-    url: `https://www.example.com/?email=${email}`,
+    url: `https://reciclasapp-cb438.firebaseapp.com/?email=${email}`,
     iOS: {
       bundleId: 'reciclas.app'
     },
@@ -18,7 +18,7 @@ export const registerWithEmail = async (email: string, password: string, name: s
   }
   try {
     const { user } = await createUserWithEmailAndPassword(auth, email, password)
-    await sendEmailVerification(user, actionCodeSettings)
+    await sendEmailVerification(user)
   } catch (error: any) {
     Alert.alert('error al iniciar sesión', error.message)
   }

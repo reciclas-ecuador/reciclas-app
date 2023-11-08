@@ -19,15 +19,9 @@ const tab = createBottomTabNavigator();
 const Navigator = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
-<<<<<<< HEAD
   // validation if user is authenticated
   const [initializing, setInitializing] = useState(true)
   const { user, setUser } = useAuthenticate()
-=======
-  // validation if user is authenticate
-  const [initializing, setInitializing] = useState(true);
-  const { user, setUser } = useAuthenticate();
->>>>>>> 8a1512fe6d6703fdb6301457db4703902cd3065e
 
   const onAuthStateChanged = (user: any) => {
     setUser(user);
@@ -44,15 +38,9 @@ const Navigator = () => {
   console.log(tabOffsetValue);
 
   function getWidth() {
-<<<<<<< HEAD
     const width = Dimensions.get('window').width
     // total five Tabs...
     return width / 5
-=======
-    const width = Dimensions.get("window").width;
-    // total four Tabs...
-    return width / 5;
->>>>>>> 8a1512fe6d6703fdb6301457db4703902cd3065e
   }
 
   interface TabIcon {
