@@ -19,7 +19,7 @@ const tab = createBottomTabNavigator()
 const Navigator = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current
 
-  // validation if user is authenticate
+  // validation if user is authenticated
   const [initializing, setInitializing] = useState(true)
   const { user, setUser } = useAuthenticate()
 
@@ -39,7 +39,7 @@ const Navigator = () => {
 
   function getWidth() {
     const width = Dimensions.get('window').width
-    // total four Tabs...
+    // total five Tabs...
     return width / 5
   }
 
