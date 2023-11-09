@@ -27,12 +27,12 @@ const chartConfig = {
   backgroundGradientToOpacity: 0.5,
   color: (opacity = 1) => `rgba(255, 255, 150, ${opacity})`,
   strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
+  barPercentage: 0.1,
+  // useShadowColorFromDataset: false, // optional
 };
 const data = {
-  labels: ["Medalla", "Dias", "Kg"], // optional
-  data: [0.8, 0.12, 0.013],
+  labels: ["Total"], // optional
+  data: [0.07],
 };
 
 const UserMain_home = () => {
@@ -82,7 +82,8 @@ const UserMain_home = () => {
 
               <View>
                 <Text style={styles.text}>
-                  Hola! {item.title.split(" ")[0]}
+                  {/* Hola! {item.title.split(" ")[0]} */}
+                  Hola! David
                 </Text>
               </View>
             </View>
@@ -103,17 +104,9 @@ const UserMain_home = () => {
                 color: "white",
                 paddingVertical: 10,
                 textAlign: "center",
-                // display: "flex",
-                // alignItems: "center",
-                // justifyContent: "center",
-                // alignContent: "center",
+                letterSpacing: 2,
               }}
             >
-              {/* <MaterialCommunityIcons
-                name="progress-star"
-                size={24}
-                color="white"
-              /> */}
               PROGRESO
             </Text>
             {/* <Text style={{ color: "white", zIndex: 5 }}>
@@ -121,32 +114,55 @@ const UserMain_home = () => {
             </Text> */}
             <Text
               variant="bodyMedium"
-              style={{ color: "white", marginVertical: 5 }}
+              style={{
+                color: "#bdf26d",
+                marginVertical: 5,
+                textAlign: "center",
+              }}
             >
               LLevas acumulado: 18 kg
             </Text>
             <Text
               variant="bodyMedium"
-              style={{ color: "white", marginVertical: 5 }}
+              style={{
+                color: "#bdf26d",
+                marginVertical: 5,
+                textAlign: "center",
+              }}
             >
               Nivel: Cliente Frecuente
             </Text>
             <Text
               variant="bodyMedium"
-              style={{ color: "white", marginVertical: 5 }}
+              style={{
+                color: "#bdf26d",
+                marginBottom: 15,
+                textAlign: "center",
+              }}
             >
-              Medallas obtenidas: 🥇
+              Medallas: 🥇
             </Text>
-
-            <ProgressChart
-              data={data}
-              width={screenWidth}
-              height={220}
-              strokeWidth={16}
-              radius={32}
-              chartConfig={chartConfig}
-              hideLegend={false}
-            />
+            <View>
+              <MaterialCommunityIcons
+                name="bottle-soda-classic-outline"
+                size={80}
+                color="#9dc565"
+                style={{
+                  position: "absolute",
+                  bottom: 70,
+                  left: 90,
+                }}
+              />
+              <ProgressChart
+                data={data}
+                width={screenWidth}
+                height={220}
+                strokeWidth={10}
+                radius={80}
+                chartConfig={chartConfig}
+                // hideLegend={false}
+              />
+            </View>
           </View>
         </View>
         {/* </ScrollView> */}
@@ -192,10 +208,11 @@ const UserMain_home = () => {
             <View
               style={{
                 marginTop: 20,
+                marginBottom: 10,
                 alignItems: "center",
               }}
             >
-              <Text variant="bodyMedium">
+              <Text variant="bodyLarge">
                 <MaterialCommunityIcons
                   name="face-agent"
                   size={24}
@@ -223,13 +240,25 @@ const UserMain_home = () => {
                 Actualizar
               </Button>
               <Button
+                mode="contained"
                 icon="blur-off"
                 style={{ backgroundColor: "#bdf26d" }}
                 onPress={() => hideModal()}
+                textColor="#a1a1a1"
               >
                 Salir
               </Button>
             </View>
+            <Text
+              variant="bodySmall"
+              style={{
+                marginTop: 20,
+                textDecorationLine: "underline",
+                textAlign: "center",
+              }}
+            >
+              Cerrar sesión
+            </Text>
           </View>
         </Modal>
       </Portal>
