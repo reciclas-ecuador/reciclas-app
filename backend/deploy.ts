@@ -16,5 +16,5 @@ import * as fs from 'fs'
     universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN ?? ''
   }
 
-  fs.writeFileSync('./dist/reciclas-app-firebase-adminsdk.json', JSON.stringify(config).replace(/\\n/g, '').split('\\').join('\\n'))
+  fs.writeFileSync('./dist/reciclasapp-firebase-adminsdk.json', JSON.stringify(config).replace(/\\n/g, '').split('\\').join('\\n'))
 })()
