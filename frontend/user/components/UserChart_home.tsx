@@ -22,26 +22,32 @@ const data = [
   {
     uri: "https://album.es/fotos/uploads/imagenes/thumbs/arbol_DSC00308_1200px.jpg?compress=1&resize=1200x1200",
     title: "Arboles",
+    quantity: "0,06",
   },
   {
     uri: "https://schippers.com.br/wp-content/uploads/2021/07/As-desvantagens-do-cloro-comum-no-tratamento-da-agua-de-bebida2.jpg?compress=1&resize=1200x1200",
     title: "Litros de agua",
+    quantity: "0,1",
   },
   {
     uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/NIGU_Strain_tower.JPG/1200px-NIGU_Strain_tower.JPG?compress=1&resize=1200x1200",
     title: "Kwh Energía",
+    quantity: "2,3",
   },
   {
     uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Petroleo_de.jpg/1200px-Petroleo_de.jpg?compress=1&resize=1200x1200",
     title: "Litros de Petroleo",
+    quantity: "0,9",
   },
   {
     uri: "https://www.freeingenergy.com/wp-content/uploads/2019/05/Pollution-and-smoke-123rf-25873187_l-1200px.jpg?compress=1&resize=1200x1200",
     title: "Kg de CO2",
+    quantity: "2,5",
   },
   {
     uri: "https://static.buscapromos.com/storage/2022/11/03195634/61zja4HOlmL._AC_SL1000_.jpg?compress=1&resize=1200x1200",
     title: "Horas de un foco",
+    quantity: "3,5",
   },
 ];
 const UserChart_home = () => {
@@ -50,13 +56,14 @@ const UserChart_home = () => {
       <Text
         style={{
           color: "white",
-          fontSize: 20,
+          fontSize: 30,
+          marginTop: 45,
           fontWeight: "bold",
-          marginTop: 40,
+          letterSpacing: 2,
           textAlign: "center",
         }}
       >
-        Mis Eco - equivalencias: 18
+        Eco - Equivalencias {"\n"} 18
         <MaterialCommunityIcons
           name="weight-kilogram"
           size={24}
@@ -124,28 +131,24 @@ const UserChart_home = () => {
       <Text
         style={{
           color: "white",
-          marginTop: 30,
+          marginVertical: 30,
           fontSize: 15,
           alignSelf: "center",
+          letterSpacing: 1,
         }}
       >
-        Evitaste el consumo de:
+        David evitaste el consumo de:
       </Text>
 
       {/* <SafeAreaView> */}
       <View
         style={{
           flex: 1,
-          // height: 400,
-          // borderColor: "white",
-          // borderWidth: 1,
-          // width: "90%",
-
-          // marginVertical: 10,
         }}
       >
         {/* <StatusBar hidden /> sirve par quitar la hora */}
         <FlatList
+          style={{ marginTop: 10 }}
           data={data}
           // fadingEdgeLength={15}
           horizontal
@@ -159,11 +162,11 @@ const UserChart_home = () => {
                   width,
                   justifyContent: "center",
                   alignItems: "center",
-                  // borderColor: "white",
+                  // margin: 10,
+                  borderColor: "rgba(68, 153, 68, 0.3)",
+                  borderRadius: 10,
                   borderWidth: 1,
-                  height: "80%",
-
-                  // paddingVertical: 15,
+                  height: "95%",
                 }}
               >
                 <Text
@@ -180,6 +183,11 @@ const UserChart_home = () => {
                     borderRadius: 10,
                   }}
                 />
+                <Text
+                  style={{ color: "white", fontSize: 15, marginVertical: 10 }}
+                >
+                  {item.quantity}
+                </Text>
               </View>
             );
           }}
@@ -207,16 +215,13 @@ const styles = StyleSheet.create({
     // marginRight: 15,
     display: "flex",
     flexWrap: "wrap",
-    // flexDirection: "column",
-    // alignItems: "center",
-    // justifyContent: "space-around",
+
     backgroundColor: "rgba(192, 192, 192, .2)",
     // opacity: 0.2,
   },
   columns: {
     width: "50%",
     marginVertical: 5,
-    // padding: 10,
   },
   chip_style: {
     margin: 5,
