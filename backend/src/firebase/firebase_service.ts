@@ -4,7 +4,7 @@ import { type DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier'
 import { type RegisteredUser, type RegisterCenterEmployee, type RegisterUser, type Role, type Message } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = require('../../reciclas-app-firebase-adminsdk.json')
+const serviceAccount = require('../../reciclasapp-firebase-adminsdk.json')
 
 class FirebaseService {
   private readonly admin: FirebaseAdmin.app.App
@@ -16,11 +16,12 @@ class FirebaseService {
   }
 
   async createUser(data: RegisterUser): Promise<RegisteredUser> {
-    const { email, password, role } = data
+    const { name, email, password, role } = data
 
     const user = await this.admin.auth().createUser({
       email,
-      password
+      password,
+      displayName: name
     })
     await this.admin.auth().setCustomUserClaims(user.uid, { role: role ?? 'USER' })
     return {

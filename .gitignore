@@ -391,6 +391,7 @@ $RECYCLE.BIN/
 
 #firebase 
 backend/reciclas-app-firebase-adminsdk.json
+backend/reciclasapp-firebase-adminsdk.json
 
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,macos,reactnative,react
 

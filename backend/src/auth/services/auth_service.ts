@@ -21,9 +21,9 @@ export default class AuthService {
   async createUser(data: RegisterUser): Promise<RegisteredUser> {
     const { email, password, role, ...restOfData } = data
 
-    if (role !== 'USER') {
-      throw boom.badRequest('You can be only a user')
-    }
+    // if (role !== 'USER') {
+    //   throw boom.badRequest('You can be only a user')
+    // }
     const user = await this.usersService.create({ email, ...restOfData })
 
     const registeredUserData = await this.firebaseService.createUser(data)
