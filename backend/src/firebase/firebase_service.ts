@@ -69,7 +69,6 @@ class FirebaseService {
   }
 
   // Cloud Messaging
-
   async sendNotificationToUser(registrationToken: string, message: Message): Promise<void> {
     await this.admin.messaging().send({
       token: registrationToken,

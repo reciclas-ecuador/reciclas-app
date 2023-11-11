@@ -42,7 +42,10 @@ export default class LogActionsCollaboratorsService {
     return logActionCollaborator
   }
 
-  async create(data: CreateLogActionCollaborator, message: Message, token: string): Promise<LogActionsCollaborator> {
+  async create(data: CreateLogActionCollaborator, message: Message, token: string): Promise<{
+    logActionCollaborator: LogActionsCollaborator
+    notificationMessage: string
+  }> {
     const { collaboratorEmail, collectCenterId, receiverEmail } = data
 
     const existAllValues = await this.validUserCenterAndReceiver(
@@ -55,10 +58,22 @@ export default class LogActionsCollaboratorsService {
       throw boom.badRequest('Invalid values')
     }
 
-    const logActionCollaborator = await this.prisma.logActionsCollaborator.create({ data })
-    // await this.sendNotificationToUser(message, token) // comment to try without token, also comment validation_handler.ts, checkTokenAndRoles
+    if (token === '' || token === null || token === undefined) {
+      throw boom.badRequest('Invalid FCM token')
+    }
 
-    return logActionCollaborator
+    const logActionCollaborator = await this.prisma.logActionsCollaborator.create({ data })
+    let notificationMessage = 'sent successfully'
+    try {
+      await this.sendNotificationToUser(message, token) // comment to try without token, also comment validation_handler.ts, checkTokenAndRoles
+    } catch (error) {
+      notificationMessage = 'sent unsuccessfully'
+    }
+
+    return {
+      logActionCollaborator,
+      notificationMessage
+    }
   }
 
   async setAttentionQuality(id: number, attentionQuality: number): Promise<LogActionsCollaborator> {
@@ -123,7 +138,6 @@ export default class LogActionsCollaboratorsService {
   }
 
   // Cloud Messaging
-
   private async sendNotificationToUser(
     message: Message,
     token: string
