@@ -3,7 +3,6 @@ import { type Collaborator } from '@prisma/client'
 export interface CreateUser {
   ci: string
   name: string
-  lastname: string
   email: string
   status: string
   phone: string

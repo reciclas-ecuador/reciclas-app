@@ -19,9 +19,6 @@ import Joi from 'joi'
  *        name:
  *          type: string
  *          description: The name of the user
- *        lastname:
- *          type: string
- *          description: The lastname of the user
  *        phone:
  *          type: string
  *          minLength: 10
@@ -52,7 +49,6 @@ import Joi from 'joi'
  *        - email
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - status
  *        - province
@@ -61,8 +57,7 @@ import Joi from 'joi'
  *      example:
  *        email: jhondoe@email.com
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        status: active
  *        province: Pichincha
@@ -107,8 +102,7 @@ import Joi from 'joi'
  *      example:
  *        user:
  *          email: jhondoe@email.com
- *          name: Jhon
- *          lastname: Doe
+ *          name: Jhon Doe
  *          phone: "0999999999"
  *          status: active
  *          province: Pichincha
@@ -142,7 +136,6 @@ import Joi from 'joi'
 
 const ci = Joi.string().trim().length(10)
 const name = Joi.string().trim()
-const lastname = Joi.string().trim()
 const email = Joi.string().trim().email()
 const status = Joi.string().valid('active', 'inactive')
 const phone = Joi.string().trim().length(10)
@@ -169,9 +162,6 @@ const address = Joi.string().trim()
  *        name:
  *          type: string
  *          description: The name of the user
- *        lastname:
- *          type: string
- *          description: The lastname of the user
  *        phone:
  *          type: string
  *          minLength: 10
@@ -194,7 +184,6 @@ const address = Joi.string().trim()
  *        - email
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - status
  *        - province
@@ -203,8 +192,7 @@ const address = Joi.string().trim()
  *      example:
  *        email: jhondoe@email.com
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        status: active
  *        province: Pichincha
@@ -215,7 +203,6 @@ const address = Joi.string().trim()
 export const createUserSchema = Joi.object({
   ci: ci.required(),
   name: name.required(),
-  lastname: lastname.required(),
   email: email.required(),
   status: status.required(),
   phone: phone.required(),
@@ -239,9 +226,6 @@ export const createUserSchema = Joi.object({
  *        name:
  *          type: string
  *          description: The name of the user
- *        lastname:
- *          type: string
- *          description: The lastname of the user
  *        phone:
  *          type: string
  *          minLength: 10
@@ -262,8 +246,7 @@ export const createUserSchema = Joi.object({
  *          description: The address of the user
  *      example:
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        status: active
  *        province: Pichincha
@@ -275,7 +258,6 @@ export const createUserSchema = Joi.object({
 export const updateUserSchema = Joi.object({
   ci,
   name,
-  lastname,
   // email,
   status,
   phone,

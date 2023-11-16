@@ -19,9 +19,6 @@ import Joi from 'joi'
  *        name:
  *          type: string
  *          description: The name of the center employee
- *        lastname:
- *          type: string
- *          description: The lastname of the center employee
  *        phone:
  *          type: string
  *          minLength: 10
@@ -42,14 +39,12 @@ import Joi from 'joi'
  *        - email
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - collectCenterId
  *      example:
  *        email: jhondoe@email.com
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        collectCenterId: 1
  *        createdAt: 2021-01-01T00:00:00.000Z
@@ -59,8 +54,8 @@ import Joi from 'joi'
 const id = Joi.number()
 const email = Joi.string().trim().email()
 const name = Joi.string().trim()
-const lastname = Joi.string().trim()
 const phone = Joi.string().trim().min(10).max(10)
+const status = Joi.string().trim().valid('active', 'inactive')
 
 /**
  *@swagger
@@ -81,9 +76,6 @@ const phone = Joi.string().trim().min(10).max(10)
  *        name:
  *          type: string
  *          description: The name of the center employee
- *        lastname:
- *          type: string
- *          description: The lastname of the center employee
  *        phone:
  *          type: string
  *          minLength: 10
@@ -96,22 +88,20 @@ const phone = Joi.string().trim().min(10).max(10)
  *        - email
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - collectCenterId
  *      example:
  *        email: jhondoe@email.com
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        collectCenterId: 1
 */
 export const CreateCenterEmployeeSchema = Joi.object({
   email: email.required(),
   name: name.required(),
-  lastname: lastname.required(),
   phone: phone.required(),
+  status,
   collectCenterId: id.required()
 })
 
@@ -130,9 +120,6 @@ export const CreateCenterEmployeeSchema = Joi.object({
  *        name:
  *          type: string
  *          description: The name of the center employee
- *        lastname:
- *          type: string
- *          description: The lastname of the center employee
  *        phone:
  *          type: string
  *          minLength: 10
@@ -140,14 +127,13 @@ export const CreateCenterEmployeeSchema = Joi.object({
  *          description: The phone number of the center employee
  *      example:
  *        ci: 1717171717
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
 */
 export const UpdateCenterEmployeeSchema = Joi.object({
   // email,
   name,
-  lastname,
+  status,
   phone
 })
 

@@ -119,6 +119,7 @@ const hash = Joi.string().trim()
 const locationId = Joi.number()
 const lat = Joi.string().trim()
 const lng = Joi.string().trim()
+const status = Joi.string().trim().valid('active', 'inactive')
 const managerEmail = Joi.string().trim().email()
 
 /**
@@ -164,6 +165,7 @@ export const createCollectCenter = Joi.object({
   locationId: locationId.required(),
   lat: lat.required(),
   lng: lng.required(),
+  status,
   managerEmail
 })
 
@@ -203,6 +205,7 @@ export const updateCollectCenter = Joi.object({
   name,
   hash,
   locationId,
+  status,
   managerEmail
 })
 

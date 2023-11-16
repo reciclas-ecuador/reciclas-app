@@ -28,9 +28,6 @@ import Joi from 'joi'
  *        name:
  *          type: string
  *          description: The name of the user
- *        lastname:
- *          type: string
- *          description: The lastname of the user
  *        phone:
  *          type: string
  *          minLength: 10
@@ -66,7 +63,6 @@ import Joi from 'joi'
  *        - password
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - province
  *        - city
@@ -82,7 +78,6 @@ import Joi from 'joi'
 const id = Joi.number()
 const ci = Joi.string().trim().length(10)
 const name = Joi.string().trim()
-const lastname = Joi.string().trim()
 const email = Joi.string().trim().email()
 const password = Joi.string().trim().min(6)
 const phone = Joi.string().trim().length(10)
@@ -115,9 +110,6 @@ const status = Joi.string().trim().valid('active', 'inactive')
  *        name:
  *          type: string
  *          description: The name of the user
- *        lastname:
- *          type: string
- *          description: The lastname of the user
  *        phone:
  *          type: string
  *          minLength: 10
@@ -145,7 +137,6 @@ const status = Joi.string().trim().valid('active', 'inactive')
  *        - password
  *        - ci
  *        - name
- *        - lastname
  *        - phone
  *        - province
  *        - city
@@ -155,8 +146,7 @@ const status = Joi.string().trim().valid('active', 'inactive')
  *        email: jhondoe@email.com
  *        password: '12345678'
  *        ci: '1717171717'
- *        name: Jhon
- *        lastname: Doe
+ *        name: Jhon Doe
  *        phone: "0999999999"
  *        status: active
  *        role: USER
@@ -169,7 +159,6 @@ export const registerUserSchema = Joi.object({
   password: password.required(),
   ci: ci.required(),
   name: name.required(),
-  lastname: lastname.required(),
   phone: phone.required(),
   province: province.required(),
   city: city.required(),
@@ -182,9 +171,9 @@ export const registerCenterEmployeeSchema = Joi.object({
   email: email.required(),
   password: password.required(),
   name: name.required(),
-  lastname: lastname.required(),
   phone: phone.required(),
   role: role.required(),
+  status,
   collectCenterId: id.required()
 })
 
