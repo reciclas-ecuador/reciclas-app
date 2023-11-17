@@ -29,6 +29,18 @@ export default class UsersService {
     return user
   }
 
+  async getOneById(id: string): Promise<Collaborator> {
+    const user = await this.prisma.collaborator.findFirst({
+      where: { id }
+    })
+
+    if (user === null) {
+      throw boom.notFound('Collaborator not found')
+    }
+
+    return user
+  }
+
   async getOneByCi(ci: string): Promise<Collaborator> {
     const user = await this.prisma.collaborator.findFirst({
       where: { ci }

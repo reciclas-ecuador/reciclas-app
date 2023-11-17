@@ -77,7 +77,13 @@ export default class CollectCenterService {
   async getOne(id: number): Promise<CollectCenter> {
     const collectCenter = await this.prisma.collectCenter.findFirst({
       where: { id },
-      include: { location: true, manager: true }
+      include: {
+        location: true,
+        manager: true,
+        logActionCollaborators: {
+          take: 20
+        }
+      }
     })
 
     if (collectCenter === null) {

@@ -189,9 +189,52 @@ router.get(
   checkTokenAndRoles(['ADMIN']),
   async (req, res, next) => {
     try {
-      console.log('ci', req.params.ci)
       const user = await usersService.getOneByCi(req.params.ci)
-      console.log({ user })
+      response.success(res, user)
+    } catch (error) {
+      next(error)
+    }
+  })
+
+/**
+ *  @swagger
+ *  /users/id/{id}:
+ *    get:
+ *      summary: Get a user by the id
+ *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the user
+ *            schema:
+ *              type: string
+ *      responses:
+ *        200:
+ *          description: The user description by id
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/User'
+ *        404:
+ *          description: The user was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
+router.get(
+  '/id/:id',
+  checkTokenAndRoles(['ADMIN']),
+  async (req, res, next) => {
+    try {
+      const user = await usersService.getOneByCi(req.params.id)
       response.success(res, user)
     } catch (error) {
       next(error)

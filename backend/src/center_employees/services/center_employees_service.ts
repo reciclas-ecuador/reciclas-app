@@ -7,7 +7,9 @@ export default class CenterEmployeesService {
   private readonly prisma = client
 
   async getAll(): Promise<CenterEmployee[]> {
-    return await this.prisma.centerEmployee.findMany()
+    return await this.prisma.centerEmployee.findMany({
+      include: { collectCenter: true }
+    })
   }
 
   async getAllByCollectCenter(collectCenterId: number): Promise<CenterEmployee[]> {
@@ -18,7 +20,8 @@ export default class CenterEmployeesService {
 
   async getOne(email: string): Promise<CenterEmployee> {
     const centerEmployee = await this.prisma.centerEmployee.findUnique({
-      where: { email }
+      where: { email },
+      include: { collectCenter: true, collectCenterSupervised: true }
     })
 
     if (centerEmployee === null) {
