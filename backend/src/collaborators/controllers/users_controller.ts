@@ -234,7 +234,7 @@ router.get(
   checkTokenAndRoles(['ADMIN']),
   async (req, res, next) => {
     try {
-      const user = await usersService.getOneByCi(req.params.id)
+      const user = await usersService.getOneById(req.params.id)
       response.success(res, user)
     } catch (error) {
       next(error)

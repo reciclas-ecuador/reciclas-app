@@ -31,6 +31,19 @@ export default class CenterEmployeesService {
     return centerEmployee
   }
 
+  async getOneById(id: string): Promise<CenterEmployee> {
+    const centerEmployee = await this.prisma.centerEmployee.findUnique({
+      where: { id },
+      include: { collectCenter: true, collectCenterSupervised: true }
+    })
+
+    if (centerEmployee === null) {
+      throw boom.notFound('Center employee not found')
+    }
+
+    return centerEmployee
+  }
+
   async create(data: CreateCenterEmployee): Promise<CenterEmployee> {
     const { collectCenterId } = data
     const collectCenter = await this.prisma.collectCenter.findFirst({

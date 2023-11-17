@@ -95,6 +95,54 @@ router.get(
 
 /**
  *  @swagger
+ *  /center-employees/id/{id}:
+ *    get:
+ *      summary: Get a center employee by id. Only ADMIN and CENTER EMPLOYEES users can get a center employee by email
+ *      tags: [Center Employees]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *          - name: id
+ *            in: path
+ *            description: The id of the center employee
+ *            schema:
+ *              type: string
+ *      responses:
+ *        200:
+ *          description: The center employee description by id
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    example: null
+ *                  body:
+ *                    $ref: '#/components/schemas/CenterEmployee'
+ *        404:
+ *          description: The center employee was not found
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotFound'
+*/
+router.get(
+  '/id/:id',
+  checkTokenAndRoles(['ADMIN', 'CENTER_EMPLOYEE']),
+  validationHandler(getByEmailSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const centerEmployee = await centerEmployeeService.getOneById(id)
+      response.success(res, centerEmployee)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+/**
+ *  @swagger
  *  /center-employees/{collectCenterId}:
  *    get:
  *      summary: Get all employees by collect center id. Only ADMIN and CENTER EMPLOYEES users can get all employees by collect center id
