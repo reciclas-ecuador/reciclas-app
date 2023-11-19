@@ -204,6 +204,8 @@ export const updateCollectCenter = Joi.object({
   address,
   name,
   hash,
+  lat,
+  lng,
   locationId,
   status,
   managerEmail
