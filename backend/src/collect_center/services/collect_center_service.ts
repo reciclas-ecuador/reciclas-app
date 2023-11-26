@@ -115,6 +115,13 @@ export default class CollectCenterService {
       throw boom.notFound('Collect center not found')
     }
 
+    if (managerEmail === undefined || managerEmail === null) {
+      return await this.prisma.collectCenter.update({
+        where: { id },
+        data: { managerEmail: null }
+      })
+    }
+
     const manager = await this.prisma.centerEmployee.findFirst({
       where: { email: managerEmail }
     })
@@ -125,7 +132,8 @@ export default class CollectCenterService {
 
     return await this.prisma.collectCenter.update({
       where: { id },
-      data: { managerEmail }
+      data: { managerEmail },
+      include: { manager: true }
     })
   }
 
