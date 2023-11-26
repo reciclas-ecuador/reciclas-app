@@ -120,7 +120,7 @@ const locationId = Joi.number()
 const lat = Joi.string().trim()
 const lng = Joi.string().trim()
 const status = Joi.string().trim().valid('active', 'inactive')
-const managerEmail = Joi.string().trim().email()
+const managerEmail = Joi.string().trim().email().allow(null)
 
 /**
  *@swagger
